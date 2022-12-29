@@ -46,8 +46,21 @@ const BookNowPage = () => {
                   <i className="fas fa-arrow-left"></i>
                 </button>
               ) : (
-                <div />
+                <div className="useless-div" />
               )}
+
+              <div
+                className="total-price"
+                onClick={() =>
+                  setFormValues({ ...formValues, bookingSummaryHidden: true })
+                }
+              >
+                <div className="name">Total</div>
+                <div className="value">
+                  AED 100
+                  <i className="fas fa-chevron-up"></i>
+                </div>
+              </div>
 
               {pathname === "/" ? (
                 <Link to="/service-details">

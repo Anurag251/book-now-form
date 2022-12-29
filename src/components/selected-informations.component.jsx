@@ -2,11 +2,29 @@ import React, { useContext } from "react";
 import { BookNowContext } from "../context/book-now/book-now-context";
 
 const SelectedInformationsComponent = () => {
-  const { formValues } = useContext(BookNowContext);
+  const { formValues, setFormValues } = useContext(BookNowContext);
 
   return (
-    <div className="selected-information">
+    <div
+      className={`selected-information ${
+        formValues.bookingSummaryHidden ? "active" : ""
+      }`}
+    >
       <div className="list">
+        <div className="item mobile-view-element">
+          <div className="city">
+            <div className="section-title">Booking Summary</div>
+            <div
+              className="name"
+              onClick={() =>
+                setFormValues({ ...formValues, bookingSummaryHidden: false })
+              }
+            >
+              <i className="fas fa-times"></i>
+            </div>
+          </div>
+        </div>
+
         <div className="item">
           <div className="city">
             <div className="section-title">City</div>
@@ -77,7 +95,9 @@ const SelectedInformationsComponent = () => {
         <div className="item">
           <div className="address">
             <div className="section-title">Address</div>
-            <div className="name">Dubai Marina, Dubai</div>
+            {formValues.address ? (
+              <div className="name">{formValues.address}</div>
+            ) : null}
           </div>
         </div>
 

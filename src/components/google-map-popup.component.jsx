@@ -9,11 +9,11 @@ const GoogleMapPopupComponent = () => {
 
   return (
     <MapsComponent
-      isMarkerShown
-      googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGECWznWSCQ549iFBn5iTSsrArTYj3dy4.exp&libraries=geometry,drawing,places"
-      loadingElement={<div style={{ height: `100px` }} />}
-      containerElement={<div style={{ height: `400px` }} />}
-      mapElement={<div style={{ height: `100px` }} />}
+    // isMarkerShown
+    // googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyBFYkAz4PzdbGIPiBH7QjcUFC5dui4cSDw"
+    // loadingElement={<div style={{ height: `100px` }} />}
+    // containerElement={<div style={{ height: `400px` }} />}
+    // mapElement={<div style={{ height: `100px` }} />}
     />
   );
 };

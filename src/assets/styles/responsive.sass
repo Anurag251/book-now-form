@@ -1,0 +1,246 @@
+@import './mixin.sass'
+
+@media only screen and ( max-width:  1300px)
+  .wrapper
+    max-width: 1200px
+
+@media only screen and ( max-width:  1200px)
+  .wrapper
+    max-width: 1100px
+
+@media only screen and ( max-width:  1100px)
+  .wrapper
+    max-width: 1000px
+
+@media only screen and ( max-width:  1000px)
+  .wrapper
+    max-width: 800px
+
+  body
+    background-color: #FFFFFF
+
+  /***********      book now page      ***********/
+  .book-now-page
+    padding: 3rem 0
+
+    main
+      flex-direction: column
+
+    .all-forms
+      width: 100%
+      box-shadow: none
+
+      .form-footer
+        position: fixed
+        bottom: 0
+        left: 0
+        width: 100%
+        z-index: 100
+        background-color: $light
+        padding: .5rem 20px
+
+        .total-price
+          display: block
+
+        .useless-div
+          display: none
+
+        .previous
+          position: fixed
+          top: 10px
+          left: 10px
+          color: $light
+          height: 30px
+          width: 30px
+          border-radius: 50%
+          padding: 0
+          // @include flex($justify: center)
+          background-image: linear-gradient(-90deg, $sec, $pri)
+
+  /***********      selected information      ***********/
+  .selected-information
+    position: fixed
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background-color: $light
+    z-index: 100
+    opacity: 0
+    transform: scale(1.2)
+    pointer-events: none
+    @include trans()
+
+    &.active
+      opacity: 1
+      transform: scale(1)
+      pointer-events: auto
+
+    .list
+      box-shadow: none
+
+      .item
+        &.mobile-view-element
+          display: block
+
+          .section-title
+            color: rgba($dark, .7)
+
+          .name
+            font-size: 1rem
+            height: 20px
+            width: 20px
+            @include flex($justify: center)
+
+  /***********      progress bar      ***********/
+  .progress-bar
+    margin: 1rem 0 0
+
+    ul
+      @include flex($justify: center)
+
+      .line
+        transform: translateY(0)
+
+      li
+        span
+          margin: 0
+          height: 20px
+          width: 20px
+          font-size: .6rem
+
+        p
+          display: none
+
+@media only screen and ( max-width:  800px)
+  .wrapper
+    max-width: 600px
+
+@media only screen and ( max-width:  800px)
+  /***********      title      ***********/
+  .title
+    font-size: 1.4rem
+
+  /***********      book now page      ***********/
+  .book-now-page
+    padding: 2rem 0
+
+    .all-forms
+      .form-title
+        margin-bottom: .8rem
+        font-size: 1rem
+
+  /***********      custom input      ***********/
+  .custom-input
+    padding: .8rem 0
+
+    .input-sec
+      .form-input
+        margin-right: .6rem
+
+      .form-input-label
+        font-size: .9rem
+
+    .description
+      margin-left: 1.4rem
+      margin-top: .3rem
+      font-size: .7rem
+
+  /***********      select button list      ***********/
+  .select-button-list
+    &.yesNo
+      .input-button
+        padding: 0 1rem
+
+    .select-day
+      margin-top: 0
+
+      .button-label
+        font-size: .6rem
+        margin-bottom: .35rem
+
+    .input-button
+      min-width: 2rem
+      height: 2rem
+      font-size: .85rem
+
+  /***********      date time section      ***********/
+  .date-time-section
+    padding: 1.5rem
+
+    .section
+      margin-bottom: 1.5rem
+
+      .sub-title
+        font-size: .8rem
+        margin-top: -0.6rem
+
+      .arrive
+        margin-top: .8rem
+        font-size: .8rem
+
+      .professional-list
+        margin-top: .2rem
+        gap: 10px
+        padding: 1rem .5rem
+
+        .item
+          padding: .8rem
+
+          .user-image
+            height: 75px
+            width: 75px
+            margin-bottom: .5rem
+
+          .name
+            font-size: .7rem
+
+          .rating
+            font-size: .7rem
+            margin: .2rem 0
+
+          p
+            font-size: .68rem
+
+          .details-btn
+            margin-top: .3rem
+            padding: .3rem
+            font-size: .66rem
+
+  /***********      modal      ***********/
+  .modal
+    .modal-contailer
+      .modal-header
+        padding: .8rem .9rem
+
+        .modal-title
+          font-size: 1rem
+
+      .modal-body
+        padding: .9rem
+        padding-top: 0
+
+        p
+          font-size: .78rem
+          margin: .7rem 0
+          color: rgba($dark, .7)
+          line-height: 1.2rem
+
+        table
+          thead
+            font-size: .77rem
+
+          tbody
+            font-size: .77rem
+
+        ul
+          margin-bottom: 1.2rem
+
+          li
+            font-size: .8rem
+            margin-bottom: .4rem
+            margin-left: 1.5rem
+
+@media only screen and ( max-width:  450px)
+  .wrapper
+    padding: 0 1rem

@@ -4,10 +4,12 @@ export const BookNowContext = createContext();
 
 const BookNowProvider = ({ children }) => {
   const [formValues, setFormValues] = useState({
+    bookingSummaryHidden: false,
     isHoursModalHidden: false,
     isMaterialModalHidden: false,
     title: "Frequency",
     frequency: "One-Time",
+    address: "",
     hours: "2",
     noOfProfessional: "1",
     materials: "Yes",

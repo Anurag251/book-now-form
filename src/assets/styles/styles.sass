@@ -44,6 +44,18 @@ body
 .select-button-list
   @include flex($justify: flex-start)
   gap: 1rem
+  overflow-x: auto
+
+  ::-webkit-scrollbar
+    width: 5px
+
+  ::-webkit-scrollbar-track
+    border: none
+    background-color: #e2e2e2
+
+  ::-webkit-scrollbar-thumb
+    background-color: #5e5e5e
+    border-radius: 10px
 
   &.yesNo
     .input-button
@@ -53,7 +65,7 @@ body
   .select-day
     @include flex($justify: center)
     flex-direction: column
-    margin-top: 10px
+    margin-top: .1rem
 
     .button-label
       font-size: .7rem
@@ -80,8 +92,8 @@ body
 
     &.active
       color: $light
-      background-color: $pri
-      border: 1px solid $pri
+      background-color: $sec
+      border: 1px solid $sec
 
 /***********      progress bar      ***********/
 .progress-bar
@@ -89,6 +101,7 @@ body
 
   ul
     @include grid($columns: 1fr 2fr 1fr 2fr 1fr 2fr 1fr)
+    grid-gap: 10px
 
     .line
       width: 100%
@@ -97,7 +110,10 @@ body
       background-color: $bg
       border-radius: 4px
 
-      &.done, &.active
+      &.done
+        background-image: linear-gradient(-90deg, $sec, $pri)
+
+      &.active
         background-color: $text
 
     li
@@ -107,7 +123,7 @@ body
 
       &.done
         span
-          background-color: #49A360
+          background-image: linear-gradient(-90deg, $sec, $pri)
           color: $light
 
           &::before
@@ -183,12 +199,14 @@ body
         height: 20px
         width: 20px
         border: .124rem solid $text
-        font-weight: 600
         color: $text
         border-radius: 50%
         @include flex($justify: center)
         margin-left: 10px
         cursor: pointer
+
+        i
+          font-size: .7rem
 
     .frequency
       padding: 1.5rem
@@ -199,14 +217,33 @@ body
       border-top: 1px solid #dcdcdc
       width: 100%
 
+      .total-price
+        display: none
+
+        .name
+          font-weight: 400
+          font-size: .7rem
+          text-transform: uppercase
+          color: rgba($dark, .7)
+          letter-spacing: 2px
+
+        .value
+          font-weight: 600
+          font-size: .9rem
+          @include flex($justify: flex-start)
+
+          i
+            margin-left: .3rem
+            font-size: 12px
+
       .previous
         padding: .5rem 1rem
         cursor: pointer
 
       .next
         padding: .5rem 1rem
-        background-color: $sec
-        color: $text
+        background-image: linear-gradient(-90deg, $sec, $pri)
+        color: $light
         text-transform: uppercase
         font-weight: 600
         border-radius: 20px
@@ -228,6 +265,9 @@ body
       border-bottom: 1px solid #dcdcdc
       font-size: .8rem
       color: $text
+
+      &.mobile-view-element
+        display: none
 
       &:nth-last-child(1)
         border-bottom: none
@@ -306,8 +346,6 @@ body
   .section
     margin-bottom: 2rem
 
-    .form-title
-
     .sub-title
       color: rgba($dark, .38)
       font-size: 1rem
@@ -337,9 +375,9 @@ body
         cursor: pointer
 
         &.active
-          border: 1px solid rgba($pri, .6)
-          box-shadow: 0 0 7px rgba($pri, .3)
-          background-color: rgba($pri, .1)
+          border: 1px solid rgba($sec, .6)
+          box-shadow: 0 0 7px rgba($sec, .3)
+          background-color: rgba($sec, .1)
 
         .user-image
           height: 90px
@@ -352,11 +390,11 @@ body
         .name
           font-size: .8rem
           font-weight: 600
-          color: $pri
+          color: $sec
 
         .rating
           font-size: .8rem
-          color: #F5CA56
+          color: #e7a900
           margin: .3rem 0
 
         p
@@ -367,10 +405,11 @@ body
           margin-top: .5rem
           padding: .5rem
           font-size: .8rem
-          color: rgba($pri, .8)
+          color: rgba($sec, .8)
           font-size: 400
           cursor: pointer
 
+/***********      google map popup      ***********/
 .google-map-popup
   position: fixed
   top: 50%
@@ -389,6 +428,7 @@ body
     box-shadow: 0 0 10px rgba($dark, .1)
     background-color: $light
 
+/***********      modal      ***********/
 .modal
   position: fixed
   top: 0
@@ -399,6 +439,7 @@ body
   z-index: 10
   opacity: 0
   pointer-events: none
+  padding: 0 10px
   @include trans()
 
   &.active
@@ -406,7 +447,7 @@ body
     pointer-events: auto
 
     .modal-contailer
-      transform: translateY(0)
+      transform: scale(1)
 
   .modal-bg
     position: absolute
@@ -415,15 +456,15 @@ body
     background-color: rgba($dark, .6)
 
   .modal-contailer
-    max-width: 400px
+    max-width: 500px
     background-color: $light
     border-radius: 10px
     width: 100%
-    transform: translateY(-100px)
+    transform: scale(1.2)
     @include trans()
 
     .modal-header
-      padding: 1rem
+      padding: 1.2rem
       border-bottom: 1px solid rgba($dark, .3)
       @include flex($justify: space-between)
 
@@ -444,10 +485,10 @@ body
         font-weight: 600
 
     .modal-body
-      padding: 1rem
+      padding: 1.2rem
       padding-top: 0
       overflow: auto
-      max-height: 80vh
+      max-height: 75vh
 
       p
         font-size: .9rem
@@ -459,11 +500,9 @@ body
         border: 1px solid rgba($dark, .3)
         border-collapse: collapse
         padding: .5rem
-        border-radius: 10px
 
       table
         width: 100%
-        border-radius: 5px
 
         thead
           font-size: .9rem

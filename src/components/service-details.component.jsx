@@ -20,6 +20,23 @@ const ServiceDetailsComponent = () => {
       <MaterialModalComponent />
 
       <div className="section">
+        <div className="form-title">Enter Your Address Please</div>
+
+        <div className="message-box">
+          <input
+            className="message-area"
+            cols="30"
+            rows="5"
+            name="address"
+            onChange={(e) =>
+              setFormValues({ ...formValues, address: e.target.value })
+            }
+            placeholder="Example: Dubai, Nepal, London, India, China, etc."
+          />
+        </div>
+      </div>
+
+      <div className="section">
         <div className="form-title">
           How many hours do you need your professional to stay?
           <button
@@ -28,7 +45,7 @@ const ServiceDetailsComponent = () => {
               setFormValues({ ...formValues, isHoursModalHidden: true })
             }
           >
-            i
+            <i className="fas fa-info"></i>
           </button>
         </div>
 
@@ -171,7 +188,7 @@ const ServiceDetailsComponent = () => {
               setFormValues({ ...formValues, isMaterialModalHidden: true })
             }
           >
-            i
+            <i className="fas fa-info"></i>
           </button>
         </div>
 
