@@ -1,0 +1,110 @@
+import React, { useContext } from "react";
+import { BookNowContext } from "../context/book-now/book-now-context";
+
+const SelectedInformationsComponent = () => {
+  const { formValues } = useContext(BookNowContext);
+
+  return (
+    <div className="selected-information">
+      <div className="list">
+        <div className="item">
+          <div className="city">
+            <div className="section-title">City</div>
+            <div className="name">Dubai</div>
+          </div>
+        </div>
+
+        <div className="item">
+          <div className="service-details">
+            <div className="section-title">Service Details</div>
+            <ul>
+              <li>
+                <div className="name">Frequency</div>
+                <div className="value">{formValues.frequency}</div>
+              </li>
+
+              <li>
+                <div className="name">Duration</div>
+                <div className="value">{formValues.hours} hours</div>
+              </li>
+
+              <li>
+                <div className="name">Number of Professionals</div>
+                <div className="value">{formValues.noOfProfessional}</div>
+              </li>
+
+              <li>
+                <div className="name">Material</div>
+                <div className="value">{formValues.materials}</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="item">
+          <div className="date-time">
+            <div className="section-title">Date & Time</div>
+
+            <ul>
+              <li>
+                <div className="name">Professional</div>
+                <div className="value">
+                  {formValues.professional.name}
+
+                  {formValues.professional.imageUrl !== null ? (
+                    <img
+                      className="user-image"
+                      src={formValues.professional.imageUrl}
+                      alt="user"
+                    />
+                  ) : null}
+                </div>
+              </li>
+
+              <li>
+                <div className="name">Date</div>
+                <div className="value">{formValues.day} hours</div>
+              </li>
+
+              <li>
+                <div className="name">Start Time</div>
+                <div className="value">{formValues.time}</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="item">
+          <div className="address">
+            <div className="section-title">Address</div>
+            <div className="name">Dubai Marina, Dubai</div>
+          </div>
+        </div>
+
+        <div className="item">
+          <div className="price-details">
+            <div className="section-title">Price Details (Inc. Vat)</div>
+            <ul>
+              <li>
+                <div className="name">Subtotal</div>
+                <div className="value">AED 83.00</div>
+              </li>
+
+              <li>
+                <div className="name">WEEKLY10</div>
+                <div className="value">-AED 8.30</div>
+              </li>
+
+              <li>
+                <div className="name">Total</div>
+                <div className="value">AED 74.70</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default SelectedInformationsComponent;

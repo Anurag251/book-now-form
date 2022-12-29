@@ -1,0 +1,495 @@
+@import './mixin.sass'
+
+body
+  background-color: #F4FCFF
+
+/***********      wrapper      ***********/
+.wrapper
+  max-width: 1300px
+  margin: 0 auto
+  padding: 0 2rem
+
+  &.noSpace
+    max-width: auto
+    padding: 0
+
+/***********      title      ***********/
+.title
+  text-align: center
+  font-size: 1.8rem
+  font-weight: 600
+
+/***********      custom input      ***********/
+.custom-input
+  padding: 1rem 0
+
+  .input-sec
+    @include flex($justify: flex-start)
+
+    .form-input
+      margin-right: 10px
+
+    .form-input-label
+      color: $para
+      font-size: 1.125rem
+      cursor: pointer
+
+  .description
+    margin-left: 1.5rem
+    margin-top: .5rem
+    font-size: .8rem
+    color: $para
+
+/***********      select button list      ***********/
+.select-button-list
+  @include flex($justify: flex-start)
+  gap: 1rem
+
+  &.yesNo
+    .input-button
+      border-radius: 30px
+      padding: .5rem 1rem
+
+  .select-day
+    @include flex($justify: center)
+    flex-direction: column
+    margin-top: 10px
+
+    .button-label
+      font-size: .7rem
+      text-transform: uppercase
+      color: #8C9FB3
+      margin-bottom: .5rem
+      font-weight: 600
+      letter-spacing: 2px
+
+  .input-button
+    min-width: 2.5rem
+    height: 2.5rem
+    border-radius: 50%
+    border: 1px solid #dcdcdc
+    color: #8C9FB3
+    cursor: pointer
+    font-size: 1rem
+
+    &:hover
+      border: 1px solid #8C9FB3
+
+    &:nth-last-child(1)
+      margin-right: 0
+
+    &.active
+      color: $light
+      background-color: $pri
+      border: 1px solid $pri
+
+/***********      progress bar      ***********/
+.progress-bar
+  margin: 1.4rem 0
+
+  ul
+    @include grid($columns: 1fr 2fr 1fr 2fr 1fr 2fr 1fr)
+
+    .line
+      width: 100%
+      transform: translateY(10.5px)
+      height: 2px
+      background-color: $bg
+      border-radius: 4px
+
+      &.done, &.active
+        background-color: $text
+
+    li
+      @include flex($justify: center)
+      flex-direction: column
+      text-align: center
+
+      &.done
+        span
+          background-color: #49A360
+          color: $light
+
+          &::before
+            content: '✓' !important
+
+      &.active
+        span
+          background-color: $text
+          color: $light
+
+      &:nth-child(1)
+        span
+          &::before
+            content: '1'
+
+      &:nth-child(3)
+        span
+          &::before
+            content: '2'
+
+      &:nth-child(5)
+        span
+          &::before
+            content: '3'
+
+      &:nth-child(7)
+        span
+          &::before
+            content: '4'
+
+      span
+        position: relative
+        height: 1.5rem
+        width: 1.5rem
+        border-radius: 50%
+        background-color: $bg
+        color: $text
+        text-align: center
+        font-size: .75rem
+        @include flex($justify: center)
+        font-weight: 600
+        margin-bottom: .5rem
+
+      p
+        font-size: .8125rem
+        font-weight: 400
+        color: $para
+
+/***********      book now page      ***********/
+.book-now-page
+  padding: 3rem 0
+
+  main
+    @include flex($justify: space-between)
+    align-items: flex-start
+
+  .all-forms
+    width: 64%
+    background-color: $light
+    box-shadow: 0 1px 5px rgba($dark, .1)
+    border-radius: 8px
+    @include flex($justify: space-between)
+    flex-direction: column
+    align-items: flex-start
+
+    .form-title
+      margin-bottom: 1rem
+      font-size: 1.12rem
+      font-weight: 600
+      @include flex($justify: flex-start)
+
+      .info-btn
+        height: 20px
+        width: 20px
+        border: .124rem solid $text
+        font-weight: 600
+        color: $text
+        border-radius: 50%
+        @include flex($justify: center)
+        margin-left: 10px
+        cursor: pointer
+
+    .frequency
+      padding: 1.5rem
+
+    .form-footer
+      @include flex($justify: space-between)
+      padding: .5rem 1rem
+      border-top: 1px solid #dcdcdc
+      width: 100%
+
+      .previous
+        padding: .5rem 1rem
+        cursor: pointer
+
+      .next
+        padding: .5rem 1rem
+        background-color: $sec
+        color: $text
+        text-transform: uppercase
+        font-weight: 600
+        border-radius: 20px
+        cursor: pointer
+
+/***********      selected information      ***********/
+.selected-information
+  width: 34%
+  position: sticky
+  top: 20px
+
+  .list
+    background-color: $light
+    border-radius: 8px
+    box-shadow: 0 1px 5px rgba($dark, .1)
+
+    .item
+      padding: 1rem 1.5rem
+      border-bottom: 1px solid #dcdcdc
+      font-size: .8rem
+      color: $text
+
+      &:nth-last-child(1)
+        border-bottom: none
+
+      .section-title
+        font-size: .75rem
+        font-weight: 700
+        color: #8C9FB3
+        text-transform: uppercase
+        letter-spacing: 2px
+
+      .city
+        @include flex($justify: space-between)
+
+        .name
+          text-transform: uppercase
+          font-size: .7rem
+          color: $text
+          letter-spacing: 2px
+
+      .address
+        .name
+          color: $text
+          margin-top: .7rem
+
+      ul
+        margin-top: .7rem
+
+        li
+          @include flex($justify: space-between)
+          margin-bottom: .6rem
+
+          &:nth-last-child(1)
+            margin-bottom: 0
+
+          .name
+            color: #9E9E9E
+
+          .value
+            color: $text
+            @include flex($justify: flex-end)
+
+            .user-image
+              height: 25px
+              width: 25px
+              border: 1px solid rgba($dark, .2)
+              border-radius: 50%
+              object-fit: cover
+              margin-left: .7rem
+
+/***********      service details section      ***********/
+.service-details-section
+  padding: 1.5rem
+  width: 100%
+
+  .section
+    margin-bottom: 2rem
+
+    .message-box
+      padding: .7rem
+      border: 2px solid #dcdcdc
+      width: 100%
+      border-radius: 4px
+
+      .message-area
+        width: 100%
+
+        &::placeholder
+          color: #c9c9c9
+
+/***********      date time section      ***********/
+.date-time-section
+  padding: 1.5rem
+  width: 100%
+
+  .section
+    margin-bottom: 2rem
+
+    .form-title
+
+    .sub-title
+      color: rgba($dark, .38)
+      font-size: 1rem
+      margin-top: -0.5rem
+
+    .arrive
+      margin-top: 1rem
+      font-size: 1rem
+      color: rgba($dark, .6)
+
+    .professional-list
+      @include flex($justify: flex-start)
+      margin-top: 12px
+      overflow-x: auto
+      gap: 15px
+      scroll-snap-type: x mandatory
+      padding: 1rem .5rem
+
+      .item
+        padding: 1rem
+        border: 1px solid rgba($dark, .12)
+        @include flex($justify: center)
+        flex-direction: column
+        border-radius: 4px
+        text-align: center
+        scroll-snap-align: center
+        cursor: pointer
+
+        &.active
+          border: 1px solid rgba($pri, .6)
+          box-shadow: 0 0 7px rgba($pri, .3)
+          background-color: rgba($pri, .1)
+
+        .user-image
+          height: 90px
+          width: 90px
+          border-radius: 50%
+          object-fit: cover
+          border: 1px solid rgba($dark, .12)
+          margin-bottom: .8rem
+
+        .name
+          font-size: .8rem
+          font-weight: 600
+          color: $pri
+
+        .rating
+          font-size: .8rem
+          color: #F5CA56
+          margin: .3rem 0
+
+        p
+          font-size: .8rem
+          color: $para
+
+        .details-btn
+          margin-top: .5rem
+          padding: .5rem
+          font-size: .8rem
+          color: rgba($pri, .8)
+          font-size: 400
+          cursor: pointer
+
+.google-map-popup
+  position: fixed
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)
+  height: 100%
+  width: 100%
+  background-color: rgba($light, .5)
+  z-index: 10
+  @include flex($justify: center)
+
+  .popup-bg
+    height: 300px
+    width: 300px
+    border-radius: 10px
+    box-shadow: 0 0 10px rgba($dark, .1)
+    background-color: $light
+
+.modal
+  position: fixed
+  top: 0
+  left: 0
+  bottom: 0
+  right: 0
+  @include flex($justify: center)
+  z-index: 10
+  opacity: 0
+  pointer-events: none
+  @include trans()
+
+  &.active
+    opacity: 1
+    pointer-events: auto
+
+    .modal-contailer
+      transform: translateY(0)
+
+  .modal-bg
+    position: absolute
+    height: 100%
+    width: 100%
+    background-color: rgba($dark, .6)
+
+  .modal-contailer
+    max-width: 400px
+    background-color: $light
+    border-radius: 10px
+    width: 100%
+    transform: translateY(-100px)
+    @include trans()
+
+    .modal-header
+      padding: 1rem
+      border-bottom: 1px solid rgba($dark, .3)
+      @include flex($justify: space-between)
+
+      .modal-close-btn
+        height: 30px
+        width: 30px
+        @include flex($justify: center)
+        border-radius: 50%
+        cursor: pointer
+        font-size: 16px
+        color: rgba($dark, .7)
+
+        &:hover
+          background-color: rgba($dark, .1)
+
+      .modal-title
+        font-size: 1.2rem
+        font-weight: 600
+
+    .modal-body
+      padding: 1rem
+      padding-top: 0
+      overflow: auto
+      max-height: 80vh
+
+      p
+        font-size: .9rem
+        margin: 1rem 0
+        color: rgba($dark, .7)
+        line-height: 1.3rem
+
+      table, th, td
+        border: 1px solid rgba($dark, .3)
+        border-collapse: collapse
+        padding: .5rem
+        border-radius: 10px
+
+      table
+        width: 100%
+        border-radius: 5px
+
+        thead
+          font-size: .9rem
+          text-align: left
+          color: rgba($dark, .9)
+
+        tbody
+          color: rgba($dark, .7)
+          font-size: .9rem
+
+      ul
+        margin-bottom: 1.5rem
+
+        &:nth-last-child(1)
+          margin-bottom: 0
+
+        li
+          font-size: .9rem
+          color: rgba($dark, .7)
+          margin-bottom: .8rem
+          font-weight: 400
+          list-style: disc
+          margin-left: 2rem
+
+          &.list-title
+            font-weight: 600
+            color: rgba($dark, .9)
+            margin-left: 0
+            list-style: none
