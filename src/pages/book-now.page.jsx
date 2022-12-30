@@ -12,6 +12,7 @@ import FrequencyComponent from "../components/frequency.component";
 import ProgressBarComponent from "../components/progress-bar.component";
 import SelectedInformationsComponent from "../components/selected-informations.component";
 import ServiceDetailsComponent from "../components/service-details.component";
+import SignInAndSignUpModalComponent from "../components/sign-in-and-sign-up-modal/sign-in-and-sign-up-modal.component";
 import { BookNowContext } from "../context/book-now/book-now-context";
 
 const BookNowPage = () => {
@@ -22,6 +23,8 @@ const BookNowPage = () => {
 
   return (
     <div className="book-now-page">
+      {formValues.currentUser === "" ? <SignInAndSignUpModalComponent /> : null}
+
       <div className="wrapper">
         <div className="title-area">
           <CustomTitleComponent title={formValues.title} />
@@ -71,7 +74,12 @@ const BookNowPage = () => {
                   <button className="next">Next</button>
                 </Link>
               ) : (
-                <button className="next" disabled>
+                <button
+                  className="next"
+                  onClick={() =>
+                    setFormValues({ ...formValues, signInSignUpModal: true })
+                  }
+                >
                   Next
                 </button>
               )}

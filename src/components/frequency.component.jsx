@@ -20,10 +20,19 @@ const FrequencyComponent = () => {
           description="Book a cleaning for one time only"
           name="frequency"
           handleChange={(event) =>
-            setFormValues({ ...formValues, frequency: event.target.value })
+            setFormValues({
+              ...formValues,
+              frequency: {
+                name: event.target.value,
+                price: 100,
+                discount: 10,
+                perPerson: 60,
+                perHours: 30,
+              },
+            })
           }
           value="One-Time"
-          checked={formValues.frequency === "One-Time" ? true : false}
+          checked={formValues.frequency.name === "One-Time" ? true : false}
         />
 
         <CustomInputComponent
@@ -32,10 +41,19 @@ const FrequencyComponent = () => {
           description="Book a recurring cleaning with the same professional every two-weeks"
           name="frequency"
           handleChange={(event) =>
-            setFormValues({ ...formValues, frequency: event.target.value })
+            setFormValues({
+              ...formValues,
+              frequency: {
+                name: event.target.value,
+                price: 200,
+                discount: 20,
+                perPerson: 50,
+                perHours: 20,
+              },
+            })
           }
           value="Bi-weekly"
-          checked={formValues.frequency === "Bi-weekly" ? true : false}
+          checked={formValues.frequency.name === "Bi-weekly" ? true : false}
         />
 
         <CustomInputComponent
@@ -44,10 +62,19 @@ const FrequencyComponent = () => {
           description="Book a recurring cleaning with the same professional every week"
           name="frequency"
           handleChange={(event) =>
-            setFormValues({ ...formValues, frequency: event.target.value })
+            setFormValues({
+              ...formValues,
+              frequency: {
+                name: event.target.value,
+                price: 300,
+                discount: 30,
+                perPerson: 40,
+                perHours: 20,
+              },
+            })
           }
           value="Weekly"
-          checked={formValues.frequency === "Weekly" ? true : false}
+          checked={formValues.frequency.name === "Weekly" ? true : false}
         />
       </div>
     </div>

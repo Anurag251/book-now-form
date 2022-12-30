@@ -293,6 +293,18 @@ body
           color: $text
           margin-top: .7rem
 
+      .price-details
+        ul
+          li
+            &:nth-last-child(1)
+              .value
+                color: $sec
+                font-weight: 700
+                font-size: 1.1rem
+
+              .name
+                font-size: 1.1rem
+
       ul
         margin-top: .7rem
 
@@ -532,3 +544,165 @@ body
             color: rgba($dark, .9)
             margin-left: 0
             list-style: none
+
+/***********      sign in and sign up modal      ***********/
+.sign-in-and-sign-up-modal
+  position: fixed
+  top: 0
+  left: 0
+  bottom: 0
+  right: 0
+  @include flex($justify: center)
+  z-index: 10
+  opacity: 0
+  pointer-events: none
+  padding: 0 10px
+  @include trans()
+
+  &.active
+    opacity: 1
+    pointer-events: auto
+
+    .modal-contailer
+      transform: scale(1)
+
+  .modal-bg
+    position: absolute
+    height: 100%
+    width: 100%
+    background-color: rgba($dark, .6)
+
+  .modal-contailer
+    max-width: 350px
+    background-color: $light
+    border-radius: 6px
+    width: 100%
+    transform: scale(1.2)
+    @include trans()
+    padding: 1.5rem
+    position: relative
+
+    .modal-close-btn
+      position: absolute
+      top: -35px
+      right: 0
+      height: 30px
+      width: 30px
+      border-radius: 6px
+      background-color: $light
+      @include flex($justify: center)
+      cursor: pointer
+
+      &:hover
+        color: $light
+        background-color: #af0000
+
+    .modal-title
+      text-align: center
+      font-size: 1.2rem
+      font-weight: 600
+
+    .modal-body
+      margin-top: 1.2rem
+
+      .form-submit-btn
+        height: 2.7rem
+        width: 100%
+        @include flex($justify: center)
+        background-image: linear-gradient(90deg, $pri, $sec)
+        border-radius: 6px
+        color: $light
+        cursor: pointer
+        transition: .4s
+        text-transform: uppercase
+        letter-spacing: 1.8px
+
+        &:hover
+          box-shadow: 0 2px 6px rgba($pri, .5)
+          transform: translateY(-2px)
+
+    .other-option
+      @include flex($justify: space-between)
+      margin-bottom: 1rem
+
+      .group
+        @include flex($justify: flex-start)
+
+        .checkbox
+          height: .8rem
+          width: .8rem
+          margin-right: .3rem
+          cursor: pointer
+
+        .checkbox-label
+          font-size: .8rem
+          cursor: pointer
+
+      .forget-password
+        font-size: .8rem
+        text-align: right
+        cursor: pointer
+
+    .switch-page-btn
+      margin-top: .5rem
+      text-align: center
+
+      p
+        font-size: .8rem
+        color: rgba($dark, .7)
+
+        .switch
+          color: $sec
+          text-decoration: underline
+          cursor: pointer
+          padding: .6rem .2rem
+
+.form-input-area
+  margin-bottom: 1rem
+
+  @mixin shrink()
+    top: 0
+    font-size: .8rem
+
+  .input-sec
+    position: relative
+    width: 100%
+    height: 2.5rem
+
+    .form-input
+      height: 100%
+      width: 100%
+      padding: 1rem
+      border: 1.2px solid rgba($dark, .2)
+      border-radius: 6px
+      font-size: 1rem
+
+      &:focus
+        border-color: $pri
+
+      &:focus ~ .form-input-label
+        @include shrink()
+
+    .form-input-label
+      position: absolute
+      top: 50%
+      left: .6rem
+      transform: translateY(-50%)
+      color: rgba($dark, .7)
+      font-size: .9rem
+      padding: .3rem .5rem
+      transition: .4s cubic-bezier(0, 1, 0, 1)
+
+      &::after
+        content: ''
+        position: absolute
+        top: 50%
+        left: 50%
+        transform: translate(-50%, -50%)
+        height: 3px
+        background-color: $light
+        width: 100%
+        z-index: -1
+
+      &.shrink
+        @include shrink()

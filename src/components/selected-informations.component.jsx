@@ -38,7 +38,7 @@ const SelectedInformationsComponent = () => {
             <ul>
               <li>
                 <div className="name">Frequency</div>
-                <div className="value">{formValues.frequency}</div>
+                <div className="value">{formValues.frequency.name}</div>
               </li>
 
               <li>
@@ -105,19 +105,27 @@ const SelectedInformationsComponent = () => {
           <div className="price-details">
             <div className="section-title">Price Details (Inc. Vat)</div>
             <ul>
-              <li>
-                <div className="name">Subtotal</div>
-                <div className="value">AED 83.00</div>
-              </li>
+              {formValues.frequency.discount !== 0 ? (
+                <React.Fragment>
+                  <li>
+                    <div className="name">Subtotal</div>
+                    <div className="value">AED {formValues.totalPrice}</div>
+                  </li>
 
-              <li>
-                <div className="name">WEEKLY10</div>
-                <div className="value">-AED 8.30</div>
-              </li>
+                  <li>
+                    <div className="name">{formValues.frequency.name}</div>
+                    <div className="value">
+                      -AED {formValues.frequency.discount}
+                    </div>
+                  </li>
+                </React.Fragment>
+              ) : null}
 
               <li>
                 <div className="name">Total</div>
-                <div className="value">AED 74.70</div>
+                <div className="value">
+                  AED {formValues.totalPrice - formValues.frequency.discount}
+                </div>
               </li>
             </ul>
           </div>
