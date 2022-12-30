@@ -29,6 +29,7 @@
     .all-forms
       width: 100%
       box-shadow: none
+      border: none
 
       .form-footer
         position: fixed
@@ -64,7 +65,7 @@
     left: 0
     width: 100%
     height: 100%
-    background-color: $light
+    background-image: linear-gradient(130deg, $pri, $sec)
     z-index: 100
     opacity: 0
     transform: scale(1.2)
@@ -78,13 +79,14 @@
 
     .list
       box-shadow: none
+      background: none
 
       .item
         &.mobile-view-element
           display: block
 
           .section-title
-            color: rgba($dark, .7)
+            color: $light
 
           .name
             font-size: 1rem
@@ -116,7 +118,6 @@
   .wrapper
     max-width: 600px
 
-@media only screen and ( max-width:  800px)
   /***********      title      ***********/
   .title
     font-size: 1.4rem
@@ -128,22 +129,15 @@
     .all-forms
       .form-title
         margin-bottom: .8rem
-        font-size: 1rem
+        font-size: .9rem
 
   /***********      custom input      ***********/
   .custom-input
-    padding: .8rem 0
-
     .input-sec
-      .form-input
-        margin-right: .6rem
-
       .form-input-label
-        font-size: .9rem
+        font-size: .85rem
 
     .description
-      margin-left: 1.4rem
-      margin-top: .3rem
       font-size: .7rem
 
   /***********      select button list      ***********/

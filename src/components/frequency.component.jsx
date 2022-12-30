@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from "react";
 import { BookNowContext } from "../context/book-now/book-now-context";
-import CustomInputComponent from "./custom-input.component";
 
 const FrequencyComponent = () => {
   const { formValues, setFormValues } = useContext(BookNowContext);
@@ -14,16 +13,15 @@ const FrequencyComponent = () => {
       <div className="form-title">How often do you need your professional?</div>
 
       <div className="input-area">
-        <CustomInputComponent
-          type="radio"
-          label="One-time"
-          description="Book a cleaning for one time only"
-          name="frequency"
-          handleChange={(event) =>
+        <div
+          className={`custom-input ${
+            formValues.frequency.name === "One-Time" ? "active" : ""
+          }`}
+          onClick={() =>
             setFormValues({
               ...formValues,
               frequency: {
-                name: event.target.value,
+                name: "One-Time",
                 price: 100,
                 discount: 10,
                 perPerson: 60,
@@ -31,20 +29,24 @@ const FrequencyComponent = () => {
               },
             })
           }
-          value="One-Time"
-          checked={formValues.frequency.name === "One-Time" ? true : false}
-        />
+        >
+          <div className="input-indicator"></div>
 
-        <CustomInputComponent
-          type="radio"
-          label="Bi-weekly"
-          description="Book a recurring cleaning with the same professional every two-weeks"
-          name="frequency"
-          handleChange={(event) =>
+          <div className="input-sec">
+            <div className="form-input-label">One-time</div>
+            <p className="description">Book a cleaning for one time only</p>
+          </div>
+        </div>
+
+        <div
+          className={`custom-input ${
+            formValues.frequency.name === "Bi-weekly" ? "active" : ""
+          }`}
+          onClick={() =>
             setFormValues({
               ...formValues,
               frequency: {
-                name: event.target.value,
+                name: "Bi-weekly",
                 price: 200,
                 discount: 20,
                 perPerson: 50,
@@ -52,20 +54,27 @@ const FrequencyComponent = () => {
               },
             })
           }
-          value="Bi-weekly"
-          checked={formValues.frequency.name === "Bi-weekly" ? true : false}
-        />
+        >
+          <div className="input-indicator"></div>
 
-        <CustomInputComponent
-          type="radio"
-          label="Weekly"
-          description="Book a recurring cleaning with the same professional every week"
-          name="frequency"
-          handleChange={(event) =>
+          <div className="input-sec">
+            <div className="form-input-label">Bi-weekly</div>
+            <p className="description">
+              Book a recurring cleaning with the same professional every
+              two-weeks
+            </p>
+          </div>
+        </div>
+
+        <div
+          className={`custom-input ${
+            formValues.frequency.name === "Weekly" ? "active" : ""
+          }`}
+          onClick={() =>
             setFormValues({
               ...formValues,
               frequency: {
-                name: event.target.value,
+                name: "Weekly",
                 price: 300,
                 discount: 30,
                 perPerson: 40,
@@ -73,9 +82,16 @@ const FrequencyComponent = () => {
               },
             })
           }
-          value="Weekly"
-          checked={formValues.frequency.name === "Weekly" ? true : false}
-        />
+        >
+          <div className="input-indicator"></div>
+
+          <div className="input-sec">
+            <div className="form-input-label">Weekly</div>
+            <p className="description">
+              Book a recurring cleaning with the same professional every week
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -60,7 +60,7 @@ const BookNowPage = () => {
               >
                 <div className="name">Total</div>
                 <div className="value">
-                  AED 100
+                  AED {formValues.totalPrice - formValues.frequency.discount}
                   <i className="fas fa-chevron-up"></i>
                 </div>
               </div>

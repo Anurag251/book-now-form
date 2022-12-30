@@ -8,18 +8,14 @@ const CustomInputComponent = ({
 }) => {
   return (
     <div className="custom-input">
+      <div className="input-indicator"></div>
+
       <div className="input-sec">
-        <input
-          className="form-input"
-          id={label}
-          onChange={handleChange}
-          {...otherProps}
-        />
         <label className="form-input-label" htmlFor={label}>
           {label}
         </label>
+        {description ? <p className="description">{description}</p> : null}
       </div>
-      {description ? <p className="description">{description}</p> : null}
     </div>
   );
 };

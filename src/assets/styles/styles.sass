@@ -1,7 +1,7 @@
 @import './mixin.sass'
 
 body
-  background-color: #F4FCFF
+  background-color: #F2F2F2
 
 /***********      wrapper      ***********/
 .wrapper
@@ -21,30 +21,80 @@ body
 
 /***********      custom input      ***********/
 .custom-input
-  padding: 1rem 0
+  padding: .5rem 1rem
+  border-radius: 4px
+  margin-bottom: 1rem
+  border: 1px solid rgba($dark, .2)
+  @include grid($columns: 10px 1fr)
+  align-items: center
+  transition: .4s cubic-bezier(0,1,0,1)
+  cursor: pointer
+
+  &:nth-last-child(1)
+    margin-bottom: 0
+
+  &:hover
+    transform: translateY(-2px) scale(1.02)
+    box-shadow: 0 2px 6px rgba($dark, .1)
+
+  &.active
+    background-color: $sec
+    border-color: $pri
+
+    .input-sec
+      .form-input-label
+        color: $light
+
+    .description
+      color: $light
+
+    .input-indicator
+      border: 2px solid rgba($light, .6)
+
+      &::after
+        height: 13px
+        width: 13px
+        opacity: 1
+        background-color: rgba($light, .6)
+
+  .input-indicator
+    position: relative
+    height: 20px
+    width: 20px
+    border-radius: 50%
+    border: 2px solid rgba($dark, .2)
+
+    &::after
+      content: ''
+      position: absolute
+      top: 50%
+      left: 50%
+      transform: translate(-50%, -50%)
+      height: 0
+      width: 0
+      background-color: rgba($light, .2)
+      opacity: 1
+      border-radius: 50%
+      transition: .4s cubic-bezier(0,1,0,1)
 
   .input-sec
-    @include flex($justify: flex-start)
-
-    .form-input
-      margin-right: 10px
+    margin-left: 10px
 
     .form-input-label
       color: $para
-      font-size: 1.125rem
+      font-size: 1rem
       cursor: pointer
 
   .description
-    margin-left: 1.5rem
-    margin-top: .5rem
-    font-size: .8rem
+    font-size: .75rem
     color: $para
 
 /***********      select button list      ***********/
 .select-button-list
   @include flex($justify: flex-start)
-  gap: 1rem
+  gap: .4rem
   overflow-x: auto
+  padding: .3rem
 
   ::-webkit-scrollbar
     width: 5px
@@ -58,9 +108,12 @@ body
     border-radius: 10px
 
   &.yesNo
+    flex-direction: column
+    align-items: flex-start
+
     .input-button
-      border-radius: 30px
-      padding: .5rem 1rem
+      padding: 0 1rem
+      margin-right: .5rem
 
   .select-day
     @include flex($justify: center)
@@ -78,14 +131,17 @@ body
   .input-button
     min-width: 2.5rem
     height: 2.5rem
-    border-radius: 50%
+    border-radius: 4px
     border: 1px solid #dcdcdc
     color: #8C9FB3
     cursor: pointer
     font-size: 1rem
+    transition: .5s cubic-bezier(0,1,0,1)
 
     &:hover
+      transform: translateY(-2px) scale(1.05)
       border: 1px solid #8C9FB3
+      box-shadow: 0 2px 4px rgba($text, .1)
 
     &:nth-last-child(1)
       margin-right: 0
@@ -164,7 +220,7 @@ body
         text-align: center
         font-size: .75rem
         @include flex($justify: center)
-        font-weight: 600
+        font-weight: 500
         margin-bottom: .5rem
 
       p
@@ -183,30 +239,33 @@ body
   .all-forms
     width: 64%
     background-color: $light
-    box-shadow: 0 1px 5px rgba($dark, .1)
+    box-shadow: 0 0 15px rgba($pri, .2)
+    border-left: 2.5px solid $pri
+    // border-bottom: 2.5px solid $pri
     border-radius: 8px
     @include flex($justify: space-between)
     flex-direction: column
     align-items: flex-start
 
     .form-title
-      margin-bottom: 1rem
-      font-size: 1.12rem
-      font-weight: 600
+      margin-bottom: .6rem
+      font-size: 1rem
+      font-weight: 400
       @include flex($justify: flex-start)
+      color: rgba($dark, .8)
 
       .info-btn
-        height: 20px
-        width: 20px
+        height: 15px
+        width: 15px
         border: .124rem solid $text
         color: $text
         border-radius: 50%
         @include flex($justify: center)
-        margin-left: 10px
+        margin-left: 5px
         cursor: pointer
 
         i
-          font-size: .7rem
+          font-size: .5rem
 
     .frequency
       padding: 1.5rem
@@ -256,15 +315,15 @@ body
   top: 20px
 
   .list
-    background-color: $light
+    background-image: linear-gradient(130deg, $pri, $sec)
     border-radius: 8px
     box-shadow: 0 1px 5px rgba($dark, .1)
 
     .item
       padding: 1rem 1.5rem
-      border-bottom: 1px solid #dcdcdc
+      border-bottom: 1px solid #e9e9e9
       font-size: .8rem
-      color: $text
+      color: $light
 
       &.mobile-view-element
         display: none
@@ -274,8 +333,8 @@ body
 
       .section-title
         font-size: .75rem
-        font-weight: 700
-        color: #8C9FB3
+        font-weight: 600
+        color: $light
         text-transform: uppercase
         letter-spacing: 2px
 
@@ -285,21 +344,24 @@ body
         .name
           text-transform: uppercase
           font-size: .7rem
-          color: $text
+          color: $light
           letter-spacing: 2px
 
       .address
         .name
-          color: $text
+          color: $light
           margin-top: .7rem
+          padding: .5rem
+          background-color: rgba($dark, .07)
+          border-radius: 6px
 
       .price-details
         ul
           li
             &:nth-last-child(1)
               .value
-                color: $sec
-                font-weight: 700
+                color: $light
+                font-weight: 600
                 font-size: 1.1rem
 
               .name
@@ -310,16 +372,19 @@ body
 
         li
           @include flex($justify: space-between)
-          margin-bottom: .6rem
+          margin-bottom: .2rem
+          padding: .5rem
+          background-color: rgba($dark, .07)
+          border-radius: 6px
 
           &:nth-last-child(1)
             margin-bottom: 0
 
           .name
-            color: #9E9E9E
+            color: $light
 
           .value
-            color: $text
+            color: $light
             @include flex($justify: flex-end)
 
             .user-image
@@ -346,9 +411,10 @@ body
 
       .message-area
         width: 100%
+        font-size: .8rem
 
         &::placeholder
-          color: #c9c9c9
+          color: #aaaaaa
 
 /***********      date time section      ***********/
 .date-time-section
@@ -377,7 +443,6 @@ body
       padding: 1rem .5rem
 
       .item
-        padding: 1rem
         border: 1px solid rgba($dark, .12)
         @include flex($justify: center)
         flex-direction: column
@@ -385,24 +450,33 @@ body
         text-align: center
         scroll-snap-align: center
         cursor: pointer
+        transition: .4s cubic-bezier(0,1,0,1)
+        opacity: .7
+
+        &:hover
+          transform: translateY(-3px) scale(1.02)
+          box-shadow: 0 3px 5px rgba($dark, .1)
+          opacity: 1
 
         &.active
           border: 1px solid rgba($sec, .6)
           box-shadow: 0 0 7px rgba($sec, .3)
           background-color: rgba($sec, .1)
+          opacity: 1
 
         .user-image
-          height: 90px
-          width: 90px
-          border-radius: 50%
+          height: 120px
+          width: 100%
+          border-radius: 6px
           object-fit: cover
-          border: 1px solid rgba($dark, .12)
           margin-bottom: .8rem
+          border-bottom: 1.8px solid $sec
 
         .name
           font-size: .8rem
           font-weight: 600
           color: $sec
+          padding: 0 .5rem
 
         .rating
           font-size: .8rem
@@ -412,8 +486,10 @@ body
         p
           font-size: .8rem
           color: $para
+          padding: 0 .5rem .6rem
 
         .details-btn
+          display: none
           margin-top: .5rem
           padding: .5rem
           font-size: .8rem
