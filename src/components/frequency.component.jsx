@@ -1,12 +1,14 @@
 import React, { useContext, useEffect } from "react";
 import { BookNowContext } from "../context/book-now/book-now-context";
 
-const FrequencyComponent = () => {
+const FrequencyComponent = ({ currentPosition }) => {
   const { formValues, setFormValues } = useContext(BookNowContext);
 
   useEffect(() => {
-    setFormValues({ ...formValues, title: "Frequency" });
-  }, []);
+    if (currentPosition === 0) {
+      setFormValues({ ...formValues, title: "Frequency" });
+    }
+  }, [currentPosition]);
 
   return (
     <div className="frequency">

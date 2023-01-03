@@ -81,7 +81,10 @@ const SelectedInformationsComponent = () => {
 
               <li>
                 <div className="name">Date</div>
-                <div className="value">{formValues.day} hours</div>
+                <div className="value">
+                  {formValues.date.day} {formValues.date.month}{" "}
+                  {formValues.date.date}
+                </div>
               </li>
 
               <li>

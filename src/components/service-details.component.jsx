@@ -4,12 +4,14 @@ import HoursModalComponent from "./hours-modal.component";
 import MaterialModalComponent from "./material-modal.component";
 // import GoogleMapPopupComponent from "./google-map-popup.component";
 
-const ServiceDetailsComponent = () => {
+const ServiceDetailsComponent = ({ currentPosition }) => {
   const { formValues, setFormValues } = useContext(BookNowContext);
 
   useEffect(() => {
-    setFormValues({ ...formValues, title: "Service Details" });
-  }, []);
+    if (currentPosition === 33.33) {
+      setFormValues({ ...formValues, title: "Service Details" });
+    }
+  }, [currentPosition]);
 
   return (
     <div className="service-details-section">
@@ -64,9 +66,7 @@ const ServiceDetailsComponent = () => {
             onClick={(e) =>
               setFormValues({ ...formValues, hours: parseInt(e.target.value) })
             }
-            className={`input-button ${
-              formValues.hours === 3 ? "active" : ""
-            }`}
+            className={`input-button ${formValues.hours === 3 ? "active" : ""}`}
             value="3"
           />
 
@@ -75,9 +75,7 @@ const ServiceDetailsComponent = () => {
             onClick={(e) =>
               setFormValues({ ...formValues, hours: parseInt(e.target.value) })
             }
-            className={`input-button ${
-              formValues.hours === 4 ? "active" : ""
-            }`}
+            className={`input-button ${formValues.hours === 4 ? "active" : ""}`}
             value="4"
           />
 
@@ -86,9 +84,7 @@ const ServiceDetailsComponent = () => {
             onClick={(e) =>
               setFormValues({ ...formValues, hours: parseInt(e.target.value) })
             }
-            className={`input-button ${
-              formValues.hours === 5 ? "active" : ""
-            }`}
+            className={`input-button ${formValues.hours === 5 ? "active" : ""}`}
             value="5"
           />
 
@@ -97,9 +93,7 @@ const ServiceDetailsComponent = () => {
             onClick={(e) =>
               setFormValues({ ...formValues, hours: parseInt(e.target.value) })
             }
-            className={`input-button ${
-              formValues.hours === 6 ? "active" : ""
-            }`}
+            className={`input-button ${formValues.hours === 6 ? "active" : ""}`}
             value="6"
           />
 
@@ -108,9 +102,7 @@ const ServiceDetailsComponent = () => {
             onClick={(e) =>
               setFormValues({ ...formValues, hours: parseInt(e.target.value) })
             }
-            className={`input-button ${
-              formValues.hours === 7 ? "active" : ""
-            }`}
+            className={`input-button ${formValues.hours === 7 ? "active" : ""}`}
             value="7"
           />
 
@@ -119,9 +111,7 @@ const ServiceDetailsComponent = () => {
             onClick={(e) =>
               setFormValues({ ...formValues, hours: parseInt(e.target.value) })
             }
-            className={`input-button ${
-              formValues.hours === 8 ? "active" : ""
-            }`}
+            className={`input-button ${formValues.hours === 8 ? "active" : ""}`}
             value="8"
           />
         </div>
@@ -134,7 +124,10 @@ const ServiceDetailsComponent = () => {
           <input
             type="button"
             onClick={(e) =>
-              setFormValues({ ...formValues, noOfProfessional: parseInt(e.target.value) })
+              setFormValues({
+                ...formValues,
+                noOfProfessional: parseInt(e.target.value),
+              })
             }
             className={`input-button ${
               formValues.noOfProfessional === 1 ? "active" : ""
@@ -145,7 +138,10 @@ const ServiceDetailsComponent = () => {
           <input
             type="button"
             onClick={(e) =>
-              setFormValues({ ...formValues, noOfProfessional: parseInt(e.target.value) })
+              setFormValues({
+                ...formValues,
+                noOfProfessional: parseInt(e.target.value),
+              })
             }
             className={`input-button ${
               formValues.noOfProfessional === 2 ? "active" : ""
@@ -156,7 +152,10 @@ const ServiceDetailsComponent = () => {
           <input
             type="button"
             onClick={(e) =>
-              setFormValues({ ...formValues, noOfProfessional: parseInt(e.target.value) })
+              setFormValues({
+                ...formValues,
+                noOfProfessional: parseInt(e.target.value),
+              })
             }
             className={`input-button ${
               formValues.noOfProfessional === 3 ? "active" : ""

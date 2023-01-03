@@ -19,6 +19,26 @@
   body
     background-color: #FFFFFF
 
+  /***********      header      ***********/
+  header
+    .wrapper
+      @include flex($justify: space-between)
+
+      nav, .login-sign-up-btns
+        display: none
+
+      .side-nav-btn
+        display: block
+
+  /***********      banner      ***********/
+  .banner
+    .wrapper
+      @include grid($columns: 1fr)
+      height: 400px
+
+      .image-sec
+        display: none
+
   /***********      book now page      ***********/
   .book-now-page
     padding: 3rem 0
@@ -87,6 +107,8 @@
 
           .section-title
             color: $light
+            font-size: 16px
+            font-weight: 600
 
           .name
             font-size: 1rem
@@ -121,6 +143,20 @@
   /***********      title      ***********/
   .title
     font-size: 1.4rem
+
+  /***********      testimonial      ***********/
+  .testimonial
+    .testimonial-list
+      .swiper-slide
+        padding: 0
+
+      .swiper-slide-active
+        transform: scale(1)
+
+  /***********      footer      ***********/
+  footer
+    .footer-content-list
+      @include grid($columns: 1fr 1fr)
 
   /***********      book now page      ***********/
   .book-now-page
@@ -228,6 +264,24 @@
             margin-bottom: .4rem
             margin-left: 1.5rem
 
+@media only screen and ( max-width:  500px)
+  /***********      banner      ***********/
+  .banner
+    .wrapper
+      .banner-content
+        h1
+          font-size: 30px
+          line-height: 2.5rem
+
+        p
+          font-size: 18px
+          margin: 1.3rem 0
+
 @media only screen and ( max-width:  450px)
   .wrapper
     padding: 0 1rem
+
+  /***********      footer      ***********/
+  footer
+    .footer-content-list
+      @include grid($columns: 1fr)

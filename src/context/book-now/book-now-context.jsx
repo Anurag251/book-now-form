@@ -1,5 +1,11 @@
 import { createContext, useEffect, useState } from "react";
 
+import image from "../../assets/images/user.png";
+import image2 from "../../assets/images/user2.png";
+import image3 from "../../assets/images/user3.jpeg";
+import image4 from "../../assets/images/user4.jpeg";
+import image5 from "../../assets/images/user5.png";
+
 export const BookNowContext = createContext();
 
 const BookNowProvider = ({ children }) => {
@@ -34,7 +40,11 @@ const BookNowProvider = ({ children }) => {
       imageUrl: null,
     },
 
-    day: "1",
+    date: {
+      day: "Sun",
+      date: "01",
+      month: "Jan",
+    },
     time: "08:00-08:30",
     totalPrice: 0,
   });
@@ -51,6 +61,71 @@ const BookNowProvider = ({ children }) => {
     email: "",
     password: "",
   });
+
+  const [bookingData, setBookingData] = useState([
+    {
+      id: 2,
+      name: "Roy",
+      rating: 5.6,
+      imageUrl: image,
+    },
+
+    {
+      id: 3,
+      name: "Emiliana",
+      rating: 3.2,
+      imageUrl: image2,
+    },
+
+    {
+      id: 4,
+      name: "Daisy",
+      rating: 4.2,
+      imageUrl: image3,
+    },
+
+    {
+      id: 5,
+      name: "Apsara",
+      rating: 3.2,
+      imageUrl: image4,
+    },
+
+    {
+      id: 6,
+      name: "Dolphin",
+      rating: 7.2,
+      imageUrl: image5,
+    },
+
+    {
+      id: 7,
+      name: "Shark",
+      rating: 9.4,
+      imageUrl: image,
+    },
+
+    {
+      id: 8,
+      name: "Snake",
+      rating: 5.8,
+      imageUrl: image2,
+    },
+
+    {
+      id: 9,
+      name: "Dragon",
+      rating: 5.2,
+      imageUrl: image3,
+    },
+
+    {
+      id: 10,
+      name: "Tom",
+      rating: 5.2,
+      imageUrl: image4,
+    },
+  ]);
 
   useEffect(() => {
     const { frequency, hours, noOfProfessional, materials } = formValues;
@@ -82,6 +157,7 @@ const BookNowProvider = ({ children }) => {
         setSignUp,
         signIn,
         setSignIn,
+        bookingData,
       }}
     >
       {children}

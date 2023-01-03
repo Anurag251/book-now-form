@@ -1,34 +1,27 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
 
-const ProgressBarComponent = () => {
-  const { pathname } = useLocation();
-
+const ProgressBarComponent = ({ currentPosition }) => {
   return (
     <div className="progress-bar">
       <ul>
         <li
-          className={`step ${
-            pathname === "/service-details" || pathname === "/date-time"
-              ? "done"
-              : ""
-          } ${pathname === "/" ? "active" : ""}`}
+          className={`step ${currentPosition >= 33.33 ? "done" : ""} ${
+            currentPosition === 0 ? "active" : ""
+          }`}
         >
           <span></span>
           <p>Frequency</p>
         </li>
 
         <div
-          className={`line ${
-            pathname === "/service-details" || pathname === "/date-time"
-              ? "done"
-              : ""
-          } ${pathname === "/" ? "active" : ""}`}
+          className={`line ${currentPosition >= 33.33 ? "done" : ""} ${
+            currentPosition === 0 ? "active" : ""
+          }`}
         ></div>
 
         <li
-          className={`step ${pathname === "/date-time" ? "done" : ""} ${
-            pathname === "/service-details" ? "active" : ""
+          className={`step ${currentPosition >= 66.66 ? "done" : ""} ${
+            currentPosition === 33.33 ? "active" : ""
           }`}
         >
           <span></span>
@@ -36,14 +29,14 @@ const ProgressBarComponent = () => {
         </li>
 
         <div
-          className={`line ${pathname === "/date-time" ? "done" : ""} ${
-            pathname === "/service-details" ? "active" : ""
+          className={`line ${currentPosition >= 66.66 ? "done" : ""} ${
+            currentPosition === 33.33 ? "active" : ""
           }`}
         ></div>
 
         <li
-          className={`step ${pathname === "/service-datails" ? "done" : ""} ${
-            pathname === "/date-time" ? "active" : ""
+          className={`step ${currentPosition >= 99.99 ? "done" : ""} ${
+            currentPosition === 66.66 ? "active" : ""
           }`}
         >
           <span></span>
@@ -51,14 +44,14 @@ const ProgressBarComponent = () => {
         </li>
 
         <div
-          className={`line ${pathname === "/checkout" ? "done" : ""} ${
-            pathname === "/date-time" ? "active" : ""
+          className={`line ${currentPosition >= 99.99 ? "done" : ""} ${
+            currentPosition === 66.66 ? "active" : ""
           }`}
         ></div>
 
         <li
-          className={`step ${pathname === "/service-datails" ? "done" : ""} ${
-            pathname === "/checkout" ? "active" : ""
+          className={`step ${currentPosition >= 133.32 ? "done" : ""} ${
+            currentPosition === 99.99 ? "active" : ""
           }`}
         >
           <span></span>

@@ -3,6 +3,13 @@
 body
   background-color: #F2F2F2
 
+button
+  cursor: pointer
+
+/***********      section      ***********/
+section
+  padding: 70px 0 0
+
 /***********      wrapper      ***********/
 .wrapper
   max-width: 1300px
@@ -16,8 +23,392 @@ body
 /***********      title      ***********/
 .title
   text-align: center
+  margin-bottom: 30px
+  @include flex($justify: center)
+  flex-direction: column
+
+  h5
+    font-size: 16px
+    letter-spacing: 2px
+    text-transform: uppercase
+    font-weight: 400
+    position: relative
+
+    &::after
+      content: ''
+      position: absolute
+      left: 0
+      bottom: 3px
+      height: 3px
+      width: 30px
+      background-color: $sec
+
+  h2
+    font-size: 20px
+    font-weight: 500
+    max-width: 300px
+
+.form-page-title
+  text-align: center
   font-size: 1.8rem
   font-weight: 600
+
+/***********      header      ***********/
+header
+  height: 70px
+  position: fixed
+  top: 0
+  left: 0
+  width: 100%
+  z-index: 10
+  @include flex($justify: center)
+
+  &.sticky
+    background-color: $light
+    box-shadow: 0 4px 10px rgba($dark, .1)
+
+  .wrapper
+    @include grid($columns: 1fr 4fr 1fr)
+    width: 100%
+
+    .logo
+      font-size: 30px
+      @include flex($justify: flex-start)
+
+      a
+        color: $dark
+
+    nav
+      @include flex($justify: center)
+
+      .link-btn-list
+        @include flex($justify: center)
+
+        li
+          margin: 0 30px
+
+          .link
+            position: relative
+            font-size: 16px
+            cursor: pointer
+
+            &:hover
+              &::after
+                width: 100%
+
+            &.active
+              font-weight: 600
+              color: $sec
+
+              &::after
+                width: 100%
+                background-color: $sec
+
+            &::after
+              content: ''
+              position: absolute
+              left: 0
+              bottom: 0
+              width: 50%
+              height: 2px
+              border-radius: 4px
+              background-color: $para
+              transition: .4s cubic-bezier(0,1,0,1)
+
+    .login-sign-up-btns
+      @include flex($justify: flex-end)
+
+      .login
+        font-size: 16px
+
+      .sign-up-btn
+        padding: .4rem .8rem
+        background: linear-gradient(90deg, $pri, $sec)
+        border-radius: 4px
+        margin-left: 20px
+        color: $light
+        font-size: 14px
+
+    .side-nav-btn
+      display: none
+      cursor: pointer
+
+      i
+        font-size: 18px
+
+/***********      side-nav      ***********/
+.side-nav
+  position: fixed
+  top: 0
+  left: -300px
+  width: 260px
+  height: 100%
+  z-index: 100
+  pointer-events: none
+  @include trans()
+  border-radius: 0
+  background-color: #fff
+  border: 10px solid rgba($light, .4)
+  background-image: linear-gradient(180deg, rgba($sec, .9), rgba($pri, .9))
+  padding: 1rem
+
+  &.active
+    left: 0px
+    pointer-events: auto
+
+  .side-nav-close-btn
+    position: absolute
+    top: 10px
+    right: -10px
+    height: 30px
+    width: 40px
+    background-color: $light
+    border-radius: 30px 0px 0 30px
+    @include flex($justify: center)
+    color: #fa0000
+    font-size: 16px
+    cursor: pointer
+
+    i
+      @include trans()
+      transform: translateX(5px)
+
+    &:hover
+      i
+        transform: translateX(-5px)
+
+  .logo
+    height: 60px
+    width: 100%
+    @include flex($justify: center)
+
+    h3
+      color: $light
+
+  .nav-links
+    a.active
+      .nav-btn
+        // background-color: rgba($pri, .8)
+        // box-shadow: 0 0 10px rgba($dark, .1)
+        // color: $dark
+        border: 1px solid $light
+        transform: scale(1.03)
+
+    .nav-btn
+      padding: 1rem 1rem
+      font-size: 18px
+      color: $light
+      border-radius: 0
+      width: 100%
+      text-align: left
+      margin-bottom: 5px
+      cursor: pointer
+      transition: .4s all cubic-bazier(0,1,0,1)
+
+      &:hover
+        background-color: rgba($light,.1)
+        box-shadow: 0 3px 10px rgba($dark, .1)
+        transform: scale(1.03)
+
+  .login-signup-btns
+    @include flex($justify: space-between)
+    padding: 0 .5rem
+    margin-top: .5rem
+
+    .login-btn
+      .link
+        @include button()
+        padding: .3rem 1rem
+        font-size: 14px
+        font-weight: 600
+        color: $light
+        border: 2px solid $light
+        background: none
+
+    .sign-up-btn
+      margin-left: .5rem
+
+      .link
+        font-size: 14px
+        @include button()
+        padding: .3rem 1rem
+        border-radius: 6px
+        background-color: $light
+        color: $sec
+
+/***********      banner      ***********/
+.banner
+  padding-top: 70px
+
+  .wrapper
+    @include grid($columns: 1fr 1fr)
+    align-items: center
+
+    .banner-content
+      h1
+        font-size: 38px
+        font-weight: 500
+        line-height: 3rem
+
+      p
+        font-size: 20px
+        margin: 1.3rem 0
+
+      button
+        font-size: 16px
+        padding: .5rem 1.5rem
+        text-transform: uppercase
+        font-size: 500
+        background-color: $sec
+        color: $light
+        border-radius: 4px
+
+    .image-sec
+      width: 100%
+      height: 500px
+
+      img
+        @include image()
+        object-fit: contain
+
+/***********      services      ***********/
+.services-card
+  position: relative
+  margin-top: 60px
+  background: linear-gradient(90deg, $pri, $sec)
+  padding: 1rem
+  border-radius: 4px
+  text-align: center
+  color: $light
+
+  .icon
+    position: absolute
+    left: 50%
+    top: 0
+    transform: translate(-50%, -50%)
+    height: 100px
+    width: 100px
+    border-radius: 50%
+    background-color: $light
+    @include flex($justify: center)
+    box-shadow: 0 4px 10px rgba($dark, .1)
+
+    img
+      height: 50px
+      width: 50px
+
+  .card-title
+    margin: 50px 0 .6rem
+    font-size: 20px
+    font-weight: 500
+
+  p
+    font-size: 14px
+    line-height: 1.6rem
+
+/***********      testimonial      ***********/
+.testimonial
+  .testimonial-list
+    .swiper-slide
+      padding: 1rem .4rem
+      transition: 1s
+
+    .swiper-slide-active
+      transform: scale(1.1)
+      @include flex($justify: center)
+
+      .item
+        background: linear-gradient(90deg, rgba($pri, .2), rgba($sec, .2))
+        border: none
+
+    .item
+      border: 1px solid rgba($dark, .2)
+      border-radius: 4px
+
+      .item-body
+        padding: 1rem
+
+        .icon
+          margin-bottom: 10px
+          height: 20px
+          width: 20px
+          @include flex($justify: center)
+
+          img
+            @include bgImage()
+            object-fit: contain
+
+        .user-message
+          font-size: 16px
+          color: rgba($dark, .7)
+          margin: 1rem 0
+
+      .item-footer
+        padding: .5rem 1rem
+        @include flex($justify: flex-start)
+        border-top: 1px solid rgba($dark, .2)
+
+        .user-image
+          height: 45px
+          width: 45px
+          border-radius: 50%
+          margin-right: 10px
+
+        .details
+          .name
+            font-size: 15px
+            font-weight: 500
+
+          .role
+            font-size: 12px
+
+/***********      footer      ***********/
+footer
+  margin-top: 70px
+  background: linear-gradient(90deg, rgba($pri, .3), rgba($sec, .3))
+
+  .footer-content-list
+    padding: 70px 0
+    @include grid($columns: 1fr 1fr 1fr 1fr)
+
+    .item
+      .logo
+        font-size: 30px
+
+      .footer-title
+        font-size: 18px
+        font-weight: 500
+        margin-bottom: 10px
+
+      .other-links
+        li
+          margin-bottom: 5px
+
+          button
+            cursor: pointer
+
+      .social-media
+        margin-top: 1rem
+
+        .social-media-links
+          @include flex($justify: flex-start)
+
+          li
+            margin-right: 10px
+
+            button
+              height: 40px
+              width: 40px
+              border: 2px solid #343434
+              border-radius: 50%
+              color: #343434
+              @include flex($justify: center)
+              font-size: 14px
+
+  .copy-right
+    padding: 1.5rem 0
+    font-size: 18px
+    border-top: 1px solid rgba($dark, .3)
 
 /***********      custom input      ***********/
 .custom-input
@@ -90,14 +481,10 @@ body
     color: $para
 
 /***********      select button list      ***********/
-.select-button-list
-  @include flex($justify: flex-start)
-  gap: .4rem
-  overflow-x: auto
-  padding: .3rem
-
+.section
   ::-webkit-scrollbar
-    width: 5px
+    width: 0
+    height: 0
 
   ::-webkit-scrollbar-track
     border: none
@@ -106,6 +493,14 @@ body
   ::-webkit-scrollbar-thumb
     background-color: #5e5e5e
     border-radius: 10px
+
+.select-button-list
+  @include flex($justify: flex-start)
+  gap: .9rem
+  overflow-x: auto
+  padding: .3rem
+  padding-bottom: 10px
+  scroll-snap-type: x mandatory
 
   &.yesNo
     flex-direction: column
@@ -119,6 +514,7 @@ body
     @include flex($justify: center)
     flex-direction: column
     margin-top: .1rem
+    scroll-snap-align: center
 
     .button-label
       font-size: .7rem
@@ -135,7 +531,7 @@ body
     border: 1px solid #dcdcdc
     color: #8C9FB3
     cursor: pointer
-    font-size: 1rem
+    font-size: .9rem
     transition: .5s cubic-bezier(0,1,0,1)
 
     &:hover
@@ -231,6 +627,7 @@ body
 /***********      book now page      ***********/
 .book-now-page
   padding: 3rem 0
+  margin-top: 2rem
 
   main
     @include flex($justify: space-between)
@@ -241,11 +638,23 @@ body
     background-color: $light
     box-shadow: 0 0 15px rgba($pri, .2)
     border-left: 2.5px solid $pri
-    // border-bottom: 2.5px solid $pri
     border-radius: 8px
     @include flex($justify: space-between)
     flex-direction: column
     align-items: flex-start
+    overflow: hidden
+
+    .all-forms-fields
+      display: flex
+      justify-content: space-between
+      align-items: flex-start
+      width: 300%
+      @include trans()
+
+      // transition: .4s cubic-bezier(0, 1, 0, 1)
+
+      .form-area
+        width: 33.33%
 
     .form-title
       margin-bottom: .6rem
@@ -313,6 +722,7 @@ body
   width: 34%
   position: sticky
   top: 20px
+  overflow-y: auto
 
   .list
     background-image: linear-gradient(130deg, $pri, $sec)
@@ -436,6 +846,7 @@ body
 
     .professional-list
       @include flex($justify: flex-start)
+      align-items: flex-start
       margin-top: 12px
       overflow-x: auto
       gap: 15px
@@ -443,6 +854,9 @@ body
       padding: 1rem .5rem
 
       .item
+        min-width: 120px
+        max-width: 120px
+        width: 100%
         border: 1px solid rgba($dark, .12)
         @include flex($justify: center)
         flex-direction: column
@@ -477,6 +891,9 @@ body
           font-weight: 600
           color: $sec
           padding: 0 .5rem
+
+          &.random
+            margin-bottom: .5rem
 
         .rating
           font-size: .8rem
