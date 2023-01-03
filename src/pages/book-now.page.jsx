@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, Route, useLocation, useNavigate } from "react-router-dom";
 import CustomTitleComponent from "../components/custom-title.component";
 import DateAndTimeComponent from "../components/date-time.component";
@@ -21,6 +21,10 @@ const BookNowPage = () => {
   const decrement = () => {
     setCurrentPosition(currentPosition - 33.33);
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="book-now-page">

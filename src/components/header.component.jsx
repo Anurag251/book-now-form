@@ -10,7 +10,7 @@ const HeaderComponent = () => {
 
   useEffect(() => {
     window.onscroll = () => {
-      if (scrollY > 50) {
+      if (scrollY > 10) {
         setSticky("sticky");
       } else {
         setSticky("");
@@ -35,19 +35,19 @@ const HeaderComponent = () => {
               </li>
 
               <li>
-                <Link>
+                <Link to="/about">
                   <button className="link">About</button>
                 </Link>
               </li>
 
               <li>
-                <Link>
+                <Link to="/services">
                   <button className="link">Services</button>
                 </Link>
               </li>
 
               <li>
-                <Link>
+                <Link to="/contact">
                   <button className="link">Contact</button>
                 </Link>
               </li>
@@ -91,35 +91,35 @@ const HeaderComponent = () => {
           </li>
 
           <li>
-            <Link to="/" className="navLinkBtn">
+            <Link to="/about" className="navLinkBtn">
               <button className="nav-btn">About</button>
             </Link>
           </li>
 
           <li>
-            <Link to="/" className="navLinkBtn">
+            <Link to="/services" className="navLinkBtn">
               <button className="nav-btn">Service</button>
             </Link>
           </li>
 
           <li>
-            <Link to="/" className="navLinkBtn">
+            <Link to="/contact" className="navLinkBtn">
               <button className="nav-btn">Contact</button>
             </Link>
           </li>
         </ul>
 
-        <div class="login-signup-btns">
-          <div class="login-btn">
-            <a href="login.html">
-              <button class="link">Login</button>
-            </a>
+        <div className="login-signup-btns">
+          <div className="login-btn">
+            <Link to="/login">
+              <button className="link">Login</button>
+            </Link>
           </div>
 
-          <div class="sign-up-btn">
-            <a href="sign-up.html">
-              <button class="link">Sign up</button>
-            </a>
+          <div className="sign-up-btn">
+            <Link to="/sign-up">
+              <button className="link">Sign up</button>
+            </Link>
           </div>
         </div>
       </div>

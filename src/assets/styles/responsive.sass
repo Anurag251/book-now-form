@@ -68,8 +68,8 @@
 
         .previous
           position: fixed
-          top: 10px
-          left: 10px
+          bottom: 12px
+          right: 100px
           color: $light
           height: 30px
           width: 30px
@@ -135,6 +135,11 @@
 
         p
           display: none
+
+  /***********      services page      ***********/
+  .services-page
+    .list
+      @include grid($columns: 1fr 1fr 1fr)
 
 @media only screen and ( max-width:  800px)
   .wrapper
@@ -264,6 +269,29 @@
             margin-bottom: .4rem
             margin-left: 1.5rem
 
+  /***********      services page      ***********/
+  .services-page
+    .list
+      @include grid($columns: 1fr 1fr )
+
+  /******************      contact-page      ********************/
+  .contact-page
+    .contact-form
+      padding: 1rem
+
+      .form-area
+        .groups
+          @include grid($columns: 1fr)
+
+@media only screen and ( max-width:  600px)
+  /******************      contact-page      ********************/
+  .contact-sec
+    @include grid($columns: 1fr)
+
+    .form-area
+      .groups
+        @include grid($columns: 1fr)
+
 @media only screen and ( max-width:  500px)
   /***********      banner      ***********/
   .banner
@@ -276,6 +304,11 @@
         p
           font-size: 18px
           margin: 1.3rem 0
+
+  /***********      services page      ***********/
+  .services-page
+    .list
+      @include grid($columns: 1fr)
 
 @media only screen and ( max-width:  450px)
   .wrapper

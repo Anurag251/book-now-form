@@ -57,6 +57,19 @@ $para: #666666
 @mixin trans()
   transition: all .5s cubic-bezier(0.77, 0, 0.175, 1)
 
+@mixin fastTrans()
+  transition: all .4s cubic-bezier(0, 1, 0, 1)
+
+@mixin gradient($deg)
+  background: linear-gradient($deg, $pri, $sec)
+
 @mixin button()
-  font-size: 18px
-  cursor: pointer
+  padding: .5rem 1rem
+  @include gradient($deg: 90deg)
+  border-radius: 4px
+  color: $light
+  @include fastTrans()
+
+  &:hover
+    transform: translateY(-4px) scale(1.01)
+    box-shadow: 0 2px 5px rgba($dark, .4)
