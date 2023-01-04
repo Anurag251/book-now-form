@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { BookNowContext } from "../context/book-now/book-now-context";
-import HoursModalComponent from "./hours-modal.component";
-import MaterialModalComponent from "./material-modal.component";
 // import GoogleMapPopupComponent from "./google-map-popup.component";
 
 const ServiceDetailsComponent = ({ currentPosition }) => {
@@ -16,10 +14,6 @@ const ServiceDetailsComponent = ({ currentPosition }) => {
   return (
     <div className="service-details-section">
       {/* <GoogleMapPopupComponent /> */}
-
-      <HoursModalComponent />
-
-      <MaterialModalComponent />
 
       <div className="section">
         <div className="form-title">Enter Your Address Please</div>

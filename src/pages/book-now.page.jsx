@@ -24,7 +24,7 @@ const BookNowPage = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+  }, [currentPosition]);
 
   return (
     <div className="book-now-page">
