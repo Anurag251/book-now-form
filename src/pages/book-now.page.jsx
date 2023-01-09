@@ -1,12 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, Route, useLocation, useNavigate } from "react-router-dom";
 import CustomTitleComponent from "../components/custom-title.component";
 import DateAndTimeComponent from "../components/date-time.component";
 import FrequencyComponent from "../components/frequency.component";
 import ProgressBarComponent from "../components/progress-bar.component";
 import SelectedInformationsComponent from "../components/selected-informations.component";
 import ServiceDetailsComponent from "../components/service-details.component";
-import SignInAndSignUpModalComponent from "../components/sign-in-and-sign-up-modal/sign-in-and-sign-up-modal.component";
 import { BookNowContext } from "../context/book-now/book-now-context";
 
 const BookNowPage = () => {
@@ -28,8 +26,6 @@ const BookNowPage = () => {
 
   return (
     <div className="book-now-page">
-      {formValues.currentUser === "" ? <SignInAndSignUpModalComponent /> : null}
-
       <div className="wrapper">
         <div className="title-area">
           <CustomTitleComponent title={formValues.title} />

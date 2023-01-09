@@ -1,12 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { BookNowContext } from "../context/book-now/book-now-context";
 
 const HeaderComponent = () => {
   const [sticky, setSticky] = useState("");
 
   const [hidden, setHidden] = useState(false);
 
+  const { formValues, setFormValues, message, setMessage } =
+    useContext(BookNowContext);
+
   const isHidden = () => setHidden(!hidden);
+
+  const location = useLocation();
 
   useEffect(() => {
     window.onscroll = () => {
@@ -30,38 +36,125 @@ const HeaderComponent = () => {
             <ul className="link-btn-list">
               <li>
                 <Link to="/">
-                  <button className="link active">Home</button>
+                  <button
+                    className={`link ${
+                      location.pathname === "/" ? "active" : ""
+                    }`}
+                    onClick={() =>
+                      setFormValues({ ...formValues, currentPath: "/" })
+                    }
+                  >
+                    Home
+                  </button>
                 </Link>
               </li>
 
               <li>
                 <Link to="/about">
-                  <button className="link">About</button>
+                  <button
+                    className={`link ${
+                      location.pathname === "/about" ? "active" : ""
+                    }`}
+                    onClick={() =>
+                      setFormValues({ ...formValues, currentPath: "/about" })
+                    }
+                  >
+                    About
+                  </button>
                 </Link>
               </li>
 
               <li>
                 <Link to="/services">
-                  <button className="link">Services</button>
+                  <button
+                    className={`link ${
+                      location.pathname === "/services" ? "active" : ""
+                    }`}
+                    onClick={() =>
+                      setFormValues({ ...formValues, currentPath: "/services" })
+                    }
+                  >
+                    Services
+                  </button>
                 </Link>
               </li>
 
               <li>
                 <Link to="/contact">
-                  <button className="link">Contact</button>
+                  <button
+                    className={`link ${
+                      location.pathname === "/contact" ? "active" : ""
+                    }`}
+                    onClick={() =>
+                      setFormValues({ ...formValues, currentPath: "/contact" })
+                    }
+                  >
+                    Contact
+                  </button>
                 </Link>
               </li>
             </ul>
           </nav>
 
           <div className="login-sign-up-btns">
-            <Link>
-              <button className="login">Login</button>
-            </Link>
+            {formValues.currentUser ? (
+              <button
+                className="sign-up-btn"
+                onClick={() => {
+                  localStorage.removeItem("token");
+                  setFormValues({
+                    ...formValues,
+                    currentUser: false,
+                  });
 
-            <Link>
-              <button className="sign-up-btn">Sign Up</button>
-            </Link>
+                  setMessage({
+                    ...message,
+                    hidden: true,
+                    type: "success",
+                    message: "Your Are Sign Out",
+                  });
+
+                  setTimeout(() => {
+                    setMessage({
+                      ...message,
+                      hidden: false,
+                      type: "",
+                      message: "",
+                    });
+                  }, 4000);
+                }}
+              >
+                Sign Out
+              </button>
+            ) : (
+              <React.Fragment>
+                <button
+                  className="login"
+                  onClick={() => {
+                    setFormValues({
+                      ...formValues,
+                      signInSignUpModal: true,
+                      isSignIn: true,
+                    });
+                  }}
+                >
+                  Login
+                </button>
+
+                <button
+                  className="sign-up-btn"
+                  onClick={() => {
+                    setFormValues({
+                      ...formValues,
+                      signInSignUpModal: true,
+                      isSignIn: false,
+                    });
+                  }}
+                >
+                  Sign Up
+                </button>
+              </React.Fragment>
+            )}
           </div>
 
           <div className="side-nav-btn">
@@ -85,41 +178,107 @@ const HeaderComponent = () => {
 
         <ul className="nav-links">
           <li>
-            <Link to="/" className="navLinkBtn">
-              <button className="nav-btn">Home</button>
+            <Link
+              to="/"
+              className={`navLinkBtn ${
+                location.pathname === "/" ? "active" : ""
+              }`}
+            >
+              <button
+                className="nav-btn"
+                onClick={() =>
+                  setFormValues({ ...formValues, currentPath: "/" })
+                }
+              >
+                Home
+              </button>
             </Link>
           </li>
 
           <li>
-            <Link to="/about" className="navLinkBtn">
-              <button className="nav-btn">About</button>
+            <Link
+              to="/about"
+              className={`navLinkBtn ${
+                location.pathname === "/about" ? "active" : ""
+              }`}
+            >
+              <button
+                className="nav-btn"
+                onClick={() =>
+                  setFormValues({ ...formValues, currentPath: "/about" })
+                }
+              >
+                About
+              </button>
             </Link>
           </li>
 
           <li>
-            <Link to="/services" className="navLinkBtn">
-              <button className="nav-btn">Service</button>
+            <Link
+              to="/services"
+              className={`navLinkBtn ${
+                location.pathname === "/services" ? "active" : ""
+              }`}
+            >
+              <button
+                className="nav-btn"
+                onClick={() =>
+                  setFormValues({ ...formValues, currentPath: "/services" })
+                }
+              >
+                Service
+              </button>
             </Link>
           </li>
 
           <li>
-            <Link to="/contact" className="navLinkBtn">
-              <button className="nav-btn">Contact</button>
+            <Link
+              to="/contact"
+              className={`navLinkBtn ${
+                location.pathname === "/contact" ? "active" : ""
+              }`}
+            >
+              <button
+                className="nav-btn"
+                onClick={() =>
+                  setFormValues({ ...formValues, currentPath: "/contact" })
+                }
+              >
+                Contact
+              </button>
             </Link>
           </li>
         </ul>
 
         <div className="login-signup-btns">
           <div className="login-btn">
-            <Link to="/login">
-              <button className="link">Login</button>
-            </Link>
+            <button
+              className="link"
+              onClick={() => {
+                setFormValues({
+                  ...formValues,
+                  signInSignUpModal: true,
+                  isSignIn: true,
+                });
+              }}
+            >
+              Login
+            </button>
           </div>
 
           <div className="sign-up-btn">
-            <Link to="/sign-up">
-              <button className="link">Sign up</button>
-            </Link>
+            <button
+              className="link"
+              onClick={() => {
+                setFormValues({
+                  ...formValues,
+                  signInSignUpModal: true,
+                  isSignIn: false,
+                });
+              }}
+            >
+              Sign up
+            </button>
           </div>
         </div>
       </div>

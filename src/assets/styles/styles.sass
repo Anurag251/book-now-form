@@ -53,6 +53,30 @@ section
   font-size: 1.8rem
   font-weight: 600
 
+.allMessage
+  position: fixed
+  left: 50%
+  top: -100px
+  transform: translateX(-50%)
+  padding: .5rem
+  max-width: 300px
+  border-radius: 4px
+  @include trans()
+  z-index: 1000
+  background-color: #fff
+  box-shadow: 0 0 6px rgba($dark, .1)
+
+  &.error
+    color: #a00000
+    border-top: 2px solid #a00000
+
+  &.success
+    color: $pri
+    border-bottom: 2px solid $pri
+
+  &.active
+    top: 10px
+
 /***********      header      ***********/
 header
   height: 70px
@@ -1108,7 +1132,23 @@ footer
     .modal-body
       margin-top: 1.2rem
 
+      @keyframes loadingBtn
+        0%
+          transform: translate(-50%, -50%) rotate(0)
+
+        100%
+          transform: translate(-50%, -50%) rotate(360deg)
+
+      .error
+        padding: .5rem
+        background-color: rgba(#a00000, .1)
+        border-radius: 4px
+        color: #a00000
+        border-left: 2px solid #a00000
+        margin-bottom: 1rem
+
       .form-submit-btn
+        position: relative
         height: 2.7rem
         width: 100%
         @include flex($justify: center)
@@ -1123,6 +1163,28 @@ footer
         &:hover
           box-shadow: 0 2px 6px rgba($pri, .5)
           transform: translateY(-2px)
+
+        &::after
+          content: ''
+          position: absolute
+          top: 50%
+          left: 50%
+          transform: translate(-50%, -50%)
+          height: 30px
+          width: 30px
+          border: 2px solid $light
+          border-radius: 50%
+          border-top: 2px solid transparent
+          border-bottom: 2px solid transparent
+          opacity: 0
+
+        &.loading
+          opacity: .5
+          pointer-events: none
+
+          &::after
+            opacity: 1
+            animation: loadingBtn 1s cubic-bezier(0.77, 0, 0.175, 1) infinite
 
     .other-option
       @include flex($justify: space-between)

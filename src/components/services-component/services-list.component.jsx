@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -10,6 +10,13 @@ import "swiper/css/pagination";
 import ServiceCardComponent from "./service-card.component";
 
 const ServicesListComponent = () => {
+  const [services, setServices] = useState([]);
+  useEffect(() => {
+    fetch("https://stnepal.com.np/sherpatech/api/v1/services")
+      .then((res) => res.json())
+      .then((data) => setServices(data.data.service_details));
+  }, []);
+
   return (
     <div className="services-list">
       <Swiper
@@ -37,25 +44,13 @@ const ServicesListComponent = () => {
         }}
         className="mySwiper"
       >
-        <SwiperSlide>
-          <ServiceCardComponent />
-        </SwiperSlide>
-
-        <SwiperSlide>
-          <ServiceCardComponent />
-        </SwiperSlide>
-
-        <SwiperSlide>
-          <ServiceCardComponent />
-        </SwiperSlide>
-
-        <SwiperSlide>
-          <ServiceCardComponent />
-        </SwiperSlide>
-
-        <SwiperSlide>
-          <ServiceCardComponent />
-        </SwiperSlide>
+        {services.length
+          ? services.map((service) => (
+              <SwiperSlide key={service.id}>
+                <ServiceCardComponent service={service} />
+              </SwiperSlide>
+            ))
+          : null}
       </Swiper>
     </div>
   );

@@ -10,11 +10,26 @@ import FooterComponent from "./components/footer.component";
 import AboutPage from "./pages/about.page";
 import HoursModalComponent from "./components/hours-modal.component";
 import MaterialModalComponent from "./components/material-modal.component";
+import SignInAndSignUpModalComponent from "./components/sign-in-and-sign-up-modal/sign-in-and-sign-up-modal.component";
+import { useContext } from "react";
+import { BookNowContext } from "./context/book-now/book-now-context";
 // import GoogleMapPopupComponent from "./components/google-map-popup.component";
 
 const App = () => {
+  const { formValues, message } = useContext(BookNowContext);
+
   return (
     <div className="App">
+      {!formValues.currentUser ? <SignInAndSignUpModalComponent /> : null}
+
+      <p
+        className={`allMessage ${message.type} ${
+          message.hidden ? "active" : ""
+        } `}
+      >
+        {message.message}
+      </p>
+
       <HeaderComponent />
 
       <HoursModalComponent />

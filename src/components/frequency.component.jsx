@@ -1,7 +1,8 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BookNowContext } from "../context/book-now/book-now-context";
 
 const FrequencyComponent = ({ currentPosition }) => {
+  const [frequency, setFrequency] = useState([]);
   const { formValues, setFormValues } = useContext(BookNowContext);
 
   useEffect(() => {
@@ -9,6 +10,14 @@ const FrequencyComponent = ({ currentPosition }) => {
       setFormValues({ ...formValues, title: "Frequency" });
     }
   }, [currentPosition]);
+
+  useEffect(() => {
+    fetch("  https://stnepal.com.np/sherpatech/api/v1/frequency")
+      .then((res) => res.json())
+      .then((data) => setFrequency(data.data.frequency_details));
+  }, []);
+
+  // console.log(frequency);
 
   return (
     <div className="frequency">

@@ -1,21 +1,19 @@
 import { createContext, useEffect, useState } from "react";
 
-import image from "../../assets/images/user.png";
-import image2 from "../../assets/images/user2.png";
-import image3 from "../../assets/images/user3.jpeg";
-import image4 from "../../assets/images/user4.jpeg";
-import image5 from "../../assets/images/user5.png";
-
 export const BookNowContext = createContext();
 
 const BookNowProvider = ({ children }) => {
   const [formValues, setFormValues] = useState({
-    currentUser: "",
+    currentUser: false,
+    currentPath: "/",
 
+    isSignIn: null,
     signInSignUpModal: false,
     bookingSummaryHidden: false,
     isHoursModalHidden: false,
     isMaterialModalHidden: false,
+    buttonLoading: false,
+
     title: "Frequency",
 
     frequency: {
@@ -51,10 +49,13 @@ const BookNowProvider = ({ children }) => {
 
   const [signUp, setSignUp] = useState({
     fName: "",
+    mName: "",
     lName: "",
-    phoneNumber: "",
     email: "",
+    phoneNumber: "",
+    address: "",
     password: "",
+    passwordConfirmation: "",
   });
 
   const [signIn, setSignIn] = useState({
@@ -62,70 +63,13 @@ const BookNowProvider = ({ children }) => {
     password: "",
   });
 
-  const [bookingData, setBookingData] = useState([
-    {
-      id: 2,
-      name: "Roy",
-      rating: 5.6,
-      imageUrl: image,
-    },
+  const [message, setMessage] = useState({
+    hidden: false,
+    type: "",
+    message: "",
+  });
 
-    {
-      id: 3,
-      name: "Emiliana",
-      rating: 3.2,
-      imageUrl: image2,
-    },
-
-    {
-      id: 4,
-      name: "Daisy",
-      rating: 4.2,
-      imageUrl: image3,
-    },
-
-    {
-      id: 5,
-      name: "Apsara",
-      rating: 3.2,
-      imageUrl: image4,
-    },
-
-    {
-      id: 6,
-      name: "Dolphin",
-      rating: 7.2,
-      imageUrl: image5,
-    },
-
-    {
-      id: 7,
-      name: "Shark",
-      rating: 9.4,
-      imageUrl: image,
-    },
-
-    {
-      id: 8,
-      name: "Snake",
-      rating: 5.8,
-      imageUrl: image2,
-    },
-
-    {
-      id: 9,
-      name: "Dragon",
-      rating: 5.2,
-      imageUrl: image3,
-    },
-
-    {
-      id: 10,
-      name: "Tom",
-      rating: 5.2,
-      imageUrl: image4,
-    },
-  ]);
+  const [employees, setEmployees] = useState([]);
 
   useEffect(() => {
     const { frequency, hours, noOfProfessional, materials } = formValues;
@@ -148,6 +92,23 @@ const BookNowProvider = ({ children }) => {
     formValues.materials,
   ]);
 
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      setFormValues({ ...formValues, currentUser: true });
+    } else {
+      setFormValues({ ...formValues, currentUser: false });
+    }
+  }, []);
+
+  useEffect(() => {
+    fetch("https://stnepal.com.np/sherpatech/api/v1/employees")
+      .then((res) => res.json())
+      .then((data) => {
+        setEmployees(data.data.employee_details);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
     <BookNowContext.Provider
       value={{
@@ -157,7 +118,9 @@ const BookNowProvider = ({ children }) => {
         setSignUp,
         signIn,
         setSignIn,
-        bookingData,
+        employees,
+        setMessage,
+        message,
       }}
     >
       {children}

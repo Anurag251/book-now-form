@@ -3,7 +3,7 @@ import { BookNowContext } from "../context/book-now/book-now-context";
 import image1 from "../assets/images/user1.svg";
 
 const DateAndTimeComponent = ({ currentPosition }) => {
-  const { formValues, setFormValues, bookingData } = useContext(BookNowContext);
+  const { formValues, setFormValues, employees } = useContext(BookNowContext);
 
   useEffect(() => {
     if (currentPosition === 66.66) {
@@ -46,7 +46,7 @@ const DateAndTimeComponent = ({ currentPosition }) => {
         <p className="sub-title">Top-rated professionals in your area</p>
 
         <div className="professional-list">
-          <div
+          {/*  <div
             className={`item ${
               formValues.professional.id === "1" ? "active" : ""
             }`}
@@ -70,39 +70,52 @@ const DateAndTimeComponent = ({ currentPosition }) => {
             <p>We'll assign the best professional</p>
 
             <button className="details-btn">See Details</button>
-          </div>
+          </div> */}
 
-          {bookingData.map((data) => (
-            <div
-              key={data.id}
-              className={`item ${
-                formValues.professional.id === data.id ? "active" : ""
-              }`}
-              id={data.id}
-              onClick={() =>
-                setFormValues({
-                  ...formValues,
-                  professional: {
-                    id: data.id,
-                    name: data.name,
-                    rating: data.rating,
-                    imageUrl: data.imageUrl,
-                  },
-                })
-              }
-            >
-              <img className="user-image" src={data.imageUrl} alt="" />
+          {employees.length
+            ? employees.map((data) => (
+                <div
+                  key={data.id}
+                  className={`item ${
+                    formValues.professional.id === data.id ? "active" : ""
+                  }`}
+                  id={data.id}
+                  onClick={() =>
+                    setFormValues({
+                      ...formValues,
+                      professional: {
+                        id: data.id,
+                        name:
+                          data.first_name +
+                          " " +
+                          (data.middle_name !== null ? data.middle_name : "") +
+                          " " +
+                          data.last_name,
+                        rating: data.rating,
+                        imageUrl: data.imageUrl,
+                      },
+                    })
+                  }
+                >
+                  <img
+                    className="user-image"
+                    src={data.image ? data.image.big_image : null}
+                    alt=""
+                  />
 
-              <div className="name">{data.name}</div>
-              {data.rating !== 0 ? (
-                <div className="rating">✭ {data.rating}</div>
-              ) : null}
+                  <div className="name">
+                    {data.first_name} {data.middle_name} {data.last_name}
+                  </div>
+                  {data.rating !== 0 ? (
+                    <div className="rating">✭ {data.rating}</div>
+                  ) : null}
 
-              <p>Recommended in your area</p>
+                  <p>Recommended in your area</p>
 
-              <button className="details-btn">See Details</button>
-            </div>
-          ))}
+                  <button className="details-btn">See Details</button>
+                </div>
+              ))
+            : null}
         </div>
       </div>
 
