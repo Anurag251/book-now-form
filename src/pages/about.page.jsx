@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import aboutImage from "../assets/images/banner-image.png";
 import TitleComponent from "../components/title.component";
 
 const AboutPage = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <section>
       <div className="wrapper">

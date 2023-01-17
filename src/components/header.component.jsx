@@ -111,7 +111,7 @@ const HeaderComponent = () => {
                     ...message,
                     hidden: true,
                     type: "success",
-                    message: "Your Are Sign Out",
+                    message: "You Are Sign Out",
                   });
 
                   setTimeout(() => {
@@ -251,35 +251,70 @@ const HeaderComponent = () => {
         </ul>
 
         <div className="login-signup-btns">
-          <div className="login-btn">
-            <button
-              className="link"
-              onClick={() => {
-                setFormValues({
-                  ...formValues,
-                  signInSignUpModal: true,
-                  isSignIn: true,
-                });
-              }}
-            >
-              Login
-            </button>
-          </div>
+          {formValues.currentUser ? (
+            <div className="login-btn">
+              <button
+                className="link"
+                onClick={() => {
+                  localStorage.removeItem("token");
+                  setFormValues({
+                    ...formValues,
+                    currentUser: false,
+                  });
 
-          <div className="sign-up-btn">
-            <button
-              className="link"
-              onClick={() => {
-                setFormValues({
-                  ...formValues,
-                  signInSignUpModal: true,
-                  isSignIn: false,
-                });
-              }}
-            >
-              Sign up
-            </button>
-          </div>
+                  setMessage({
+                    ...message,
+                    hidden: true,
+                    type: "success",
+                    message: "You Are Sign Out",
+                  });
+
+                  setTimeout(() => {
+                    setMessage({
+                      ...message,
+                      hidden: false,
+                      type: "",
+                      message: "",
+                    });
+                  }, 4000);
+                }}
+              >
+                Sign Out
+              </button>
+            </div>
+          ) : (
+            <React.Fragment>
+              <div className="login-btn">
+                <button
+                  className="link"
+                  onClick={() => {
+                    setFormValues({
+                      ...formValues,
+                      signInSignUpModal: true,
+                      isSignIn: true,
+                    });
+                  }}
+                >
+                  Login
+                </button>
+              </div>
+
+              <div className="sign-up-btn">
+                <button
+                  className="link"
+                  onClick={() => {
+                    setFormValues({
+                      ...formValues,
+                      signInSignUpModal: true,
+                      isSignIn: false,
+                    });
+                  }}
+                >
+                  Sign up
+                </button>
+              </div>
+            </React.Fragment>
+          )}
         </div>
       </div>
     </React.Fragment>

@@ -1,7 +1,7 @@
 import BookNowPage from "./pages/book-now.page";
 import "./assets/styles/styles.sass";
 import "./assets/styles/responsive.sass";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation, useParams } from "react-router-dom";
 import HomePage from "./pages/home.page";
 import HeaderComponent from "./components/header.component";
 import ServicesPage from "./pages/services.page";
@@ -11,12 +11,23 @@ import AboutPage from "./pages/about.page";
 import HoursModalComponent from "./components/hours-modal.component";
 import MaterialModalComponent from "./components/material-modal.component";
 import SignInAndSignUpModalComponent from "./components/sign-in-and-sign-up-modal/sign-in-and-sign-up-modal.component";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BookNowContext } from "./context/book-now/book-now-context";
 // import GoogleMapPopupComponent from "./components/google-map-popup.component";
 
 const App = () => {
-  const { formValues, message } = useContext(BookNowContext);
+  const [hideComponent, setHideComponent] = useState(false);
+  const { formValues, message, selectedService } = useContext(BookNowContext);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname.slice(1, 9) === "book-now") {
+      setHideComponent(true);
+    } else {
+      setHideComponent(false);
+    }
+  }, [location.pathname]);
 
   return (
     <div className="App">
@@ -30,7 +41,7 @@ const App = () => {
         {message.message}
       </p>
 
-      <HeaderComponent />
+      {hideComponent ? null : <HeaderComponent />}
 
       <HoursModalComponent />
 
@@ -39,18 +50,22 @@ const App = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
 
-        <Route exact path="/book-now" element={<BookNowPage />} />
+        <Route exact path="/book-now/:id" element={<BookNowPage />} />
 
         <Route exact path="/services" element={<ServicesPage />} />
 
         <Route exact path="/contact" element={<ContactPage />} />
 
         <Route exact path="/about" element={<AboutPage />} />
+
+        <Route exact path="/success" element={<h2>Success</h2>} />
+
+        <Route exact path="/cancel" element={<h2>Error</h2>} />
       </Routes>
 
       {/* <GoogleMapPopupComponent /> */}
 
-      <FooterComponent />
+      {hideComponent ? null : <FooterComponent />}
     </div>
   );
 };

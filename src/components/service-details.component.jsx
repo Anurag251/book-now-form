@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { BookNowContext } from "../context/book-now/book-now-context";
 // import GoogleMapPopupComponent from "./google-map-popup.component";
 
-const ServiceDetailsComponent = ({ currentPosition }) => {
+const ServiceDetailsComponent = ({ currentPosition, serviceDatas }) => {
   const { formValues, setFormValues } = useContext(BookNowContext);
 
   useEffect(() => {
@@ -186,7 +186,13 @@ const ServiceDetailsComponent = ({ currentPosition }) => {
         <div className="select-button-list yesNo">
           <input
             type="button"
-            onClick={() => setFormValues({ ...formValues, materials: "No" })}
+            onClick={() =>
+              setFormValues({
+                ...formValues,
+                materials: "No",
+                materialPrice: 0,
+              })
+            }
             className={`input-button ${
               formValues.materials === "No" ? "active" : ""
             }`}
@@ -195,7 +201,13 @@ const ServiceDetailsComponent = ({ currentPosition }) => {
 
           <input
             type="button"
-            onClick={() => setFormValues({ ...formValues, materials: "Yes" })}
+            onClick={() =>
+              setFormValues({
+                ...formValues,
+                materials: "Yes",
+                materialPrice: serviceDatas.cleaningmaterials,
+              })
+            }
             className={`input-button ${
               formValues.materials === "Yes" ? "active" : ""
             }`}

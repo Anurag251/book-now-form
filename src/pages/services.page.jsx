@@ -1,18 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import LoadingComponent from "../components/loading.component";
 import ServiceCardComponent from "../components/services-component/service-card.component";
 import TitleComponent from "../components/title.component";
+import { BookNowContext } from "../context/book-now/book-now-context";
 
 const ServicesPage = () => {
-  const [services, setServices] = useState([]);
+  const { services, loadingPage } = useContext(BookNowContext);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
-
-  useEffect(() => {
-    fetch("https://stnepal.com.np/sherpatech/api/v1/services")
-      .then((res) => res.json())
-      .then((data) => setServices(data.data.service_details));
   }, []);
 
   return (
@@ -24,13 +20,17 @@ const ServicesPage = () => {
             subTitle="Check out some of our top home services"
           />
 
-          <div className="list">
-            {services.length
-              ? services.map((service) => (
-                  <ServiceCardComponent key={service.id} service={service} />
-                ))
-              : null}
-          </div>
+          {loadingPage ? (
+            <LoadingComponent />
+          ) : (
+            <div className="list">
+              {services.length
+                ? services.map((service) => (
+                    <ServiceCardComponent key={service.id} service={service} />
+                  ))
+                : "No Data Found"}
+            </div>
+          )}
         </div>
       </section>
     </div>

@@ -1,9 +1,15 @@
 import React, { useContext, useEffect } from "react";
 import { BookNowContext } from "../context/book-now/book-now-context";
-import image1 from "../assets/images/user1.svg";
 
-const DateAndTimeComponent = ({ currentPosition }) => {
-  const { formValues, setFormValues, employees } = useContext(BookNowContext);
+const DateAndTimeComponent = ({
+  currentPosition,
+  professionalData,
+  professionalDatas,
+}) => {
+  const { formValues, setFormValues, selectedService } =
+    useContext(BookNowContext);
+
+  // console.log(professionalDatas);
 
   useEffect(() => {
     if (currentPosition === 66.66) {
@@ -40,121 +46,88 @@ const DateAndTimeComponent = ({ currentPosition }) => {
 
   return (
     <div className="date-time-section">
-      <div className="section">
-        <div className="form-title">Which professional do you prefer?</div>
+      {professionalDatas.length ? (
+        <div className="section">
+          <div className="form-title">Which professional do you prefer?</div>
 
-        <p className="sub-title">Top-rated professionals in your area</p>
+          <p className="sub-title">Top-rated professionals in your area</p>
 
-        <div className="professional-list">
-          {/*  <div
-            className={`item ${
-              formValues.professional.id === "1" ? "active" : ""
-            }`}
-            id="1"
-            onClick={() =>
-              setFormValues({
-                ...formValues,
-                professional: {
-                  id: 1,
-                  name: "Random",
-                  rating: 0,
-                  imageUrl: image1,
-                },
-              })
-            }
-          >
-            <img className="user-image" src={image1} alt="" />
+          <div className="professional-list">
+            {professionalDatas.map((data) => (
+              <div
+                key={data.id}
+                className={`item ${
+                  formValues.professional.id === data.id ? "active" : ""
+                }`}
+                id={data.id}
+                onClick={() =>
+                  setFormValues({
+                    ...formValues,
+                    professional: {
+                      id: data.id,
+                      name: data.first_name + " " + data.last_name,
+                      rating: 5.5,
+                      imageUrl: data.image,
+                    },
+                  })
+                }
+              >
+                <img className="user-image" src={data.image} alt="" />
 
-            <div className="name random">Random</div>
-
-            <p>We'll assign the best professional</p>
-
-            <button className="details-btn">See Details</button>
-          </div> */}
-
-          {employees.length
-            ? employees.map((data) => (
-                <div
-                  key={data.id}
-                  className={`item ${
-                    formValues.professional.id === data.id ? "active" : ""
-                  }`}
-                  id={data.id}
-                  onClick={() =>
-                    setFormValues({
-                      ...formValues,
-                      professional: {
-                        id: data.id,
-                        name:
-                          data.first_name +
-                          " " +
-                          (data.middle_name !== null ? data.middle_name : "") +
-                          " " +
-                          data.last_name,
-                        rating: data.rating,
-                        imageUrl: data.imageUrl,
-                      },
-                    })
-                  }
-                >
-                  <img
-                    className="user-image"
-                    src={data.image ? data.image.big_image : null}
-                    alt=""
-                  />
-
-                  <div className="name">
-                    {data.first_name} {data.middle_name} {data.last_name}
-                  </div>
-                  {data.rating !== 0 ? (
-                    <div className="rating">✭ {data.rating}</div>
-                  ) : null}
-
-                  <p>Recommended in your area</p>
-
-                  <button className="details-btn">See Details</button>
+                <div className="name">
+                  {data.first_name} {data.last_name}
                 </div>
-              ))
-            : null}
+                {data.rating !== 0 ? <div className="rating">✭ 5.5</div> : null}
+
+                <p>Recommended in your area</p>
+
+                <button className="details-btn">See Details</button>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      ) : (
+        "No data found"
+      )}
 
       <div className="section">
         <div className="form-title">When would you like your service?</div>
 
         <div className="day-list">
           <ul className="select-button-list">
-            {dates.map((allDate, idx) => {
-              let day = allDate.toString().split(" ")[0];
-              let month = allDate.toString().split(" ")[1];
-              let date = allDate.toString().split(" ")[2];
+            {dates
+              // .filter((data, idx) => idx === 3)
+              .map((allDate, idx) => {
+                let day = allDate.toString().split(" ")[0];
+                let month = allDate.toString().split(" ")[1];
+                let date = allDate.toString().split(" ")[2];
 
-              return (
-                <li className="select-day" key={idx}>
-                  <label className="button-label" htmlFor={day}>
-                    {day}
-                  </label>
-                  <input
-                    id={day}
-                    type="button"
-                    value={date}
-                    onClick={(e) =>
-                      setFormValues({
-                        ...formValues,
-                        date: {
-                          day: day,
-                          date: e.target.value,
-                          month: month,
-                        },
-                      })
-                    }
-                    className={`input-button ${
-                      formValues.date.date === date ? "active" : ""
-                    }`}
-                  />
-                </li>
-              );
-            })}
+                return (
+                  <li className="select-day" key={idx}>
+                    <label className="button-label" htmlFor={date + "button"}>
+                      {day}
+                    </label>
+                    <input
+                      id={date + "button"}
+                      type="button"
+                      value={date}
+                      onClick={(e) =>
+                        setFormValues({
+                          ...formValues,
+                          date: {
+                            day: day,
+                            date: e.target.value,
+                            month: month,
+                          },
+                        })
+                      }
+                      className={`input-button ${
+                        formValues.date.date === date ? "active" : ""
+                      }`}
+                    />
+                  </li>
+                );
+              })}
           </ul>
         </div>
       </div>

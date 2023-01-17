@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { BookNowContext } from "../context/book-now/book-now-context";
 
-const FrequencyComponent = ({ currentPosition }) => {
-  const [frequency, setFrequency] = useState([]);
+const FrequencyComponent = ({ currentPosition, frequencyDatas }) => {
   const { formValues, setFormValues } = useContext(BookNowContext);
 
   useEffect(() => {
@@ -11,73 +10,44 @@ const FrequencyComponent = ({ currentPosition }) => {
     }
   }, [currentPosition]);
 
-  useEffect(() => {
-    fetch("  https://stnepal.com.np/sherpatech/api/v1/frequency")
-      .then((res) => res.json())
-      .then((data) => setFrequency(data.data.frequency_details));
-  }, []);
-
-  // console.log(frequency);
+  // console.log(frequencyDatas);
 
   return (
     <div className="frequency">
       <div className="form-title">How often do you need your professional?</div>
 
       <div className="input-area">
-        <div
-          className={`custom-input ${
-            formValues.frequency.name === "One-Time" ? "active" : ""
-          }`}
-          onClick={() =>
-            setFormValues({
-              ...formValues,
-              frequency: {
-                name: "One-Time",
-                price: 100,
-                discount: 10,
-                perPerson: 60,
-                perHours: 30,
-              },
-            })
-          }
-        >
-          <div className="input-indicator"></div>
+        {frequencyDatas.length
+          ? frequencyDatas.map((frequency) => (
+              <div
+                key={frequency.id}
+                className={`custom-input ${
+                  formValues.frequency.name === frequency.title ? "active" : ""
+                }`}
+                onClick={() =>
+                  setFormValues({
+                    ...formValues,
+                    frequency: {
+                      name: frequency.title,
+                      price: frequency.rate,
+                      discount: 0,
+                      perPerson: frequency.professionalrate,
+                      perHours: frequency.hourrate,
+                    },
+                  })
+                }
+              >
+                <div className="input-indicator"></div>
 
-          <div className="input-sec">
-            <div className="form-input-label">One-time</div>
-            <p className="description">Book a cleaning for one time only</p>
-          </div>
-        </div>
+                <div className="input-sec">
+                  <div className="form-input-label">{frequency.title}</div>
+                  <p className="description">{frequency.description}</p>
+                </div>
+              </div>
+            ))
+          : "No data found"}
 
-        <div
-          className={`custom-input ${
-            formValues.frequency.name === "Bi-weekly" ? "active" : ""
-          }`}
-          onClick={() =>
-            setFormValues({
-              ...formValues,
-              frequency: {
-                name: "Bi-weekly",
-                price: 200,
-                discount: 20,
-                perPerson: 50,
-                perHours: 20,
-              },
-            })
-          }
-        >
-          <div className="input-indicator"></div>
-
-          <div className="input-sec">
-            <div className="form-input-label">Bi-weekly</div>
-            <p className="description">
-              Book a recurring cleaning with the same professional every
-              two-weeks
-            </p>
-          </div>
-        </div>
-
-        <div
+        {/* <div
           className={`custom-input ${
             formValues.frequency.name === "Weekly" ? "active" : ""
           }`}
@@ -102,7 +72,7 @@ const FrequencyComponent = ({ currentPosition }) => {
               Book a recurring cleaning with the same professional every week
             </p>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

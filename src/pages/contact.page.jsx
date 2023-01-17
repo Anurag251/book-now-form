@@ -130,7 +130,7 @@ const ContactPage = () => {
                   </div>
 
                   <FormInputComponent
-                    label="Subject"
+                    label="Message"
                     type="email"
                     name="message"
                     value={contactFormValues.message}
