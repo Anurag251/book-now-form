@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BookNowContext } from "../context/book-now/book-now-context";
 
 const DateAndTimeComponent = ({
@@ -9,7 +9,8 @@ const DateAndTimeComponent = ({
   const { formValues, setFormValues, selectedService } =
     useContext(BookNowContext);
 
-  // console.log(professionalDatas);
+  const [sifts, setSifts] = useState(null);
+  const [sift, setSift] = useState(null);
 
   useEffect(() => {
     if (currentPosition === 66.66) {
@@ -44,6 +45,17 @@ const DateAndTimeComponent = ({
     dates[i];
   }
 
+  var currentTime = new Date();
+  var endTime = new Date();
+  endTime.setHours(20, 0, 0, 0); // 8pm
+
+  var hours = [];
+  while (currentTime.getHours() < endTime.getHours()) {
+    hours.push(currentTime.getHours());
+    currentTime.setHours(currentTime.getHours() + 1);
+  }
+  // console.log(hours);
+
   return (
     <div className="date-time-section">
       {professionalDatas.length ? (
@@ -60,7 +72,7 @@ const DateAndTimeComponent = ({
                   formValues.professional.id === data.id ? "active" : ""
                 }`}
                 id={data.id}
-                onClick={() =>
+                onClick={() => {
                   setFormValues({
                     ...formValues,
                     professional: {
@@ -69,8 +81,16 @@ const DateAndTimeComponent = ({
                       rating: 5.5,
                       imageUrl: data.image,
                     },
-                  })
-                }
+
+                    date: {
+                      day: "",
+                      date: 0,
+                      month: "",
+                    },
+                  });
+
+                  setSifts(data.shift);
+                }}
               >
                 <img className="user-image" src={data.image} alt="" />
 
@@ -87,14 +107,14 @@ const DateAndTimeComponent = ({
           </div>
         </div>
       ) : (
-        "No data found"
+        "All professional are busy please try tomorrow"
       )}
 
       <div className="section">
         <div className="form-title">When would you like your service?</div>
 
         <div className="day-list">
-          <ul className="select-button-list">
+          {/* <ul className="select-button-list">
             {dates
               // .filter((data, idx) => idx === 3)
               .map((allDate, idx) => {
@@ -128,6 +148,41 @@ const DateAndTimeComponent = ({
                   </li>
                 );
               })}
+          </ul> */}
+
+          <ul className="select-button-list">
+            {sifts !== null
+              ? sifts.map((data, idx) => (
+                  <li className="select-day" key={idx}>
+                    <label
+                      className="button-label"
+                      htmlFor={data.weekday + "button"}
+                    >
+                      {data.month}
+                    </label>
+                    <input
+                      id={data.weekday + "button"}
+                      type="button"
+                      value={data.weekday}
+                      onClick={(e) => {
+                        setFormValues({
+                          ...formValues,
+                          date: {
+                            day: parseInt(data.year),
+                            date: e.target.value,
+                            month: data.month,
+                          },
+                        });
+
+                        setSift(JSON.parse(data.shifts));
+                      }}
+                      className={`input-button ${
+                        formValues.date.date === data.weekday ? "active" : ""
+                      }`}
+                    />
+                  </li>
+                ))
+              : "Please choose your professional date"}
           </ul>
         </div>
       </div>
@@ -136,27 +191,21 @@ const DateAndTimeComponent = ({
         <div className="form-title">What time would you like us to start?</div>
 
         <div className="select-button-list yesNo">
-          <input
-            type="button"
-            onClick={(e) =>
-              setFormValues({ ...formValues, time: e.target.value })
-            }
-            className={`input-button ${
-              formValues.time === "08:00-08:30" ? "active" : ""
-            }`}
-            value="08:00-08:30"
-          />
-
-          <input
-            type="button"
-            onClick={(e) =>
-              setFormValues({ ...formValues, time: e.target.value })
-            }
-            className={`input-button ${
-              formValues.time === "08:30-09:00" ? "active" : ""
-            }`}
-            value="08:30-09:00"
-          />
+          {sift !== null
+            ? sift.map((data, idx) => (
+                <input
+                  key={idx}
+                  type="button"
+                  onClick={(e) =>
+                    setFormValues({ ...formValues, time: e.target.value })
+                  }
+                  className={`input-button ${
+                    formValues.time === data ? "active" : ""
+                  }`}
+                  value={data}
+                />
+              ))
+            : "Please select time"}
         </div>
 
         <p className="arrive">

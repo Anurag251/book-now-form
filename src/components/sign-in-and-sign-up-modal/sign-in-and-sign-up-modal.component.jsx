@@ -4,13 +4,14 @@ import SignInComponent from "./sign-in.component";
 import SignUpComponent from "./sign-up.component";
 
 const SignInAndSignUpModalComponent = () => {
-  const { formValues, setFormValues } = useContext(BookNowContext);
+  const { formValues, setFormValues, message, inputFieldError } =
+    useContext(BookNowContext);
 
   return (
     <div
       className={`sign-in-and-sign-up-modal ${
         formValues.signInSignUpModal ? "active" : ""
-      }`}
+      } ${message.type === "error" || inputFieldError ? "error" : ""}`}
     >
       <div
         className="modal-bg"

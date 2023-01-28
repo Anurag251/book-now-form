@@ -28,11 +28,8 @@ const FrequencyComponent = ({ currentPosition, frequencyDatas }) => {
                   setFormValues({
                     ...formValues,
                     frequency: {
+                      id: frequency.id,
                       name: frequency.title,
-                      price: frequency.rate,
-                      discount: 0,
-                      perPerson: frequency.professionalrate,
-                      perHours: frequency.hourrate,
                     },
                   })
                 }

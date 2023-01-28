@@ -40,9 +40,13 @@ const HeaderComponent = () => {
                     className={`link ${
                       location.pathname === "/" ? "active" : ""
                     }`}
-                    onClick={() =>
-                      setFormValues({ ...formValues, currentPath: "/" })
-                    }
+                    onClick={() => {
+                      setFormValues({
+                        ...formValues,
+
+                        currentPath: "/",
+                      });
+                    }}
                   >
                     Home
                   </button>
@@ -55,9 +59,13 @@ const HeaderComponent = () => {
                     className={`link ${
                       location.pathname === "/about" ? "active" : ""
                     }`}
-                    onClick={() =>
-                      setFormValues({ ...formValues, currentPath: "/about" })
-                    }
+                    onClick={() => {
+                      setFormValues({
+                        ...formValues,
+
+                        currentPath: "/about",
+                      });
+                    }}
                   >
                     About
                   </button>
@@ -70,9 +78,13 @@ const HeaderComponent = () => {
                     className={`link ${
                       location.pathname === "/services" ? "active" : ""
                     }`}
-                    onClick={() =>
-                      setFormValues({ ...formValues, currentPath: "/services" })
-                    }
+                    onClick={() => {
+                      setFormValues({
+                        ...formValues,
+
+                        currentPath: "/services",
+                      });
+                    }}
                   >
                     Services
                   </button>
@@ -85,9 +97,13 @@ const HeaderComponent = () => {
                     className={`link ${
                       location.pathname === "/contact" ? "active" : ""
                     }`}
-                    onClick={() =>
-                      setFormValues({ ...formValues, currentPath: "/contact" })
-                    }
+                    onClick={() => {
+                      setFormValues({
+                        ...formValues,
+
+                        currentPath: "/contact",
+                      });
+                    }}
                   >
                     Contact
                   </button>
@@ -186,9 +202,10 @@ const HeaderComponent = () => {
             >
               <button
                 className="nav-btn"
-                onClick={() =>
-                  setFormValues({ ...formValues, currentPath: "/" })
-                }
+                onClick={() => {
+                  setHidden(false);
+                  setFormValues({ ...formValues, currentPath: "/" });
+                }}
               >
                 Home
               </button>
@@ -204,9 +221,10 @@ const HeaderComponent = () => {
             >
               <button
                 className="nav-btn"
-                onClick={() =>
-                  setFormValues({ ...formValues, currentPath: "/about" })
-                }
+                onClick={() => {
+                  setHidden(false);
+                  setFormValues({ ...formValues, currentPath: "/about" });
+                }}
               >
                 About
               </button>
@@ -222,9 +240,10 @@ const HeaderComponent = () => {
             >
               <button
                 className="nav-btn"
-                onClick={() =>
-                  setFormValues({ ...formValues, currentPath: "/services" })
-                }
+                onClick={() => {
+                  setHidden(false);
+                  setFormValues({ ...formValues, currentPath: "/services" });
+                }}
               >
                 Service
               </button>
@@ -240,9 +259,10 @@ const HeaderComponent = () => {
             >
               <button
                 className="nav-btn"
-                onClick={() =>
-                  setFormValues({ ...formValues, currentPath: "/contact" })
-                }
+                onClick={() => {
+                  setHidden(false);
+                  setFormValues({ ...formValues, currentPath: "/contact" });
+                }}
               >
                 Contact
               </button>
@@ -256,6 +276,8 @@ const HeaderComponent = () => {
               <button
                 className="link"
                 onClick={() => {
+                  setHidden(false);
+
                   localStorage.removeItem("token");
                   setFormValues({
                     ...formValues,
@@ -288,6 +310,8 @@ const HeaderComponent = () => {
                 <button
                   className="link"
                   onClick={() => {
+                    setHidden(false);
+
                     setFormValues({
                       ...formValues,
                       signInSignUpModal: true,
@@ -303,6 +327,8 @@ const HeaderComponent = () => {
                 <button
                   className="link"
                   onClick={() => {
+                    setHidden(false);
+
                     setFormValues({
                       ...formValues,
                       signInSignUpModal: true,

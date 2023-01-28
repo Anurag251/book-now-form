@@ -16,10 +16,9 @@ const HomePage = () => {
         <ServiceComponent />
       </section>
 
-      <section>
+      <section id="sectionTestimonial">
         <TestimonialComponent />
       </section>
-
     </div>
   );
 };

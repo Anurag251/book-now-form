@@ -6,10 +6,13 @@ import "swiper/css/pagination";
 
 import { Autoplay } from "swiper";
 
-import profileImage from "../assets/images/user2.png";
+import profileImage from "../assets/images/default-profile.jpeg";
 import quotesIcon from "../assets/images/quote.svg";
 import TitleComponent from "./title.component";
 
+import image1 from '../assets/images/_DSC2718-1.jpg'
+import image2 from '../assets/images/WhatsApp Image 2023-01-03 at 9.28.42 PM.jpeg'
+import image3 from '../assets/images/IMG_5632a.jpg'
 const TestimonialComponent = () => {
   return (
     <div className="testimonial">
@@ -59,7 +62,7 @@ const TestimonialComponent = () => {
                 </div>
 
                 <div className="item-footer">
-                  <img className="user-image" src={profileImage} alt="user" />
+                  <img className="user-image" src={image1} alt="user" />
 
                   <div className="details">
                     <div className="name">Moto GP</div>
@@ -86,7 +89,7 @@ const TestimonialComponent = () => {
                 </div>
 
                 <div className="item-footer">
-                  <img className="user-image" src={profileImage} alt="user" />
+                  <img className="user-image" src={image2} alt="user" />
 
                   <div className="details">
                     <div className="name">Moto GP</div>
@@ -113,7 +116,7 @@ const TestimonialComponent = () => {
                 </div>
 
                 <div className="item-footer">
-                  <img className="user-image" src={profileImage} alt="user" />
+                  <img className="user-image" src={image3} alt="user" />
 
                   <div className="details">
                     <div className="name">Moto GP</div>

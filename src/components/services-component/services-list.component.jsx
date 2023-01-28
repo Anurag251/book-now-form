@@ -13,6 +13,7 @@ import LoadingComponent from "../loading.component";
 
 const ServicesListComponent = () => {
   const { services, loadingPage } = useContext(BookNowContext);
+  // console.log(services);
 
   return (
     <div className="services-list">
@@ -45,11 +46,13 @@ const ServicesListComponent = () => {
           className="mySwiper"
         >
           {services.length
-            ? services.map((service) => (
-                <SwiperSlide key={service.id}>
-                  <ServiceCardComponent service={service} />
-                </SwiperSlide>
-              ))
+            ? services
+                .filter((data) => data.frequencydetail.length)
+                .map((service) => (
+                  <SwiperSlide key={service.id}>
+                    <ServiceCardComponent service={service} />
+                  </SwiperSlide>
+                ))
             : "No Data Found"}
         </Swiper>
       )}

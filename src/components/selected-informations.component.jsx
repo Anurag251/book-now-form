@@ -108,7 +108,7 @@ const SelectedInformationsComponent = () => {
           <div className="price-details">
             <div className="section-title">Price Details (Inc. Vat)</div>
             <ul>
-              {formValues.frequency.discount !== 0 ? (
+              {formValues.discount !== 0 ? (
                 <React.Fragment>
                   <li>
                     <div className="name">Subtotal</div>
@@ -117,9 +117,7 @@ const SelectedInformationsComponent = () => {
 
                   <li>
                     <div className="name">{formValues.frequency.name}</div>
-                    <div className="value">
-                      -AED {formValues.frequency.discount}
-                    </div>
+                    <div className="value">-AED {formValues.discount}</div>
                   </li>
                 </React.Fragment>
               ) : null}
@@ -127,7 +125,7 @@ const SelectedInformationsComponent = () => {
               <li>
                 <div className="name">Total</div>
                 <div className="value">
-                  AED {formValues.totalPrice - formValues.frequency.discount}
+                  AED {formValues.totalPrice - formValues.discount}
                 </div>
               </li>
             </ul>

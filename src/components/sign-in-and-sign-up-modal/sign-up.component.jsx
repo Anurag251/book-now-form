@@ -12,8 +12,9 @@ const SignUpComponent = () => {
     message,
     setMessage,
     removerMessage,
+    inputFieldError,
+    setInputFieldError,
   } = useContext(BookNowContext);
-  const [inputFieldError, setInputFieldError] = useState("");
 
   const handleChange = (event) => {
     const { name, value } = event.target;

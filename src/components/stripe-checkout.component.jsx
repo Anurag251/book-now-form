@@ -115,3 +115,52 @@
 // };
 
 // export default Checkout;
+
+// import React from "react";
+// import { apis } from "../apis/apis";
+
+// const StripeCheckoutComponent = () => {
+//   const handleCheckout = () => {
+//     apis.get("/getSession").then(async ({ data }) => {
+//       window.location = data.url;
+//     });
+//   };
+
+//   return (
+//     <button className="next" onClick={handleCheckout}>
+//       checkout
+//     </button>
+//   );
+// };
+
+// export default StripeCheckoutComponent;
+
+import React from "react";
+import StripeCheckout from "react-stripe-checkout";
+
+const StripeCheckoutComponent = ({ price }) => {
+  const priceForStripe = price * 100;
+  const publishableKey = "pk_test_WBqax2FWVzS9QlpJScO07iuL";
+
+  const onToken = (token) => {
+    console.log(token);
+    alert("Payment Succesful!");
+  };
+
+  return (
+    <StripeCheckout
+      label="Pay Now"
+      name="CRWN Clothing Ltd."
+      billingAddress
+      shippingAddress
+      image="https://svgshare.com/i/CUz.svg"
+      description={`Your total is $${price}`}
+      amount={priceForStripe}
+      panelLabel="Pay Now"
+      token={onToken}
+      stripeKey={publishableKey}
+    />
+  );
+};
+
+export default StripeCheckoutComponent;

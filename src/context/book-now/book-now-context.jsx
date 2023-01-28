@@ -1,12 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { apis } from "../../apis/apis";
 
-import image1 from "../../assets/images/user.png";
-import image2 from "../../assets/images/user2.png";
-import image3 from "../../assets/images/user3.jpeg";
-import image4 from "../../assets/images/user4.jpeg";
-import image5 from "../../assets/images/user5.png";
-
 export const BookNowContext = createContext();
 
 const BookNowProvider = ({ children }) => {
@@ -24,19 +18,29 @@ const BookNowProvider = ({ children }) => {
     title: "Frequency",
 
     frequency: {
-      id: 1,
+      id: 0,
       name: "",
-      price: 0,
-      discount: 0,
-      perPerson: 0,
-      perHours: 0,
+      professionalDiscount: 0,
+      professionalDiscountStart: 0,
     },
 
+    price: 0,
+    discount: 0,
+
+    perHours: 0,
+    hourDiscount: 0,
+    hourDiscountStart: 0,
+
+    perPerson: 0,
+
     address: "",
-    hours: 0,
-    noOfProfessional: 0,
+    hours: 2,
+    noOfProfessional: 1,
     materials: "No",
     materialPrice: 0,
+    materialPerHour: 5,
+    materialsDiscount: 0,
+    materialsDiscountStart: 0,
     message: "",
 
     professional: {
@@ -48,12 +52,14 @@ const BookNowProvider = ({ children }) => {
 
     date: {
       day: "",
-      date: "",
+      date: 0,
       month: "",
     },
     time: "",
     totalPrice: 0,
   });
+
+  const [inputFieldError, setInputFieldError] = useState("");
 
   const [signUp, setSignUp] = useState({
     fName: "",
@@ -79,81 +85,99 @@ const BookNowProvider = ({ children }) => {
 
   const [selectedServices, setSelectedServices] = useState(null);
 
-  const [selectedService, setSelectedService] = useState({
-    id: null,
-    title: "Hello Worlds",
-    desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate nulla totam voluptatibus quo aliquid sequi sit, modi natus asperiores enim tempora commodi aperiam iure impedit alias illum iste sed quas",
-    professional: [
-      {
-        id: 1,
-        name: "Sumi Maharjan",
-        time: 4,
-        date: 2,
-        image: image1,
-        rating: 3,
-      },
-      {
-        id: 2,
-        name: "Sumi Maharjan",
-        time: 10,
-        date: 3,
-        image: image2,
-        rating: 4,
-      },
-      {
-        id: 3,
-        name: "Sumi Maharjan",
-        time: 4,
-        date: 5,
-        image: image3,
-        rating: 5,
-      },
-    ],
-    materialsPrice: 30,
-    frequency: [
-      {
-        id: 1,
-        title: "Bi-weekly",
-        desc: "Book a recurring cleaning with the same professional every two-weeks",
-        discount: 10,
-        perPerson: 60,
-        perHours: 30,
-      },
-      {
-        id: 2,
-        title: "Bi-weekly",
-        desc: "Book a recurring cleaning with the same professional every two-weeks",
-        discount: 20,
-        perPerson: 70,
-        perHours: 20,
-      },
-    ],
-  });
+  // const [selectedService, setSelectedService] = useState({
+  //   id: null,
+  //   title: "Hello Worlds",
+  //   desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate nulla totam voluptatibus quo aliquid sequi sit, modi natus asperiores enim tempora commodi aperiam iure impedit alias illum iste sed quas",
+  //   professional: [
+  //     {
+  //       id: 1,
+  //       name: "Sumi Maharjan",
+  //       time: 4,
+  //       date: 2,
+  //       image: image1,
+  //       rating: 3,
+  //     },
+  //     {
+  //       id: 2,
+  //       name: "Sumi Maharjan",
+  //       time: 10,
+  //       date: 3,
+  //       image: image2,
+  //       rating: 4,
+  //     },
+  //     {
+  //       id: 3,
+  //       name: "Sumi Maharjan",
+  //       time: 4,
+  //       date: 5,
+  //       image: image3,
+  //       rating: 5,
+  //     },
+  //   ],
+  //   materialsPrice: 30,
+  //   frequency: [
+  //     {
+  //       id: 1,
+  //       title: "Bi-weekly",
+  //       desc: "Book a recurring cleaning with the same professional every two-weeks",
+  //       discount: 10,
+  //       perPerson: 60,
+  //       perHours: 30,
+  //     },
+  //     {
+  //       id: 2,
+  //       title: "Bi-weekly",
+  //       desc: "Book a recurring cleaning with the same professional every two-weeks",
+  //       discount: 20,
+  //       perPerson: 70,
+  //       perHours: 20,
+  //     },
+  //   ],
+  // });
 
   const [services, setServices] = useState([]);
 
   const [loadingPage, setLoadingPage] = useState(false);
 
   useEffect(() => {
-    const { frequency, hours, noOfProfessional, materials, materialPrice } =
-      formValues;
+    const {
+      frequency,
+      hours,
+      noOfProfessional,
+      materials,
+      materialPrice,
+      materialPerHour,
+      materialsDiscount,
+      materialsDiscountStart,
+    } = formValues;
 
     let pricePerHours =
-      (hours - 1) *
-        (noOfProfessional !== 0 ? noOfProfessional : 1) *
-        frequency.perHours +
-      frequency.price;
+      (hours >= formValues.hourDiscountStart
+        ? hours * formValues.perHours -
+          formValues.perHours * (formValues.hourDiscount / 100)
+        : hours * formValues.perHours) + formValues.price;
 
     let pricePerProfessional =
-      noOfProfessional * frequency.perPerson + pricePerHours;
+      noOfProfessional === 1
+        ? noOfProfessional * formValues.perPerson + pricePerHours
+        : noOfProfessional * (formValues.perPerson + 20) + pricePerHours;
+
+    console.log(pricePerProfessional);
 
     let allTotalPrice =
-      (materials === "Yes" ? parseInt(materialPrice) : 0) +
-      pricePerProfessional;
+      (materials === "Yes"
+        ? (hours >= materialsDiscountStart
+            ? hours * materialPerHour -
+              materialPerHour * (materialsDiscount / 100)
+            : hours * materialPerHour) + parseInt(materialPrice)
+        : 0) + pricePerProfessional;
+
+    // console.log(allTotalPrice);
 
     setFormValues({
       ...formValues,
-      totalPrice: allTotalPrice - frequency.perHours - frequency.perPerson,
+      totalPrice: allTotalPrice - formValues.perHours - formValues.perPerson,
     });
   }, [
     formValues.frequency.name,
@@ -176,8 +200,7 @@ const BookNowProvider = ({ children }) => {
       .then((res) => {
         if (res.status === 200) {
           setLoadingPage(false);
-          setServices(res.data.data.service);
-          console.log(res.data.data.service);
+          setServices(res.data.data);
         }
       })
       .catch((err) => {
@@ -200,15 +223,11 @@ const BookNowProvider = ({ children }) => {
       frequency: {
         id: null,
         name: "",
-        price: 0,
-        discount: 0,
-        perPerson: 0,
-        perHours: 0,
       },
 
       address: "",
-      hours: 0,
-      noOfProfessional: 0,
+      hours: 2,
+      noOfProfessional: 1,
       materials: "No",
       materialPrice: 0,
       message: "",
@@ -225,25 +244,10 @@ const BookNowProvider = ({ children }) => {
         date: "",
         month: "",
       },
-      time: "08:00-08:30",
+      time: "",
       totalPrice: 0,
     });
   };
-
-  let hello = {
-    "service_id": 10,
-    "frequency_id": 3,
-    "address": "test",
-    "working_hours": 2,
-    "professional": 2,
-    "cleaning_materials": 200,
-    "cleaning_instruction": "test",
-    "employee_id": 4,
-    "service_date": "2023-01-14",
-    "service_time": "8:00-9:00",
-    "client_id": 3,
-    "total_price": 5000
-  }
 
   return (
     <BookNowContext.Provider
@@ -259,12 +263,12 @@ const BookNowProvider = ({ children }) => {
         services,
         setServices,
         removerMessage,
-        selectedService,
-        setSelectedService,
         selectedServices,
         setSelectedServices,
         loadingPage,
         resetAllBookingData,
+        inputFieldError,
+        setInputFieldError,
       }}
     >
       {children}

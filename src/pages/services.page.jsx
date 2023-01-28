@@ -25,9 +25,14 @@ const ServicesPage = () => {
           ) : (
             <div className="list">
               {services.length
-                ? services.map((service) => (
-                    <ServiceCardComponent key={service.id} service={service} />
-                  ))
+                ? services
+                    .filter((data) => data.frequencydetail.length)
+                    .map((service) => (
+                      <ServiceCardComponent
+                        key={service.id}
+                        service={service}
+                      />
+                    ))
                 : "No Data Found"}
             </div>
           )}

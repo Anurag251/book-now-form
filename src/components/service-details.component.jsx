@@ -160,10 +160,13 @@ const ServiceDetailsComponent = ({ currentPosition, serviceDatas }) => {
           <input
             type="button"
             onClick={(e) =>
-              setFormValues({ ...formValues, noOfProfessional: e.target.value })
+              setFormValues({
+                ...formValues,
+                noOfProfessional: parseInt(e.target.value),
+              })
             }
             className={`input-button ${
-              formValues.noOfProfessional === "4" ? "active" : ""
+              formValues.noOfProfessional === 4 ? "active" : ""
             }`}
             value="4"
           />
@@ -205,7 +208,22 @@ const ServiceDetailsComponent = ({ currentPosition, serviceDatas }) => {
               setFormValues({
                 ...formValues,
                 materials: "Yes",
-                materialPrice: serviceDatas.cleaningmaterials,
+                materialPrice:
+                  serviceDatas.cleaningmaterials !== null
+                    ? serviceDatas.cleaningmaterials
+                    : 0,
+                materialsperhour:
+                  serviceDatas.materialsperhour !== null
+                    ? serviceDatas.materialsperhour
+                    : 0,
+                materialsDiscount:
+                  serviceDatas.materialsdiscount !== null
+                    ? serviceDatas.materialsdiscount
+                    : 0,
+                materialsDiscountStart:
+                  serviceDatas.materialsdiscountstart !== null
+                    ? serviceDatas.materialsdiscountstart
+                    : 0,
               })
             }
             className={`input-button ${

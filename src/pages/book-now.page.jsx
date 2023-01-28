@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { apis } from "../apis/apis";
-import CheckoutComponent from "../components/checkout.component";
+// import CheckoutComponent from "../components/checkout.component";
 import CustomTitleComponent from "../components/custom-title.component";
 import DateAndTimeComponent from "../components/date-time.component";
 import FrequencyComponent from "../components/frequency.component";
@@ -9,20 +9,18 @@ import LoadingComponent from "../components/loading.component";
 import ProgressBarComponent from "../components/progress-bar.component";
 import SelectedInformationsComponent from "../components/selected-informations.component";
 import ServiceDetailsComponent from "../components/service-details.component";
+import StripeCheckoutComponent from "../components/stripe-checkout.component";
 import { BookNowContext } from "../context/book-now/book-now-context";
 
 const BookNowPage = () => {
   const [currentPosition, setCurrentPosition] = useState(0);
 
   const location = useLocation();
-  // console.log(location.pathname.slice(10));
 
   const {
     formValues,
     setFormValues,
     services,
-    selectedService,
-    setSelectedService,
 
     selectedServices,
     setSelectedServices,
@@ -37,7 +35,27 @@ const BookNowPage = () => {
         location.pathname.slice(10)
       ) {
         setSelectedServices(service);
-        // console.log(service);
+
+        setFormValues({
+          ...formValues,
+          price: service.rate,
+          discount: 0,
+          perPerson:
+            service.professionalrate !== null ? service.professionalrate : 0,
+          perHours: service.hourrate !== null ? service.hourrate : 0,
+          hourDiscount:
+            service.hourdiscount !== null ? service.hourdiscount : 0,
+          hourDiscountStart:
+            service.hourdiscountstart !== null ? service.hourdiscountstart : 0,
+          professionalDiscount:
+            service.professionaldiscount !== null
+              ? service.professionaldiscount
+              : 0,
+          professionalDiscountStart:
+            service.professionaldiscountstart !== null
+              ? service.professionaldiscountstart
+              : 0,
+        });
       }
     });
   }, [services]);
@@ -52,21 +70,56 @@ const BookNowPage = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    // resetAllBookingData();
   }, [currentPosition]);
 
   useEffect(() => {
     resetAllBookingData();
   }, []);
 
-  // console.log(formValues.currentUser);
-
   const submitBooking = () => {
-    apis.post('/booking', {
-    }).then((res) => {
-      console.log(res)
-    })
-  }
+    setFormValues({
+      ...formValues,
+      buttonLoading: true,
+    });
+
+    try {
+      apis
+        .post("/booking", {
+          service_id: selectedServices.id,
+          frequency_id: formValues.frequency.id,
+          address: formValues.address,
+          working_hours: formValues.hours,
+          professional: formValues.noOfProfessional,
+          cleaning_materials: formValues.materialPrice,
+          cleaning_instruction: formValues.message,
+          employee_id: formValues.professional.id,
+          service_date: "2023-02-02",
+          service_time: formValues.time,
+          client_id: formValues.professional.id,
+          total_price: formValues.totalPrice,
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            setFormValues({
+              ...formValues,
+              buttonLoading: false,
+            });
+            window.location = res.data.url;
+          }
+          // console.log(res);
+          // console.log(res);
+        })
+        .catch((err) => {
+          setFormValues({
+            ...formValues,
+            buttonLoading: false,
+          });
+          console.log(err);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="book-now-page">
@@ -89,7 +142,6 @@ const BookNowPage = () => {
                 <div className="form-area">
                   <FrequencyComponent
                     currentPosition={currentPosition}
-                    frequencyData={selectedService.frequency}
                     frequencyDatas={selectedServices.frequencydetail}
                   />
                 </div>
@@ -104,7 +156,6 @@ const BookNowPage = () => {
                 <div className="form-area">
                   <DateAndTimeComponent
                     currentPosition={currentPosition}
-                    professionalData={selectedService.professional}
                     professionalDatas={selectedServices.employeedetail}
                   />
                 </div>
@@ -140,7 +191,20 @@ const BookNowPage = () => {
                   Next
                 </button>
               ) : formValues.currentUser ? (
-                <CheckoutComponent />
+                <React.Fragment>
+                  {/* <CheckoutComponent /> */}
+
+                  <button
+                    className={`next ${
+                      formValues.buttonLoading ? "loading" : ""
+                    }`}
+                    onClick={submitBooking}
+                  >
+                    Checkout
+                  </button>
+
+                  {/* <StripeCheckoutComponent /> */}
+                </React.Fragment>
               ) : (
                 <button
                   className="next"

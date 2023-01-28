@@ -4,8 +4,15 @@ import { BookNowContext } from "../../context/book-now/book-now-context";
 import FormInputComponent from "./form-input.component";
 
 const SignInComponent = () => {
-  const { signIn, setSignIn, formValues, setFormValues, message, setMessage } =
-    useContext(BookNowContext);
+  const {
+    signIn,
+    setSignIn,
+    formValues,
+    setFormValues,
+    message,
+    setMessage,
+    setInputFieldError,
+  } = useContext(BookNowContext);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -14,88 +21,96 @@ const SignInComponent = () => {
   };
 
   const validate = async () => {
-    setFormValues({
-      ...formValues,
-      buttonLoading: true,
-    });
-
-    await apis
-      .post("/login", {
-        email: signIn.email,
-        password: signIn.password,
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          localStorage.setItem("token", res.data.data);
-          setFormValues({
-            ...formValues,
-            currentUser: true,
-            signInSignUpModal: false,
-            buttonLoading: false,
-          });
-
-          setMessage({
-            ...message,
-            hidden: true,
-            type: "success",
-            message: res.data.message,
-          });
-
-          setTimeout(() => {
-            setMessage({
-              ...message,
-              hidden: false,
-              type: "",
-              message: "",
-            });
-          }, 4000);
-        } else {
-          setMessage({
-            ...message,
-            hidden: true,
-            type: "error",
-            message:
-              "Email or Password is incorrect please check and try again",
-          });
-
-          setTimeout(() => {
-            setMessage({
-              ...message,
-              hidden: false,
-              type: "",
-              message: "",
-            });
-          }, 4000);
-        }
-      })
-      .catch((err) => {
-        if (err.response.status === 400) {
-          setMessage({
-            ...message,
-            hidden: true,
-            type: "error",
-            message:
-              "Email or Password is incorrect please check and try again",
-          });
-
-          setFormValues({
-            ...formValues,
-
-            buttonLoading: false,
-            signInSignUpModal: true,
-            isSignIn: true,
-          });
-
-          setTimeout(() => {
-            setMessage({
-              ...message,
-              hidden: false,
-              type: "",
-              message: "",
-            });
-          }, 4000);
-        }
+    if (signIn.email !== "" && signIn.password !== "") {
+      setFormValues({
+        ...formValues,
+        buttonLoading: true,
       });
+
+      await apis
+        .post("/login", {
+          email: signIn.email,
+          password: signIn.password,
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            localStorage.setItem("token", res.data.data);
+            setFormValues({
+              ...formValues,
+              currentUser: true,
+              signInSignUpModal: false,
+              buttonLoading: false,
+            });
+
+            setMessage({
+              ...message,
+              hidden: true,
+              type: "success",
+              message: res.data.message,
+            });
+
+            setTimeout(() => {
+              setMessage({
+                ...message,
+                hidden: false,
+                type: "",
+                message: "",
+              });
+            }, 4000);
+          } else {
+            setMessage({
+              ...message,
+              hidden: true,
+              type: "error",
+              message:
+                "Email or Password is incorrect please check and try again",
+            });
+
+            setTimeout(() => {
+              setMessage({
+                ...message,
+                hidden: false,
+                type: "",
+                message: "",
+              });
+            }, 4000);
+          }
+        })
+        .catch((err) => {
+          if (err.response.status === 400) {
+            setMessage({
+              ...message,
+              hidden: true,
+              type: "error",
+              message:
+                "Email or Password is incorrect please check and try again",
+            });
+
+            setFormValues({
+              ...formValues,
+
+              buttonLoading: false,
+              signInSignUpModal: true,
+              isSignIn: true,
+            });
+
+            setTimeout(() => {
+              setMessage({
+                ...message,
+                hidden: false,
+                type: "",
+                message: "",
+              });
+            }, 4000);
+          }
+        });
+    } else {
+      setInputFieldError("All field are required");
+
+      setTimeout(() => {
+        setInputFieldError("");
+      }, 3000);
+    }
 
     // await fetch("https://stnepal.com.np/sherpatech/api/v1/login", {
     //   method: "post",

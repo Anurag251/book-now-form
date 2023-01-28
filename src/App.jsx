@@ -1,7 +1,7 @@
 import BookNowPage from "./pages/book-now.page";
 import "./assets/styles/styles.sass";
 import "./assets/styles/responsive.sass";
-import { Route, Routes, useLocation, useParams } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import HomePage from "./pages/home.page";
 import HeaderComponent from "./components/header.component";
 import ServicesPage from "./pages/services.page";
@@ -13,11 +13,10 @@ import MaterialModalComponent from "./components/material-modal.component";
 import SignInAndSignUpModalComponent from "./components/sign-in-and-sign-up-modal/sign-in-and-sign-up-modal.component";
 import { useContext, useEffect, useState } from "react";
 import { BookNowContext } from "./context/book-now/book-now-context";
-// import GoogleMapPopupComponent from "./components/google-map-popup.component";
 
 const App = () => {
   const [hideComponent, setHideComponent] = useState(false);
-  const { formValues, message, selectedService } = useContext(BookNowContext);
+  const { formValues, message } = useContext(BookNowContext);
 
   const location = useLocation();
 
@@ -32,7 +31,6 @@ const App = () => {
   return (
     <div className="App">
       {!formValues.currentUser ? <SignInAndSignUpModalComponent /> : null}
-
       <p
         className={`allMessage ${message.type} ${
           message.hidden ? "active" : ""
@@ -42,11 +40,8 @@ const App = () => {
       </p>
 
       {hideComponent ? null : <HeaderComponent />}
-
       <HoursModalComponent />
-
       <MaterialModalComponent />
-
       <Routes>
         <Route path="/" element={<HomePage />} />
 
@@ -62,9 +57,6 @@ const App = () => {
 
         <Route exact path="/cancel" element={<h2>Error</h2>} />
       </Routes>
-
-      {/* <GoogleMapPopupComponent /> */}
-
       {hideComponent ? null : <FooterComponent />}
     </div>
   );
