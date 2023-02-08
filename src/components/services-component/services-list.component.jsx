@@ -21,7 +21,7 @@ const ServicesListComponent = () => {
         <LoadingComponent />
       ) : (
         <Swiper
-          slidesPerView={1}
+          slidesPerView={2}
           spaceBetween={20}
           speed={1000}
           autoplay={{

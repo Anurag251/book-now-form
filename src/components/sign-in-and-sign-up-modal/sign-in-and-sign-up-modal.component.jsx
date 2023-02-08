@@ -41,7 +41,7 @@ const SignInAndSignUpModalComponent = () => {
         <div className="switch-page-btn">
           {formValues.isSignIn ? (
             <p>
-              New To Justlife?
+              New To Book4clean?
               <button
                 className="switch"
                 onClick={() =>

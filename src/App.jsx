@@ -13,6 +13,7 @@ import MaterialModalComponent from "./components/material-modal.component";
 import SignInAndSignUpModalComponent from "./components/sign-in-and-sign-up-modal/sign-in-and-sign-up-modal.component";
 import { useContext, useEffect, useState } from "react";
 import { BookNowContext } from "./context/book-now/book-now-context";
+import WorkFlowPage from "./pages/work-flow.page";
 
 const App = () => {
   const [hideComponent, setHideComponent] = useState(false);
@@ -52,6 +53,8 @@ const App = () => {
         <Route exact path="/contact" element={<ContactPage />} />
 
         <Route exact path="/about" element={<AboutPage />} />
+
+        <Route exact path="/work-flow" element={<WorkFlowPage />} />
 
         <Route exact path="/success" element={<h2>Success</h2>} />
 

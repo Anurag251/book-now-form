@@ -11,6 +11,11 @@ const DateAndTimeComponent = ({
 
   const [sifts, setSifts] = useState(null);
   const [sift, setSift] = useState(null);
+  const [jobStatus, setJobStatus] = useState(null);
+
+  const busyDate = [];
+
+  console.log(professionalDatas);
 
   useEffect(() => {
     if (currentPosition === 66.66) {
@@ -54,7 +59,7 @@ const DateAndTimeComponent = ({
     hours.push(currentTime.getHours());
     currentTime.setHours(currentTime.getHours() + 1);
   }
-  // console.log(hours);
+  console.log(professionalDatas);
 
   return (
     <div className="date-time-section">
@@ -89,6 +94,7 @@ const DateAndTimeComponent = ({
                     },
                   });
 
+                  setJobStatus(data.jobstatus);
                   setSifts(data.shift);
                 }}
               >
@@ -174,7 +180,19 @@ const DateAndTimeComponent = ({
                           },
                         });
 
-                        setSift(JSON.parse(data.shifts));
+                        if (jobStatus !== null) {
+                          jobStatus.forEach((jobData) => {
+                            console.log(jobData);
+
+                            if (jobData.job_date === "2023-01-14") {
+                              busyDate.push(jobData.job_date);
+                            }
+                          });
+                        }
+
+                        console.log(busyDate);
+
+                        setSift(data.shifts);
                       }}
                       className={`input-button ${
                         formValues.date.date === data.weekday ? "active" : ""
@@ -182,7 +200,7 @@ const DateAndTimeComponent = ({
                     />
                   </li>
                 ))
-              : "Please choose your professional date"}
+              : "Please choose your professional"}
           </ul>
         </div>
       </div>
@@ -205,7 +223,7 @@ const DateAndTimeComponent = ({
                   value={data}
                 />
               ))
-            : "Please select time"}
+            : "Please select date"}
         </div>
 
         <p className="arrive">

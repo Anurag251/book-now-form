@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { BookNowContext } from "../context/book-now/book-now-context";
+import logoImage from "../assets/images/BOOK4CLEAN-LOGO.svg";
+import logoLightImage from "../assets/images/BOOK4CLEAN-LOGO-WHITE.svg";
 
 const HeaderComponent = () => {
   const [sticky, setSticky] = useState("");
@@ -29,7 +31,9 @@ const HeaderComponent = () => {
       <header className={`${sticky}`}>
         <div className="wrapper">
           <div className="logo">
-            <Link to="/">LOGO</Link>
+            <Link to="/">
+              <img className="logo-img" src={logoImage} alt="logo" />
+            </Link>
           </div>
 
           <nav>
@@ -54,25 +58,6 @@ const HeaderComponent = () => {
               </li>
 
               <li>
-                <Link to="/about">
-                  <button
-                    className={`link ${
-                      location.pathname === "/about" ? "active" : ""
-                    }`}
-                    onClick={() => {
-                      setFormValues({
-                        ...formValues,
-
-                        currentPath: "/about",
-                      });
-                    }}
-                  >
-                    About
-                  </button>
-                </Link>
-              </li>
-
-              <li>
                 <Link to="/services">
                   <button
                     className={`link ${
@@ -87,6 +72,25 @@ const HeaderComponent = () => {
                     }}
                   >
                     Services
+                  </button>
+                </Link>
+              </li>
+
+              <li>
+                <Link to="/work-flow">
+                  <button
+                    className={`link ${
+                      location.pathname === "/work-flow" ? "active" : ""
+                    }`}
+                    onClick={() => {
+                      setFormValues({
+                        ...formValues,
+
+                        currentPath: "/work-flow",
+                      });
+                    }}
+                  >
+                    How It Works
                   </button>
                 </Link>
               </li>
@@ -187,8 +191,8 @@ const HeaderComponent = () => {
         </div>
 
         <div className="logo">
-          <Link to="/" href="index.html">
-            <h3>LOGO</h3>
+          <Link to="/">
+            <img className="logo-img" src={logoLightImage} alt="logo" />
           </Link>
         </div>
 

@@ -34,9 +34,9 @@ const ContactPage = () => {
               <div>
                 <h3>Let's Talk</h3>
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel
-                  magnam atque magni esse nostrum illum adipisci impedit commodi
-                  facere, quibusdam quasi beatae
+                  Share your valuable message, proposal or comment to enhance
+                  our experience. We are always positive to hear from you. We’d
+                  love to discuss on any services and bookings.
                 </p>
               </div>
 
@@ -45,21 +45,53 @@ const ContactPage = () => {
                   <div className="icon">
                     <i className="fas fa-phone"></i>
                   </div>
-                  +977-987654321
+                  <a href="tel:+97142366008" target="_blank">
+                    +97142366008
+                  </a>
                 </li>
 
                 <li>
                   <div className="icon">
+                    <i className="fas fa-mobile"></i>
+                  </div>
+
+                  <a
+                    href={`https://api.whatsapp.com/send?phone=971564221815`}
+                    target="blank"
+                  >
+                    +971564221815 (whatsapp)
+                  </a>
+                </li>
+
+                <li className="email-link">
+                  <div className="icon">
                     <i className="fas fa-envelope"></i>
                   </div>
-                  info@gmail.com
+                  <div className="all-emails">
+                    <a href="mailto:info@book4clean.com" target="_blank">
+                      info@book4clean.com
+                    </a>
+                    <span>|</span>
+                    <a href="mailto:book4clean@gmail.com" target="_blank">
+                      book4clean@gmail.com
+                    </a>
+                  </div>
+                </li>
+
+                <li>
+                  <div className="icon">
+                    <i className="fas fa-globe"></i>
+                  </div>
+                  <a href="https://www.book4clean.com/" target="_blank">
+                    www.book4clean.com
+                  </a>
                 </li>
 
                 <li>
                   <div className="icon">
                     <i className="fas fa-map-marker-alt"></i>
                   </div>
-                  Subidanagar, Tinkune, Kathmandu 144000
+                  Office 218, Al Qiyada Building, Abu Hail, Dubai, UAE
                 </li>
               </ul>
 
@@ -70,9 +102,9 @@ const ContactPage = () => {
                   </div>
                 </a>
 
-                <a href="#">
+                <a href="https://api.whatsapp.com/send?phone=971564221815" target="_blank">
                   <div className="icon">
-                    <i className="fab fa-instagram"></i>
+                    <i className="fab fa-whatsapp"></i>
                   </div>
                 </a>
 

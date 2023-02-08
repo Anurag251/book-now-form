@@ -27,6 +27,13 @@ section
   @include flex($justify: center)
   flex-direction: column
 
+  &.about-page-title
+    h5
+      font-weight: 600
+
+      // &::after
+      //   display: none
+
   h5
     font-size: 16px
     letter-spacing: 2px
@@ -34,19 +41,19 @@ section
     font-weight: 400
     position: relative
 
-    &::after
-      content: ''
-      position: absolute
-      left: 0
-      bottom: 2px
-      height: 2px
-      width: 30px
-      background-color: $sec
+    // &::after
+    //   content: ''
+    //   position: absolute
+    //   left: 0
+    //   bottom: 2px
+    //   height: 2px
+    //   width: 30px
+    //   background-color: $sec
 
   h2
     font-size: 20px
     font-weight: 500
-    max-width: 300px
+    // max-width: 300px
 
 .booking-form-title
   position: relative
@@ -104,7 +111,7 @@ section
 
 /***********      header      ***********/
 header
-  height: 70px
+  height: 80px
   position: fixed
   top: 0
   left: 0
@@ -121,11 +128,13 @@ header
     width: 100%
 
     .logo
-      font-size: 30px
       @include flex($justify: flex-start)
 
-      a
-        color: $dark
+      .logo-img
+        @include image()
+        height: 60px
+        width: 140px
+        object-fit: contain
 
     nav
       @include flex($justify: center)
@@ -134,7 +143,7 @@ header
         @include flex($justify: center)
 
         li
-          margin: 0 30px
+          margin: 0 25px
 
           .link
             position: relative
@@ -149,20 +158,20 @@ header
               font-weight: 600
               color: $sec
 
-              &::after
-                width: 100%
-                background-color: $sec
+              // &::after
+              //   width: 100%
+              //   background-color: $sec
 
-            &::after
-              content: ''
-              position: absolute
-              left: 0
-              bottom: 0
-              width: 50%
-              height: 2px
-              border-radius: 4px
-              background-color: $para
-              @include fastTrans()
+            // &::after
+            //   content: ''
+            //   position: absolute
+            //   left: 0
+            //   bottom: 0
+            //   width: 50%
+            //   height: 2px
+            //   border-radius: 4px
+            //   background-color: $para
+            //   @include fastTrans()
 
     .login-sign-up-btns
       @include flex($justify: flex-end)
@@ -227,12 +236,15 @@ header
         transform: translateX(-5px)
 
   .logo
-    height: 60px
-    width: 100%
     @include flex($justify: center)
+    width: 100%
+    margin-bottom: 1rem
 
-    h3
-      color: $light
+    .logo-img
+      @include image()
+      height: 70px
+      width: 140px
+      object-fit: contain
 
   .nav-links
     a.active
@@ -288,6 +300,7 @@ header
 /***********      banner      ***********/
 .banner
   padding-top: 70px
+  position: relative
 
   .wrapper
     @include grid($columns: 1fr 1fr)
@@ -308,7 +321,7 @@ header
         padding: .5rem 1.5rem
         text-transform: uppercase
         font-size: 500
-        background-color: $sec
+        background-color: $pri
         color: $light
         border-radius: 4px
 
@@ -345,13 +358,6 @@ header
     box-shadow: 0 4px 5px rgba($dark, .1)
 
   .icon
-    // position: absolute
-    // left: 50%
-    // top: 0
-    // transform: translate(-50%, -50%)
-    // height: 100px
-    // width: 100px
-    // border-radius: 50%
     height: 160px
     width: 100%
     border-radius: 4px
@@ -407,6 +413,7 @@ header
           font-size: 16px
           color: rgba($dark, .7)
           margin: 1rem 0
+          font-style: italic
 
       .item-footer
         padding: .5rem 1rem
@@ -439,7 +446,13 @@ footer
 
     .item
       .logo
-        font-size: 30px
+        @include flex($justify: flex-start)
+
+        .logo-img
+          @include image()
+          height: 50px
+          width: 140px
+          object-fit: contain
 
       .footer-title
         font-size: 18px
@@ -1311,6 +1324,28 @@ footer
         position: absolute
         top: 22px
 
+    .hide-password
+      position: absolute
+      top: 50%
+      right: 5px
+      transform: translateY(-50%)
+      width: 24px
+      overflow: hidden
+      cursor: pointer
+
+      &.active
+        .toggleHide
+          margin-left: -26px
+
+      .toggleHide
+        // @include fastTrans()
+        @include flex($justify: flex-start)
+
+      i
+        width: 20px
+        font-size: 14px
+        margin: 0 5px
+
     .form-input
       height: 100%
       width: 100%
@@ -1361,7 +1396,7 @@ footer
   margin-top: 40px
 
 .contact-sec
-  @include grid($columns: 1fr 2.5fr)
+  @include grid($columns: 1fr 1.9fr)
   grid-gap: 0
   max-width: 1100px
   margin: 0 auto
@@ -1373,7 +1408,7 @@ footer
   .contact-info
     background-color: $pri
     @include gradient($deg: -230deg)
-    padding: 1.5rem
+    padding: 1rem
     border-radius: 10px
     color: $light
     @include flex($justify: space-between)
@@ -1385,7 +1420,7 @@ footer
       line-height: 1.4rem
 
     .info
-      margin: 1rem 0
+      margin: 1rem 0 .5rem
 
       li
         @include flex($justify: flex-start)
@@ -1393,8 +1428,20 @@ footer
         font-size: 13px
         margin-bottom: 10px
 
+        .all-emails
+          @include flex($justify: flex-start)
+
+          a:nth-child(1)
+            margin-left: 0
+
+          a
+            margin: 0 10px
+
         i
           margin-right: 5px
+
+        a
+          color: $light
 
     .social-icon
       @include flex($justify: flex-start)
@@ -1412,6 +1459,10 @@ footer
         &:hover
           background-color: $sec
           box-shadow: 0 2px 6px rgba($dark, .1)
+
+    .note
+      font-size: 12px
+      line-height: 1rem
 
   .contact-form
     padding: 2rem
@@ -1498,7 +1549,7 @@ footer
 
 /*********************      about-page      ***********************/
 .about-page
-  @include grid($columns: 1fr 1fr)
+  @include grid($columns: .5fr 1fr)
   padding-top: 30px
 
   &:hover
@@ -1513,9 +1564,9 @@ footer
     overflow: hidden
 
     img
-      @include image()
       width: 100%
       height: 100%
+      object-fit: contain
 
   .details
     padding: 2rem 0
@@ -1565,3 +1616,128 @@ footer
     border-top: 2px solid $pri
     border-bottom: 2px solid $pri
     animation: loadingAnimation 1s cubic-bezier(0.77, 0, 0.175, 1) infinite
+
+.quick-call, .quick-email, .quick-whatsapp
+  position: absolute
+  top: 50%
+  transform: translateY(-50%)
+  right: 0
+  z-index: 9
+  @include flex($justify: flex-start)
+  cursor: pointer
+  @include trans()
+
+  &:hover
+    right: 0
+
+    span
+      max-width: 1000px
+      padding: 0 1rem 0 0
+      opacity: 1
+      overflow: visible
+
+  span
+    height: 50px
+    @include flex($justify: center)
+    background-color: $pri
+    max-width: 0
+    overflow: hidden
+    padding: 0
+    opacity: 0
+    @include trans()
+
+    a
+      color: $light
+
+  .icon
+    height: 50px
+    width: 50px
+    background-color: $pri
+    color: $light
+    @include flex($justify: center)
+    border-radius: 40px 0 0 40px
+
+    i
+      font-size: 20px
+
+.quick-email
+  top: 60%
+
+.quick-whatsapp
+  top: 40%
+
+.work-flow
+  position: relative
+  margin-top: 2rem
+
+  .inner
+    position: relative
+    z-index: 2
+    @include flex($justify: space-between)
+    align-items: flex-start
+
+  .process
+    @include flex($justify: center)
+    position: relative
+    flex-direction: column
+    align-items: flex-start
+    padding: 2rem
+
+    &:nth-child(4)
+      border: 2px solid $pri
+      border-radius: 20px
+      background-color: rgba($pri, 0.06)
+
+    h2
+      position: relative
+      z-index: 1
+      font-size: 16px
+      color: $dark
+      text-align: left
+      font-weight: 500
+      width: 100%
+
+    .icon
+      @include flex($justify: flex-start)
+      height: 130px
+      width: 100px
+      margin-bottom: 1rem
+
+      img
+        width: 80%
+
+  .line
+    position: absolute
+    top: 55%
+    left: 50%
+    transform: translate(-50%, -50%)
+    width: 100%
+    height: 3px
+    background-image: linear-gradient(108deg, $pri, $pri 41%, $sec 69%, $sec)
+
+    .dot
+      height: 15px
+      width: 15px
+      position: absolute
+      left: 0
+      top: 50%
+      transform: translateY(-50%) rotate(90deg)
+      background-color: $pri
+      animation: move 8s cubic-bezier(0.77, 0, 0.175, 1) infinite
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%)
+
+  @keyframes move
+    0%
+      left: 0
+      background-color: $pri
+
+    35%
+      background-color: $pri
+
+    60%
+      background-color: $sec
+
+    100%
+      left: 100%
+      background-color: $sec
+

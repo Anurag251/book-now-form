@@ -48,7 +48,7 @@ const ServiceCardComponent = ({ service }) => {
     >
       <div className="icon">
         <img
-          src={service.image ? `public/${service.image.medium_image}` : image}
+          src={service.image ? `${service.image.medium_image}` : image}
           alt="service-icon"
         />
       </div>

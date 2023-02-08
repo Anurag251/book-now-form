@@ -243,6 +243,7 @@ const SignUpComponent = () => {
         name="password"
         handleChange={handleChange}
         value={signUp.password}
+        password
       />
 
       <FormInputComponent
@@ -251,6 +252,7 @@ const SignUpComponent = () => {
         name="passwordConfirmation"
         handleChange={handleChange}
         value={signUp.passwordConfirmation}
+        password
       />
 
       <button

@@ -194,6 +194,7 @@ const SignInComponent = () => {
         name="password"
         handleChange={handleChange}
         value={signIn.password}
+        password
       />
 
       <div className="other-option">

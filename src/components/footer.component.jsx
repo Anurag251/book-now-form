@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import logoImage from "../assets/images/BOOK4CLEAN-LOGO.svg";
 
 const FooterComponent = () => {
   return (
@@ -7,7 +8,11 @@ const FooterComponent = () => {
       <div className="wrapper">
         <div className="footer-content-list">
           <div className="item">
-            <div className="logo">LOGO</div>
+            <div className="logo">
+              <Link to="/">
+                <img className="logo-img" src={logoImage} alt="logo" />
+              </Link>
+            </div>
 
             <div className="social-media">
               <div className="footer-title">Follow Us</div>

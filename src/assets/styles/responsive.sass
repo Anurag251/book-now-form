@@ -4,6 +4,10 @@
   .wrapper
     max-width: 1200px
 
+  .work-flow
+    .line
+      top: 49%
+
 @media only screen and ( max-width:  1200px)
   .wrapper
     max-width: 1100px
@@ -24,7 +28,15 @@
     .wrapper
       @include flex($justify: space-between)
 
-      nav, .login-sign-up-btns
+      .login-sign-up-btns
+        @include flex($justify: flex-end)
+
+        .sign-up-btn
+          background: none
+          color: $sec
+          font-size: 16px
+
+      nav
         display: none
 
       .side-nav-btn
@@ -146,6 +158,51 @@
   /*********************      about-page      ***********************/
   .about-page
     @include grid($columns: 1fr)
+
+  /******************      contact-page      ********************/
+  .contact-sec
+    @include grid($columns: 1fr)
+
+  .quick-email
+    top: 62%
+
+  .quick-whatsapp
+    top: 38%
+
+  .work-flow
+    .inner
+      justify-content: center
+      align-items: flex-start
+      flex-direction: column
+
+    .process
+      padding: 1rem
+      margin-left: 4rem
+      margin-bottom: 2rem
+
+      .icon
+        height: 80px
+        width: 80px
+        margin-bottom: 1rem
+
+        img
+          width: 80%
+
+    .line
+      top: 50%
+      left: 30px
+      transform: translateY(-50%)
+      width: 3px
+      height: 100%
+
+      .dot
+        left: 50%
+        top: 0%
+        transform: translateX(-50%) rotate(180deg)
+
+      @keyframes move
+        100%
+          top: 100%
 
 @media only screen and ( max-width:  800px)
   .wrapper
@@ -312,9 +369,54 @@
           margin: 1.3rem 0
 
   /***********      services page      ***********/
-  .services-page
-    .list
-      @include grid($columns: 1fr)
+  .services-card
+    padding: .5rem
+
+    .icon
+      height: 110px
+
+    .card-title
+      font-size: 16px
+
+    p
+      font-size: 13px
+      line-height: 1rem
+
+  .quick-call, .quick-email, .quick-whatsapp
+    top: 86%
+
+    .icon
+      height: 35px
+      width: 35px
+
+      i
+        font-size: 13px
+
+    span
+      height: 35px
+      font-size: 14px
+
+  .quick-email
+    top: 95%
+
+  .quick-whatsapp
+    top: 77%
+
+@media only screen and ( max-width:  480px)
+  .contact-sec
+
+    .contact-info
+      .info
+        li
+          .all-emails
+            flex-direction: column
+            align-items: flex-start
+
+            span
+              display: none
+
+            a
+              margin: 0
 
 @media only screen and ( max-width:  450px)
   .wrapper
@@ -324,3 +426,27 @@
   footer
     .footer-content-list
       @include grid($columns: 1fr)
+
+  /***********      header      ***********/
+  header
+    .wrapper
+      @include grid($columns: 1.1fr 1fr 10px)
+
+      .logo
+        .logo-img
+          @include image()
+          height: 55px
+          width: 110px
+          object-fit: contain
+
+      .login-sign-up-btns
+        @include flex($justify: flex-end)
+
+        .login
+          font-size: 14px
+
+        .sign-up-btn
+          font-size: 14px
+          background: none
+          color: $pri
+          padding: 0

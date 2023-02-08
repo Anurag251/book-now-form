@@ -17,36 +17,35 @@ const AboutPage = () => {
 
           <div className="details">
             <TitleComponent
-              title="LEARN ANYTHING"
-              subTitle="WELCOME COMPANY NAME"
+              title="WE SAVE YOUR PRECIOUS TIME"
+              subTitle="WELCOME TO BOOK4CLEAN"
+              aboutpage={true}
             />
 
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem
-              ea error obcaecati culpa. Repellat ratione cumque cum eius magnam
-              perspiciatis molestiae, velit facilis. Laborum suscipit id natus
-              accusantium ut. Voluptatibus.
+              BOOK4CLEAN is an online portal which helps individual/resident to
+              make their life more comfortable in fact simple and easier. Every
+              individual can book online for cleaning services as per their
+              particular requirement. “JUST AN INSTRUCTION AWAY TO SET YOUR
+              REQUIREMENT DONE”
             </p>
             <h4>Our Vision</h4>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum
-              dolor temporibus corrupti quibusdam? Numquam cum, sequi,
-              praesentium dolores animi ex veniam illum itaque fugit alias omnis
-              voluptas quaerat quis magni!
+              “Input of your requirement and we provide you an excellence
+              service” Our vision to make life comfort, effortless and
+              trouble-free with Professional, Satisfaction & Competitive Price.
+              “Reflection in town, Reliable Service Provider”
             </p>
             <h4>Our Mission</h4>
             <ul>
+              <li>To provide excellence service to the customers.</li>
               <li>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Laudantium nesciunt assumenda
+                To become a prompt respond service provider to the customers in
+                the market.
               </li>
               <li>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Laudantium nesciunt assumenda
-              </li>
-              <li>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                Laudantium nesciunt assumenda
+                To serve with an excellence service provider for the requirement
+                of customer.
               </li>
             </ul>
           </div>

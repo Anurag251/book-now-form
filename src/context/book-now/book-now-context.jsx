@@ -163,7 +163,7 @@ const BookNowProvider = ({ children }) => {
         ? noOfProfessional * formValues.perPerson + pricePerHours
         : noOfProfessional * (formValues.perPerson + 20) + pricePerHours;
 
-    console.log(pricePerProfessional);
+    // console.log(pricePerProfessional);
 
     let allTotalPrice =
       (materials === "Yes"
