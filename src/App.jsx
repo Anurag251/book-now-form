@@ -14,6 +14,7 @@ import SignInAndSignUpModalComponent from "./components/sign-in-and-sign-up-moda
 import { useContext, useEffect, useState } from "react";
 import { BookNowContext } from "./context/book-now/book-now-context";
 import WorkFlowPage from "./pages/work-flow.page";
+import GoogleMapPopupComponent from "./components/google-maps/google-map-popup.component";
 
 const App = () => {
   const [hideComponent, setHideComponent] = useState(false);
@@ -28,6 +29,10 @@ const App = () => {
       setHideComponent(false);
     }
   }, [location.pathname]);
+
+  // console.log(location.pathname);
+
+  
 
   return (
     <div className="App">
@@ -60,6 +65,8 @@ const App = () => {
 
         <Route exact path="/cancel" element={<h2>Error</h2>} />
       </Routes>
+
+      <GoogleMapPopupComponent />
       {hideComponent ? null : <FooterComponent />}
     </div>
   );

@@ -6,7 +6,7 @@ const CustomTitleComponent = ({ title }) => {
   return (
     <div className="booking-form-title">
       <button className="home-button" onClick={() => navigate(-1)}>
-        <i className="fas fa-arrow-left"></i>
+        <i className="fas fa-home"></i>
       </button>
 
       <h2 className="form-page-title">{title}</h2>

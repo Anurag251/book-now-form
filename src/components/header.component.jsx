@@ -218,25 +218,6 @@ const HeaderComponent = () => {
 
           <li>
             <Link
-              to="/about"
-              className={`navLinkBtn ${
-                location.pathname === "/about" ? "active" : ""
-              }`}
-            >
-              <button
-                className="nav-btn"
-                onClick={() => {
-                  setHidden(false);
-                  setFormValues({ ...formValues, currentPath: "/about" });
-                }}
-              >
-                About
-              </button>
-            </Link>
-          </li>
-
-          <li>
-            <Link
               to="/services"
               className={`navLinkBtn ${
                 location.pathname === "/services" ? "active" : ""
@@ -250,6 +231,25 @@ const HeaderComponent = () => {
                 }}
               >
                 Service
+              </button>
+            </Link>
+          </li>
+
+          <li>
+            <Link
+              to="/work-flow"
+              className={`navLinkBtn ${
+                location.pathname === "/work-flow" ? "active" : ""
+              }`}
+            >
+              <button
+                className="nav-btn"
+                onClick={() => {
+                  setHidden(false);
+                  setFormValues({ ...formValues, currentPath: "/work-flow" });
+                }}
+              >
+                How It Works
               </button>
             </Link>
           </li>

@@ -1696,15 +1696,18 @@ footer
       text-align: left
       font-weight: 500
       width: 100%
+      text-align: center
 
     .icon
-      @include flex($justify: flex-start)
+      @include flex($justify: center)
       height: 130px
-      width: 100px
+      width: 100%
       margin-bottom: 1rem
 
       img
-        width: 80%
+        width: 90px
+        height: 90px
+        object-fit: contain
 
   .line
     position: absolute
@@ -1741,3 +1744,158 @@ footer
       left: 100%
       background-color: $sec
 
+.single-page-form
+  padding: 1.5rem
+
+  .section
+    margin-bottom: 1rem
+
+    .input-area
+      @include flex($justify: flex-start)
+      flex-wrap: wrap
+
+      .custom-input
+        margin-bottom: 10px
+        margin-right: 10px
+
+.google-maps-popup
+  position: fixed
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)
+  height: 100vh
+  width: 100%
+  background-color: rgba($dark, .8)
+  backdrop-filter: blur(7px)
+  z-index: 1000
+  @include flex($justify: center)
+  align-items: flex-start
+  opacity: 0
+  pointer-events: none
+  @include trans()
+  padding: 5rem 10px 1rem
+  overflow-y: auto
+
+  &.error
+    .popup-container
+      animation-duration: 400ms
+      animation-timing-function: ease-in-out
+      animation-name: wobble
+      border: 4px solid #e60000
+
+  &.active
+    opacity: 1
+    pointer-events: auto
+
+    .popup-container
+      transform: scale(1)
+
+.popup-container
+  position: absolute
+  top: 0
+  position: relative
+  max-width: 800px
+  width: 100%
+  background-color: $light
+  border-radius: 6px
+  box-shadow: 4px 0 10px rgba($dark, .1)
+  transform: scale(1.1)
+  @include trans()
+
+  .popup-close-btn
+    position: absolute
+    right: 0
+    top: -40px
+    height: 30px
+    width: 30px
+    @include flex($justify: center)
+    border-radius: 4px
+    color: $dark
+    background-color: rgba($light, .5)
+    cursor: pointer
+
+    &:hover
+      background-color: rgba($light, .9)
+
+  .popup-head
+    padding: 1rem
+    text-align: center
+
+    .popup-title
+      font-size: 24px
+      font-weight: 500
+
+    .search-box
+      height: 40px
+      width: 100%
+      border: 1px solid rgba($dark, .5)
+      border-radius: 4px
+      margin-top: 5px
+      position: relative
+      display: none
+
+      input
+        height: 100%
+        width: 100%
+        font-size: 16px
+        padding: 0 40px 0 1rem
+
+      .search-btn
+        position: absolute
+        right: 0
+        top: 50%
+        transform: translateY(-50%)
+        height: 40px
+        width: 40px
+        background: rgba($dark, .8)
+        color: $light
+        border-radius: 0 4px 4px 0
+        @include flex($justify: center)
+
+        i
+          font-size: 17px
+
+  .map-area
+    height: 600px
+
+  .popup-footer
+    @include flex($justify: center)
+    flex-direction: column
+    padding: 1rem 0
+
+    .your-location
+      padding: 1rem
+      width: 90%
+      min-height: 40px
+      max-height: 70px
+      text-align: center
+      background-color: rgba($dark, .07)
+      border-radius: 4px
+      margin-bottom: 10px
+
+    .confirm
+      @include button()
+
+.googleSearchBox
+  position: absolute
+  left: 50%
+  top: 10px
+  transform: translateX(-50%)
+  border-radius: 4px
+  height: 40px
+  max-width: 400px
+  width: 100%
+  background-color: rgba($light, .7)
+  backdrop-filter: blur(5px)
+  padding: .8rem
+  color: rgba($dark, .8)
+  border: 2px solid rgba($dark, .5)
+  font-size: 16px
+  @include trans()
+
+  &:focus
+    box-shadow: 0 2px 7px rgba($dark, .3)
+    
+
+  &::placeholder
+    color: rgba($dark, .6)

@@ -15,7 +15,7 @@ const DateAndTimeComponent = ({
 
   const busyDate = [];
 
-  console.log(professionalDatas);
+  // console.log(professionalDatas);
 
   useEffect(() => {
     if (currentPosition === 66.66) {
@@ -59,7 +59,7 @@ const DateAndTimeComponent = ({
     hours.push(currentTime.getHours());
     currentTime.setHours(currentTime.getHours() + 1);
   }
-  console.log(professionalDatas);
+  // console.log(professionalDatas);
 
   return (
     <div className="date-time-section">
@@ -190,7 +190,7 @@ const DateAndTimeComponent = ({
                           });
                         }
 
-                        console.log(busyDate);
+                        // console.log(busyDate);
 
                         setSift(data.shifts);
                       }}

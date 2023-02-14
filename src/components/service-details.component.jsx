@@ -18,16 +18,46 @@ const ServiceDetailsComponent = ({ currentPosition, serviceDatas }) => {
       <div className="section">
         <div className="form-title">Enter Your Address Please</div>
 
-        <div className="message-box">
+        <div className="message-box" style={{ padding: "0" }}>
           <input
+            type="button"
             className="message-area"
-            cols="30"
-            rows="5"
             name="address"
-            onChange={(e) =>
-              setFormValues({ ...formValues, address: e.target.value })
+            style={{
+              textAlign: "left",
+              height: "100%",
+              cursor: "pointer",
+              padding: "1rem",
+            }}
+            value={
+              formValues.address === "" ? "Select location" : formValues.address
+            }
+            onClick={() =>
+              setFormValues({ ...formValues, googleMapPopup: true })
             }
             placeholder="Example: Dubai, Nepal, London, India, China, etc."
+          />
+        </div>
+      </div>
+
+      <div className="section">
+        <div className="form-title">Your Apartment Details</div>
+
+        <div className="message-box" style={{ padding: "0" }}>
+          <input
+            type="text"
+            className="message-area"
+            name="address"
+            style={{
+              textAlign: "left",
+              height: "100%",
+              padding: "1rem",
+              fontSize: "18px,",
+            }}
+            onChange={(e) =>
+              setFormValues({ ...formValues, apartmentDetails: e.target.value })
+            }
+            placeholder="Apartment Details"
           />
         </div>
       </div>
@@ -208,22 +238,6 @@ const ServiceDetailsComponent = ({ currentPosition, serviceDatas }) => {
               setFormValues({
                 ...formValues,
                 materials: "Yes",
-                materialPrice:
-                  serviceDatas.cleaningmaterials !== null
-                    ? serviceDatas.cleaningmaterials
-                    : 0,
-                materialsperhour:
-                  serviceDatas.materialsperhour !== null
-                    ? serviceDatas.materialsperhour
-                    : 0,
-                materialsDiscount:
-                  serviceDatas.materialsdiscount !== null
-                    ? serviceDatas.materialsdiscount
-                    : 0,
-                materialsDiscountStart:
-                  serviceDatas.materialsdiscountstart !== null
-                    ? serviceDatas.materialsdiscountstart
-                    : 0,
               })
             }
             className={`input-button ${

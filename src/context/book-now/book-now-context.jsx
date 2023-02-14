@@ -5,8 +5,11 @@ export const BookNowContext = createContext();
 
 const BookNowProvider = ({ children }) => {
   const [formValues, setFormValues] = useState({
+    layout: "1",
     currentUser: false,
     currentPath: "/",
+
+    googleMapPopup: false,
 
     isSignIn: null,
     signInSignUpModal: false,
@@ -20,8 +23,6 @@ const BookNowProvider = ({ children }) => {
     frequency: {
       id: 0,
       name: "",
-      professionalDiscount: 0,
-      professionalDiscountStart: 0,
     },
 
     price: 0,
@@ -34,13 +35,15 @@ const BookNowProvider = ({ children }) => {
     perPerson: 0,
 
     address: "",
+    apartmentDetails: "",
     hours: 2,
     noOfProfessional: 1,
+
     materials: "No",
     materialPrice: 0,
-    materialPerHour: 5,
-    materialsDiscount: 0,
-    materialsDiscountStart: 0,
+    materialPerHour: 0,
+    materialsCharge: 0,
+    materialsChargeStart: 0,
     message: "",
 
     professional: {
@@ -85,71 +88,19 @@ const BookNowProvider = ({ children }) => {
 
   const [selectedServices, setSelectedServices] = useState(null);
 
-  // const [selectedService, setSelectedService] = useState({
-  //   id: null,
-  //   title: "Hello Worlds",
-  //   desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate nulla totam voluptatibus quo aliquid sequi sit, modi natus asperiores enim tempora commodi aperiam iure impedit alias illum iste sed quas",
-  //   professional: [
-  //     {
-  //       id: 1,
-  //       name: "Sumi Maharjan",
-  //       time: 4,
-  //       date: 2,
-  //       image: image1,
-  //       rating: 3,
-  //     },
-  //     {
-  //       id: 2,
-  //       name: "Sumi Maharjan",
-  //       time: 10,
-  //       date: 3,
-  //       image: image2,
-  //       rating: 4,
-  //     },
-  //     {
-  //       id: 3,
-  //       name: "Sumi Maharjan",
-  //       time: 4,
-  //       date: 5,
-  //       image: image3,
-  //       rating: 5,
-  //     },
-  //   ],
-  //   materialsPrice: 30,
-  //   frequency: [
-  //     {
-  //       id: 1,
-  //       title: "Bi-weekly",
-  //       desc: "Book a recurring cleaning with the same professional every two-weeks",
-  //       discount: 10,
-  //       perPerson: 60,
-  //       perHours: 30,
-  //     },
-  //     {
-  //       id: 2,
-  //       title: "Bi-weekly",
-  //       desc: "Book a recurring cleaning with the same professional every two-weeks",
-  //       discount: 20,
-  //       perPerson: 70,
-  //       perHours: 20,
-  //     },
-  //   ],
-  // });
-
   const [services, setServices] = useState([]);
 
   const [loadingPage, setLoadingPage] = useState(false);
 
   useEffect(() => {
     const {
-      frequency,
       hours,
       noOfProfessional,
       materials,
       materialPrice,
       materialPerHour,
-      materialsDiscount,
-      materialsDiscountStart,
+      materialsCharge,
+      materialsChargeStart,
     } = formValues;
 
     let pricePerHours =
@@ -167,10 +118,9 @@ const BookNowProvider = ({ children }) => {
 
     let allTotalPrice =
       (materials === "Yes"
-        ? (hours >= materialsDiscountStart
-            ? hours * materialPerHour -
-              materialPerHour * (materialsDiscount / 100)
-            : hours * materialPerHour) + parseInt(materialPrice)
+        ? (hours >= materialsChargeStart
+            ? hours * materialPerHour
+            : hours * materialsCharge) + parseInt(materialPrice)
         : 0) + pricePerProfessional;
 
     // console.log(allTotalPrice);
@@ -220,6 +170,20 @@ const BookNowProvider = ({ children }) => {
   const resetAllBookingData = () => {
     setFormValues({
       ...formValues,
+
+      price: 0,
+      discount: 0,
+
+      perHours: 0,
+      perPerson: 0,
+      hourDiscount: 0,
+      hourDiscountStart: 0,
+
+      materialPrice: 0,
+      materialPerHour: 0,
+      materialsCharge: 0,
+      materialsChargeStart: 0,
+
       frequency: {
         id: null,
         name: "",
@@ -229,7 +193,6 @@ const BookNowProvider = ({ children }) => {
       hours: 2,
       noOfProfessional: 1,
       materials: "No",
-      materialPrice: 0,
       message: "",
 
       professional: {

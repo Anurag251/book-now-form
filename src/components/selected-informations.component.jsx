@@ -125,7 +125,7 @@ const SelectedInformationsComponent = () => {
               <li>
                 <div className="name">Total</div>
                 <div className="value">
-                  AED {formValues.totalPrice - formValues.discount}
+                  AED {(formValues.totalPrice - formValues.discount).toFixed(2)}
                 </div>
               </li>
             </ul>

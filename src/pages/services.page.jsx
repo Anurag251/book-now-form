@@ -26,7 +26,11 @@ const ServicesPage = () => {
             <div className="list">
               {services.length
                 ? services
-                    .filter((data) => data.frequencydetail.length)
+                    .filter(
+                      (data) =>
+                        data.service_name === "Home Cleaning" ||
+                        data.service_name === "Office Cleaning"
+                    )
                     .map((service) => (
                       <ServiceCardComponent
                         key={service.id}
