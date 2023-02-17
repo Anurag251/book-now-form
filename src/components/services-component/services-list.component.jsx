@@ -1,8 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
-
-import { Swiper, SwiperSlide } from "swiper/react";
-
-import { Autoplay } from "swiper";
+import React, { useContext } from "react";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -13,52 +9,33 @@ import LoadingComponent from "../loading.component";
 
 const ServicesListComponent = () => {
   const { services, loadingPage } = useContext(BookNowContext);
-  console.log(services);
 
   return (
-    <div className="services-list">
+    <div className="services-page">
       {loadingPage ? (
         <LoadingComponent />
       ) : (
-        <Swiper
-          slidesPerView={2}
-          spaceBetween={20}
-          speed={1000}
-          autoplay={{
-            delay: 3500,
-            disableOnInteraction: false,
-          }}
-          modules={[Autoplay]}
-          breakpoints={{
-            640: {
-              slidesPerView: 2,
-              spaceBetween: 10,
-            },
-            768: {
-              slidesPerView: 2,
-              spaceBetween: 20,
-            },
-            1024: {
-              slidesPerView: 4,
-              spaceBetween: 20,
-            },
-          }}
-          className="mySwiper"
-        >
+        <div className="list">
           {services.length
             ? services
                 .filter(
                   (data) =>
-                    data.service_name === "Home Cleaning" ||
-                    data.service_name === "Office Cleaning"
+                    (data.service_name === "Home Cleaning" &&
+                      data.employeedetail.length) ||
+                    (data.service_name === "Office Cleaning" &&
+                      data.employeedetail.length) ||
+                    (data.category.category_name === "deep_cleaning" &&
+                      data.rate.length) ||
+                    (data.category.category_name === "sofa_cleaning" &&
+                      data.rate.length) ||
+                    (data.category.category_name === "carpet_cleaning" &&
+                      data.rate.length)
                 )
                 .map((service) => (
-                  <SwiperSlide key={service.id}>
-                    <ServiceCardComponent service={service} />
-                  </SwiperSlide>
+                  <ServiceCardComponent key={service.id} service={service} />
                 ))
             : "No Data Found"}
-        </Swiper>
+        </div>
       )}
     </div>
   );

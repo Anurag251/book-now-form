@@ -18,9 +18,9 @@ const FrequencyComponent = ({ currentPosition, frequencyDatas }) => {
 
       <div className="input-area">
         {frequencyDatas.length
-          ? frequencyDatas.map((frequency) => (
+          ? frequencyDatas.map((frequency,idx) => (
               <div
-                key={frequency.id}
+                key={idx}
                 className={`custom-input ${
                   formValues.frequency.name === frequency.title ? "active" : ""
                 }`}
@@ -42,7 +42,7 @@ const FrequencyComponent = ({ currentPosition, frequencyDatas }) => {
                 </div>
               </div>
             ))
-          : "No data found"}
+          : "No Frequency For This Service"}
 
         {/* <div
           className={`custom-input ${

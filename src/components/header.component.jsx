@@ -121,7 +121,7 @@ const HeaderComponent = () => {
               <button
                 className="sign-up-btn"
                 onClick={() => {
-                  localStorage.removeItem("token");
+                  sessionStorage.removeItem("token");
                   setFormValues({
                     ...formValues,
                     currentUser: false,
@@ -282,7 +282,7 @@ const HeaderComponent = () => {
                 onClick={() => {
                   setHidden(false);
 
-                  localStorage.removeItem("token");
+                  sessionStorage.removeItem("token");
                   setFormValues({
                     ...formValues,
                     currentUser: false,

@@ -585,6 +585,7 @@ footer
   &.yesNo
     // flex-direction: column
     // align-items: flex-start
+    overflow-x: auto
 
     .input-button
       padding: 0 1rem
@@ -1744,11 +1745,26 @@ footer
       left: 100%
       background-color: $sec
 
+/******************      single-page-form      ********************/
 .single-page-form
   padding: 1.5rem
 
   .section
     margin-bottom: 1rem
+
+    .message-box
+      padding: .7rem
+      border: 2px solid #dcdcdc
+      width: 100%
+      border-radius: 4px
+
+      .message-area
+        width: 100%
+        font-size: .8rem
+        font-size: 15px
+
+        &::placeholder
+          color: #898989
 
     .input-area
       @include flex($justify: flex-start)
@@ -1757,6 +1773,96 @@ footer
       .custom-input
         margin-bottom: 10px
         margin-right: 10px
+
+    .input-area-image
+      @include flex($justify: stretch)
+      gap: 10px
+
+      .card-box
+        width: 50%
+        padding: .2rem
+        @include flex($justify: flex-start)
+        border: 2px solid rgba($dark, .2)
+        border-radius: 4px
+        cursor: pointer
+
+        &:hover
+          transform: translateY(-2px) scale(1.02)
+          box-shadow: 0 2px 6px rgba($dark, .1)
+
+        &.active
+          border-color: $pri
+
+        .form-input-label
+          font-size: 14px
+          font-weight: 600
+          text-transform: uppercase
+          letter-spacing: 1.5px
+          color: rgba($dark, .6)
+
+        .price
+          font-size: 18px
+          font-weight: 400
+          margin: .2rem 0
+
+        .image
+          height: 100px
+          width: 100px
+          object-fit: cover
+          margin-right: 15px
+
+        .addSeat
+          @include button()
+          padding: .3rem .6rem
+          font-size: 13px
+
+    .qunatity-btn
+      @include flex($justify: space-between)
+      height: 33px
+      padding: 3px
+      border: 1px solid rgba($dark, .4)
+      width: 100px
+      border-radius: 4px
+
+      .display-qunatity
+        text-align: center
+
+      button
+        width: 25px
+        height: 100%
+        background-color: rgba($pri, .8)
+        border-radius: 4px
+        font-size: 16px
+        color: $light
+
+    .calculator
+      @include flex($justify: flex-start)
+      flex-wrap: wrap
+      gap: 10px
+
+      .calBtn
+        @include button()
+        height: 50px
+
+      .form-input-area
+        margin: 0
+
+        .input-sec
+          height: 50px
+
+          .select
+            padding: 0 .5rem
+
+    .output
+      padding: 1rem
+      margin-top: 1rem
+      background-color: rgba($dark, .1)
+      @include flex($justify: space-between)
+      gap: 10px
+      border-radius: 4px
+
+      h4
+        font-weight: 400
 
 .google-maps-popup
   position: fixed
@@ -1895,7 +2001,6 @@ footer
 
   &:focus
     box-shadow: 0 2px 7px rgba($dark, .3)
-    
 
   &::placeholder
     color: rgba($dark, .6)

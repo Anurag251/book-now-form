@@ -1,13 +1,15 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const CustomTitleComponent = ({ title }) => {
   const navigate = useNavigate();
   return (
     <div className="booking-form-title">
-      <button className="home-button" onClick={() => navigate(-1)}>
-        <i className="fas fa-home"></i>
-      </button>
+      <Link to="/">
+        <button className="home-button">
+          <i className="fas fa-home"></i>
+        </button>
+      </Link>
 
       <h2 className="form-page-title">{title}</h2>
     </div>

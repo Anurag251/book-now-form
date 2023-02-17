@@ -28,8 +28,16 @@ const ServicesPage = () => {
                 ? services
                     .filter(
                       (data) =>
-                        data.service_name === "Home Cleaning" ||
-                        data.service_name === "Office Cleaning"
+                        (data.service_name === "Home Cleaning" &&
+                          data.employeedetail.length) ||
+                        (data.service_name === "Office Cleaning" &&
+                          data.employeedetail.length) ||
+                        (data.category.category_name === "deep_cleaning" &&
+                          data.rate.length) ||
+                        (data.category.category_name === "sofa_cleaning" &&
+                          data.rate.length) ||
+                        (data.category.category_name === "carpet_cleaning" &&
+                          data.rate.length)
                     )
                     .map((service) => (
                       <ServiceCardComponent

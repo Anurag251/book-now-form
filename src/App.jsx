@@ -32,8 +32,6 @@ const App = () => {
 
   // console.log(location.pathname);
 
-  
-
   return (
     <div className="App">
       {!formValues.currentUser ? <SignInAndSignUpModalComponent /> : null}

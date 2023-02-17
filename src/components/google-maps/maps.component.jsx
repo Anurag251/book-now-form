@@ -135,7 +135,7 @@ const MapsComponent = ({
       const place = places[0];
       const { lat, lng } = places[0].geometry.location;
       setSelectedPlace(place);
-      setClickPosition({ lat: lat(), lng: lng() });
+      // setClickPosition({ lat: lat(), lng: lng() });
       map.panTo({ lat: lat(), lng: lng() });
       console.log({ lat: lat(), lng: lng() });
     } catch (err) {

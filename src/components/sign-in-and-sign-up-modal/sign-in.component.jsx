@@ -34,7 +34,7 @@ const SignInComponent = () => {
         })
         .then((res) => {
           if (res.status === 200) {
-            localStorage.setItem("token", res.data.data);
+            sessionStorage.setItem("token", res.data.data);
             setFormValues({
               ...formValues,
               currentUser: true,

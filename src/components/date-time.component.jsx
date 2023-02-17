@@ -70,9 +70,9 @@ const DateAndTimeComponent = ({
           <p className="sub-title">Top-rated professionals in your area</p>
 
           <div className="professional-list">
-            {professionalDatas.map((data) => (
+            {professionalDatas.map((data, idx) => (
               <div
-                key={data.id}
+                key={idx}
                 className={`item ${
                   formValues.professional.id === data.id ? "active" : ""
                 }`}

@@ -5,7 +5,8 @@ import FormInputComponent from "../sign-in-and-sign-up-modal/form-input.componen
 import MapsComponent from "./maps.component";
 
 const GoogleMapPopupComponent = () => {
-  const { formValues, setFormValues } = useContext(BookNowContext);
+  const { formValues, setFormValues, formValuesDeep, setFormValuesDeep } =
+    useContext(BookNowContext);
 
   const [selectedLocation, setSelectedLocation] = useState("");
   const [selectedLocationError, setSelectedLocationError] = useState(false);
@@ -59,13 +60,18 @@ const GoogleMapPopupComponent = () => {
 
             <button
               className="confirm"
-              onClick={() =>
+              onClick={() => {
                 setFormValues({
                   ...formValues,
                   googleMapPopup: false,
                   address: selectedLocation,
-                })
-              }
+                });
+
+                setFormValuesDeep({
+                  ...formValuesDeep,
+                  address: selectedLocation,
+                });
+              }}
             >
               Confirm
             </button>

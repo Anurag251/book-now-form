@@ -5,7 +5,7 @@ export const BookNowContext = createContext();
 
 const BookNowProvider = ({ children }) => {
   const [formValues, setFormValues] = useState({
-    layout: "1",
+    layout: "",
     currentUser: false,
     currentPath: "/",
 
@@ -58,7 +58,28 @@ const BookNowProvider = ({ children }) => {
       date: 0,
       month: "",
     },
+
     time: "",
+    totalPrice: 0,
+  });
+
+  const [formValuesDeep, setFormValuesDeep] = useState({
+    category: "",
+    rate: 0,
+    date: "",
+    time: "",
+    message: "",
+    address: "",
+  });
+
+  const [formValuesSofa, setFormValuesSofa] = useState({
+    category: "",
+    rate: 0,
+    addRate: 0,
+    date: "",
+    time: "",
+    message: "",
+    address: "",
     totalPrice: 0,
   });
 
@@ -137,7 +158,7 @@ const BookNowProvider = ({ children }) => {
   ]);
 
   useEffect(() => {
-    if (localStorage.getItem("token")) {
+    if (sessionStorage.getItem("token")) {
       setFormValues({ ...formValues, currentUser: true });
     } else {
       setFormValues({ ...formValues, currentUser: false });
@@ -232,6 +253,10 @@ const BookNowProvider = ({ children }) => {
         resetAllBookingData,
         inputFieldError,
         setInputFieldError,
+        formValuesDeep,
+        setFormValuesDeep,
+        formValuesSofa,
+        setFormValuesSofa,
       }}
     >
       {children}
