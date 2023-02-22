@@ -162,27 +162,29 @@ const DateAndTimeComponent = ({
                   <li className="select-day" key={idx}>
                     <label
                       className="button-label"
-                      htmlFor={data.weekday + "button"}
+                      htmlFor={data.work_date + "button"}
                     >
-                      {data.month}
                     </label>
                     <input
-                      id={data.weekday + "button"}
+                      id={data.work_date + "button"}
                       type="button"
-                      value={data.weekday}
+                      value={data.work_date.toString().split("-")[2]}
                       onClick={(e) => {
                         setFormValues({
                           ...formValues,
                           date: {
-                            day: parseInt(data.year),
+                            day: parseInt(data.work_date.toString().split("-")[2]),
                             date: e.target.value,
-                            month: data.month,
+                            month: data.work_date.toString().split("-")[1],
                           },
+
                         });
+                        
+                        console.log(data.work_date.toString().split("-")[2])
 
                         if (jobStatus !== null) {
                           jobStatus.forEach((jobData) => {
-                            console.log(jobData);
+                            // console.log(jobData);
 
                             if (jobData.job_date === "2023-01-14") {
                               busyDate.push(jobData.job_date);
@@ -195,7 +197,7 @@ const DateAndTimeComponent = ({
                         setSift(data.shifts);
                       }}
                       className={`input-button ${
-                        formValues.date.date === data.weekday ? "active" : ""
+                        formValues.date.date === data.work_date.toString().split("-")[2] ? "active" : ""
                       }`}
                     />
                   </li>

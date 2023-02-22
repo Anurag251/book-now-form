@@ -788,6 +788,15 @@ footer
         padding: .5rem 1rem
         cursor: pointer
 
+      .btn-group
+        @include flex($justify: flex-end)
+
+        .next:nth-child(1)
+          background: none
+          border: 1px solid $pri
+          color: $pri
+          margin-right: 10px
+
       .next
         text-transform: uppercase
         font-weight: 600
@@ -795,6 +804,10 @@ footer
         position: relative
         transition: .4s
         @include flex($justify: center)
+
+        i
+          font-size: 18px
+          margin-right: 10px
 
         .loading
           box-shadow: 0 2px 6px rgba($pri, .5)

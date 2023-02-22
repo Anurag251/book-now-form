@@ -65,14 +65,14 @@ const ServiceDetailsComponent = ({ currentPosition, serviceDatas }) => {
       <div className="section">
         <div className="form-title">
           How many hours do you need your professional to stay?
-          <button
+          {/* <button
             className="info-btn"
             onClick={() =>
               setFormValues({ ...formValues, isHoursModalHidden: true })
             }
           >
             <i className="fas fa-info"></i>
-          </button>
+          </button> */}
         </div>
 
         <div className="select-button-list">
@@ -206,14 +206,14 @@ const ServiceDetailsComponent = ({ currentPosition, serviceDatas }) => {
       <div className="section">
         <div className="form-title">
           Do you require cleaning materials?
-          <button
+          {/* <button
             className="info-btn"
             onClick={() =>
               setFormValues({ ...formValues, isMaterialModalHidden: true })
             }
           >
             <i className="fas fa-info"></i>
-          </button>
+          </button> */}
         </div>
 
         <div className="select-button-list yesNo">

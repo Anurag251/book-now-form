@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { apis } from "../apis/apis";
 import CustomTitleComponent from "../components/custom-title.component";
 import DateAndTimeComponent from "../components/date-time.component";
@@ -13,8 +13,10 @@ import { BookNowContext } from "../context/book-now/book-now-context";
 
 const BookNowPage = () => {
   const [currentPosition, setCurrentPosition] = useState(0);
+  const [cardPay, setCardPay] = useState(null);
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   const {
     formValues,
@@ -24,10 +26,11 @@ const BookNowPage = () => {
     selectedServices,
     setSelectedServices,
 
-    resetAllBookingData,
+    message,
+    setMessage,
   } = useContext(BookNowContext);
 
-  // console.log(selectedServices);
+  console.log(selectedServices);
 
   useEffect(() => {
     services.forEach((service) => {
@@ -85,7 +88,7 @@ const BookNowPage = () => {
     window.scrollTo(0, 0);
   }, [currentPosition]);
 
-  const submitBooking = () => {
+  const submitBooking = (e) => {
     setFormValues({
       ...formValues,
       buttonLoading: true,
@@ -97,6 +100,7 @@ const BookNowPage = () => {
           service_id: selectedServices.id,
           frequency_id: formValues.frequency.id,
           address: formValues.address,
+          // location: formValues.apartmentDetails,
           working_hours: formValues.hours,
           professional: formValues.noOfProfessional,
           cleaning_materials: formValues.materialPrice,
@@ -104,9 +108,8 @@ const BookNowPage = () => {
           employee_id: formValues.professional.id,
           service_date: "2023-02-02",
           service_time: formValues.time,
-          client_id: formValues.professional.id,
+          // client_id: sessionStorage.getItem("token"),
           total_price: formValues.totalPrice,
-          client_id: sessionStorage.getItem('token')
         })
         .then((res) => {
           if (res.status === 200) {
@@ -114,7 +117,33 @@ const BookNowPage = () => {
               ...formValues,
               buttonLoading: false,
             });
+            // if (e === true) {
             window.location = res.data.url;
+            setMessage({
+              ...message,
+              hidden: true,
+              type: "success",
+              message: "Your Checkout is success",
+            });
+            // }
+            // else {
+            //   navigate("/");
+            //   setMessage({
+            //     ...message,
+            //     hidden: true,
+            //     type: "success",
+            //     message: "Your Checkout is success",
+            //   });
+            // }
+
+            setTimeout(() => {
+              setMessage({
+                ...message,
+                hidden: false,
+                type: "",
+                message: "",
+              });
+            }, 3000);
           }
           // console.log(res);
           // console.log(res);
@@ -127,6 +156,10 @@ const BookNowPage = () => {
           console.log(err);
         });
     } catch (err) {
+      setFormValues({
+        ...formValues,
+        buttonLoading: false,
+      });
       console.log(err);
     }
   };
@@ -210,20 +243,33 @@ const BookNowPage = () => {
                         Next
                       </button>
                     ) : formValues.currentUser ? (
-                      <React.Fragment>
-                        {/* <CheckoutComponent /> */}
+                      <div className="btn-group">
+                        <button
+                          className={`next ${
+                            formValues.buttonLoading ? "loading" : ""
+                          }`}
+                          onClick={() => {
+                            setCardPay(false);
+                            submitBooking(cardPay);
+                          }}
+                        >
+                          <i className="fa-solid fa-money-bill-wave"></i>
+                          Cash Pay
+                        </button>
 
                         <button
                           className={`next ${
                             formValues.buttonLoading ? "loading" : ""
                           }`}
-                          onClick={submitBooking}
+                          onClick={() => {
+                            setCardPay(true);
+                            submitBooking(cardPay);
+                          }}
                         >
-                          Checkout
+                          <i className="fa-brands fa-cc-stripe"></i>
+                          Card Pay
                         </button>
-
-                        {/* <StripeCheckoutComponent /> */}
-                      </React.Fragment>
+                      </div>
                     ) : (
                       <button
                         className="next"
@@ -291,14 +337,33 @@ const BookNowPage = () => {
                     )}
 
                     {formValues.currentUser ? (
-                      <button
-                        className={`next ${
-                          formValues.buttonLoading ? "loading" : ""
-                        }`}
-                        onClick={submitBooking}
-                      >
-                        Checkout
-                      </button>
+                      <div className="btn-group">
+                        <button
+                          className={`next ${
+                            formValues.buttonLoading ? "loading" : ""
+                          }`}
+                          onClick={() => {
+                            setCardPay(false);
+                            submitBooking();
+                          }}
+                        >
+                          <i className="fa-solid fa-money-bill-wave"></i>
+                          Cash Pay
+                        </button>
+
+                        <button
+                          className={`next ${
+                            formValues.buttonLoading ? "loading" : ""
+                          }`}
+                          onClick={() => {
+                            setCardPay(true);
+                            submitBooking();
+                          }}
+                        >
+                          <i className="fa-brands fa-cc-stripe"></i>
+                          Card Pay
+                        </button>
+                      </div>
                     ) : (
                       <button
                         className={`next ${

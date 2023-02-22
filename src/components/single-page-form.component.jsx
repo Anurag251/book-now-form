@@ -44,14 +44,11 @@ const SinglePageFormComponent = ({ selectedServices }) => {
   endDate.setDate(endDate.getDate() + 14);
 
   let dates = [];
-  const timeIntervals = [];
 
   while (date <= endDate) {
     dates.push(new Date(date.getTime()));
     date.setDate(date.getDate() + 1);
   }
-
-  let todayDate = dates.toString().split(" ")[2];
 
   useEffect(() => {
     if (selectedServices.category.category_name === "deep_cleaning") {
@@ -66,6 +63,9 @@ const SinglePageFormComponent = ({ selectedServices }) => {
   }, [selectedServices.category.category_name]);
 
   useEffect(() => {
+    let timeIntervals = [];
+    let todayDate = dates.toString().split(" ")[2];
+
     if (formValues.date.date === todayDate) {
       setStartTime(
         new Date(
@@ -77,13 +77,14 @@ const SinglePageFormComponent = ({ selectedServices }) => {
           0
         )
       );
+      setAllTimes(timeIntervals);
     } else {
       setStartTime(
         new Date(now.getFullYear(), now.getMonth(), now.getDate(), 8, 0, 0)
       );
-    }
 
-    setAllTimes(timeIntervals);
+      setAllTimes(timeIntervals);
+    }
 
     setEndTime(
       new Date(now.getFullYear(), now.getMonth(), now.getDate(), 20, 30, 0)
@@ -105,6 +106,8 @@ const SinglePageFormComponent = ({ selectedServices }) => {
       }
     }
   }, [formValues.date.date]);
+
+  // console.log(allTimes);
 
   useEffect(() => {
     if (selectedServices.category.category_name === "sofa_cleaning") {
