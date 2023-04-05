@@ -22,7 +22,8 @@ const SignUpComponent = () => {
     setSignUp({ ...signUp, [name]: value });
   };
 
-  const validate = async () => {
+  const validateSignUp = async (e) => {
+    e.preventDefault()
     if (
       signUp.fName !== "" &&
       signUp.lName !== "" &&
@@ -61,7 +62,7 @@ const SignUpComponent = () => {
               ...message,
               hidden: true,
               type: "success",
-              message: "Sign Up Success Redirecting to Login",
+              message: "Go to your email and verify it",
             });
 
             setTimeout(() => {
@@ -69,12 +70,11 @@ const SignUpComponent = () => {
                 ...formValues,
 
                 buttonLoading: false,
-                signInSignUpModal: true,
-                isSignIn: true,
+                signInSignUpModal: false,
               });
 
               removerMessage();
-            }, 4000);
+            }, 6000);
           }
         })
         .catch((err) => {
@@ -95,85 +95,6 @@ const SignUpComponent = () => {
             removerMessage();
           }, 4000);
         });
-
-      // fetch("https://stnepal.com.np/sherpatech/api/v1/signup", {
-      //   method: "post",
-      //   body: JSON.stringify({
-      //     first_name: signUp.fName,
-      //     middle_name: signUp.mName,
-      //     last_name: signUp.lName,
-      //     email: signUp.email,
-      //     phone: signUp.phoneNumber,
-      //     address: signUp.address,
-      //     password: signUp.password,
-      //     password_confirmation: signUp.passwordConfirmation,
-      //   }),
-      //   headers: {
-      //     mode: "no-cors",
-      //     "access-control-allow-origin": "*",
-      //     "access-control-allow-header": "*",
-      //     "Content-Type": "application/json",
-      //   },
-      //   redirect: "follow",
-      // })
-      //   .then((res) => {
-      //     if (!res.ok) {
-      //       setMessage({
-      //         ...message,
-      //         hidden: true,
-      //         type: "error",
-      //         message: "This email is already taken",
-      //       });
-
-      //       setTimeout(() => {
-      //         setMessage({
-      //           ...message,
-      //           hidden: false,
-      //           type: "",
-      //           message: "",
-      //         });
-      //       }, 4000);
-      //     } else {
-      //       return res.json();
-      //     }
-      //   })
-      //   .then((data) => {
-      //     console.log(data);
-      //     if (data !== undefined) {
-      //       setFormValues({
-      //         ...formValues,
-
-      //         signInSignUpModal: false,
-      //         buttonLoading: false,
-      //       });
-
-      //       setMessage({
-      //         ...message,
-      //         hidden: true,
-      //         type: "success",
-      //         message: "Sign Up Success Please Login",
-      //       });
-
-      //       setTimeout(() => {
-      //         setFormValues({
-      //           ...formValues,
-
-      //           buttonLoading: false,
-
-      //           signInSignUpModal: true,
-      //           isSignIn: true,
-      //         });
-
-      //         setMessage({
-      //           ...message,
-      //           hidden: false,
-      //           type: "",
-      //           message: "",
-      //         });
-      //       }, 4000);
-      //     }
-      //   })
-      //   .catch((err) => console.log(err));
     } else {
       setInputFieldError("All field are required");
 
@@ -189,80 +110,87 @@ const SignUpComponent = () => {
         <p className="error">{inputFieldError}</p>
       ) : null}
 
-      <FormInputComponent
-        label="Full Name*"
-        type="text"
-        name="fName"
-        handleChange={handleChange}
-        value={signUp.fName}
-      />
+      <form action="" onSubmit={validateSignUp}>
+        <FormInputComponent
+          label="First Name*"
+          type="text"
+          name="fName"
+          handleChange={handleChange}
+          value={signUp.fName}
+          required
+        />
 
-      <FormInputComponent
-        label="Middle Name"
-        type="text"
-        name="mName"
-        handleChange={handleChange}
-        value={signUp.mName}
-      />
+        <FormInputComponent
+          label="Middle Name"
+          type="text"
+          name="mName"
+          handleChange={handleChange}
+          value={signUp.mName}
+        />
 
-      <FormInputComponent
-        label="Last Name*"
-        type="text"
-        name="lName"
-        handleChange={handleChange}
-        value={signUp.lName}
-      />
+        <FormInputComponent
+          label="Last Name*"
+          type="text"
+          name="lName"
+          handleChange={handleChange}
+          value={signUp.lName}
+          required
+        />
 
-      <FormInputComponent
-        label="Phone Number*"
-        type="number"
-        name="phoneNumber"
-        handleChange={handleChange}
-        value={signUp.phoneNumber}
-      />
+        <FormInputComponent
+          label="Phone Number*"
+          type="number"
+          name="phoneNumber"
+          handleChange={handleChange}
+          value={signUp.phoneNumber}
+        />
 
-      <FormInputComponent
-        label="Email Id*"
-        type="email"
-        name="email"
-        handleChange={handleChange}
-        value={signUp.email}
-      />
+        <FormInputComponent
+          label="Email Id*"
+          type="email"
+          name="email"
+          handleChange={handleChange}
+          value={signUp.email}
+          required
+        />
 
-      <FormInputComponent
-        label="Address*"
-        type="text"
-        name="address"
-        handleChange={handleChange}
-        value={signUp.address}
-      />
+        <FormInputComponent
+          label="Address*"
+          type="text"
+          name="address"
+          handleChange={handleChange}
+          value={signUp.address}
+          required
+        />
 
-      <FormInputComponent
-        label="Password*"
-        type="password"
-        name="password"
-        handleChange={handleChange}
-        value={signUp.password}
-        password
-      />
+        <FormInputComponent
+          label="Password*"
+          type="password"
+          name="password"
+          handleChange={handleChange}
+          value={signUp.password}
+          password
+          required
+        />
 
-      <FormInputComponent
-        label="Confirm Password*"
-        type="password"
-        name="passwordConfirmation"
-        handleChange={handleChange}
-        value={signUp.passwordConfirmation}
-        password
-      />
+        <FormInputComponent
+          label="Confirm Password*"
+          type="password"
+          name="passwordConfirmation"
+          handleChange={handleChange}
+          value={signUp.passwordConfirmation}
+          password
+          required
+        />
 
-      <button
-        className={`form-submit-btn ${
-          formValues.buttonLoading ? "loading" : ""
-        }`}
-        onClick={validate}
-      >
-        Register
-      </button>
+        <button
+          className={`form-submit-btn ${
+            formValues.buttonLoading ? "loading" : ""
+          }`}
+        >
+          Register
+        </button>
+      </form>
     </div>
   );
 };

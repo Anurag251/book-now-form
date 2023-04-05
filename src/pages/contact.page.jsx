@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { apis } from "../apis/apis";
 import FormInputComponent from "../components/sign-in-and-sign-up-modal/form-input.component";
+import { BookNowContext } from "../context/book-now/book-now-context";
 
 const ContactPage = () => {
+  const { message, setMessage, removerMessage, formValues, setFormValues } =
+    useContext(BookNowContext);
   const [contactFormValues, setContactFormValues] = useState({
     fullName: "",
     email: "",
@@ -9,6 +13,88 @@ const ContactPage = () => {
     subject: "",
     message: "",
   });
+
+  const validateContact = (e) => {
+    e.preventDefault();
+    if (
+      contactFormValues.fullName !== "" &&
+      contactFormValues.email !== "" &&
+      contactFormValues.subject !== "" &&
+      contactFormValues.message !== ""
+    ) {
+      setFormValues({
+        ...formValues,
+        buttonLoading: true,
+      });
+
+      apis
+        .post("/send/message", {
+          name: contactFormValues.fullName,
+          email: contactFormValues.email,
+          subject: contactFormValues.subject,
+          phone: contactFormValues.contactNo,
+          message: contactFormValues.message,
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            setFormValues({
+              ...formValues,
+
+              buttonLoading: false,
+            });
+
+            setMessage({
+              ...message,
+              hidden: true,
+              type: "success",
+              message: "Your message is sent to our company",
+            });
+
+            setContactFormValues({
+              ...contactFormValues,
+              fullName: "",
+              email: "",
+              contactNo: "",
+              subject: "",
+              message: "",
+            });
+
+            setTimeout(() => {
+              removerMessage();
+            }, 6000);
+          }
+        })
+        .catch((err) => {
+          setMessage({
+            ...message,
+            hidden: true,
+            type: "error",
+            message: "Something went wrong",
+          });
+
+          setFormValues({
+            ...formValues,
+
+            buttonLoading: false,
+          });
+
+          setTimeout(() => {
+            removerMessage();
+          }, 4000);
+        });
+    } else {
+      setMessage({
+        ...message,
+        hidden: true,
+        type: "error",
+        message: "All fields are required",
+      });
+
+      setTimeout(() => {
+        removerMessage();
+      }, 3000);
+    }
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -102,7 +188,10 @@ const ContactPage = () => {
                   </div>
                 </a>
 
-                <a href="https://api.whatsapp.com/send?phone=971564221815" target="_blank">
+                <a
+                  href="https://api.whatsapp.com/send?phone=971564221815"
+                  target="_blank"
+                >
                   <div className="icon">
                     <i className="fab fa-whatsapp"></i>
                   </div>
@@ -123,7 +212,7 @@ const ContactPage = () => {
             </div>
 
             <div className="contact-form">
-              <form action="">
+              <form action="" onSubmit={validateContact}>
                 <div className="form-area">
                   <div className="groups">
                     <FormInputComponent
@@ -146,7 +235,7 @@ const ContactPage = () => {
                   <div className="groups">
                     <FormInputComponent
                       label="Contact Number"
-                      type="text"
+                      type="number"
                       name="contactNo"
                       value={contactFormValues.contactNo}
                       handleChange={handleChange}
@@ -154,7 +243,7 @@ const ContactPage = () => {
 
                     <FormInputComponent
                       label="Subject"
-                      type="email"
+                      type="text"
                       name="subject"
                       value={contactFormValues.subject}
                       handleChange={handleChange}
@@ -163,7 +252,7 @@ const ContactPage = () => {
 
                   <FormInputComponent
                     label="Message"
-                    type="email"
+                    type="text"
                     name="message"
                     value={contactFormValues.message}
                     handleChange={handleChange}
@@ -171,7 +260,13 @@ const ContactPage = () => {
                   />
                 </div>
 
-                <button className="submit-btn">Send Message</button>
+                <button
+                  className={`form-submit-btn ${
+                    formValues.buttonLoading ? "loading" : ""
+                  }`}
+                >
+                  Send Message
+                </button>
               </form>
             </div>
           </div>

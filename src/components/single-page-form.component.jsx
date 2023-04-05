@@ -15,6 +15,8 @@ const SinglePageFormComponent = ({ selectedServices }) => {
     setFormValuesDeep,
     formValuesSofa,
     setFormValuesSofa,
+    formValuesCarpet,
+    setFormValuesCarpet,
     message,
     setMessage,
   } = useContext(BookNowContext);
@@ -115,6 +117,13 @@ const SinglePageFormComponent = ({ selectedServices }) => {
         quantity * formValuesSofa.addRate +
           parseInt(selectedServices.rate[0].value)
       );
+
+      setFormValues({
+        ...formValues,
+        totalPrice:
+          quantity * formValuesSofa.addRate +
+          parseInt(selectedServices.rate[0].value),
+      });
     }
   }, [quantity]);
 
@@ -124,8 +133,22 @@ const SinglePageFormComponent = ({ selectedServices }) => {
         quantity1 * formValuesSofa.addRate +
           parseInt(selectedServices.rate[2].value)
       );
+
+      setFormValues({
+        ...formValues,
+        totalPrice:
+          quantity1 * formValuesSofa.addRate +
+          parseInt(selectedServices.rate[2].value),
+      });
     }
   }, [quantity1]);
+
+  useEffect(() => {
+    setFormValuesSofa({
+      ...formValuesSofa,
+      quantity: quantity ? quantity : quantity1 ? quantity1 : 0,
+    });
+  }, [quantity, quantity1]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -202,6 +225,12 @@ const SinglePageFormComponent = ({ selectedServices }) => {
         carpetSize.actualSize * selectedServices.rate[0].value
       ).toFixed(2),
     });
+
+    setFormValuesCarpet({
+      ...formValuesCarpet,
+      id: selectedServices.rate[0].id,
+      value: carpetSize.actualSize,
+    });
   }, [carpetSize.actualSize]);
 
   return (
@@ -237,7 +266,7 @@ const SinglePageFormComponent = ({ selectedServices }) => {
           <input
             type="text"
             className="message-area"
-            name="address"
+            name="message"
             style={{
               textAlign: "left",
               height: "100%",
@@ -303,9 +332,15 @@ const SinglePageFormComponent = ({ selectedServices }) => {
                 onClick={() => {
                   setFormValuesSofa({
                     ...formValuesSofa,
+                    id: selectedServices.rate[0].id,
                     rate: selectedServices.rate[0].value,
                     category: selectedServices.rate[0].field_name,
                     addRate: selectedServices.rate[1].value,
+                  });
+
+                  setFormValues({
+                    ...formValues,
+                    totalPrice: selectedServices.rate[0].value,
                   });
                   setQuantity1(0);
                 }}
@@ -364,9 +399,15 @@ const SinglePageFormComponent = ({ selectedServices }) => {
                 onClick={() => {
                   setFormValuesSofa({
                     ...formValuesSofa,
+                    id: selectedServices.rate[2].id,
                     rate: selectedServices.rate[2].value,
                     category: selectedServices.rate[2].field_name,
                     addRate: selectedServices.rate[3].value,
+                  });
+
+                  setFormValues({
+                    ...formValues,
+                    totalPrice: selectedServices.rate[2].value,
                   });
                   setQuantity(0);
                 }}
@@ -538,6 +579,12 @@ const SinglePageFormComponent = ({ selectedServices }) => {
                     setFormValuesDeep({
                       ...formValuesDeep,
                       rate: rate.value,
+                      id: rate.id,
+                    });
+
+                    setFormValues({
+                      ...formValues,
+                      totalPrice: rate.value,
                     });
                   }}
                 >
@@ -649,7 +696,7 @@ const SinglePageFormComponent = ({ selectedServices }) => {
             rows="5"
             name="message"
             onChange={(e) =>
-              setFormValuesDeep({ ...formValuesDeep, message: e.target.value })
+              setFormValues({ ...formValues, message: e.target.value })
             }
             placeholder="Example: Key under the mat, ironing, window cleaning, etc."
           ></textarea>

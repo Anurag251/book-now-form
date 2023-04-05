@@ -15,7 +15,7 @@ const DateAndTimeComponent = ({
 
   const busyDate = [];
 
-  // console.log(professionalDatas);
+  console.log(professionalDatas);
 
   useEffect(() => {
     if (currentPosition === 66.66) {
@@ -59,7 +59,8 @@ const DateAndTimeComponent = ({
     hours.push(currentTime.getHours());
     currentTime.setHours(currentTime.getHours() + 1);
   }
-  // console.log(professionalDatas);
+  
+  console.log(professionalDatas);
 
   return (
     <div className="date-time-section">
@@ -84,7 +85,7 @@ const DateAndTimeComponent = ({
                       id: data.id,
                       name: data.first_name + " " + data.last_name,
                       rating: 5.5,
-                      imageUrl: data.image,
+                      imageUrl: data.profile_image,
                     },
 
                     date: {
@@ -98,7 +99,7 @@ const DateAndTimeComponent = ({
                   setSifts(data.shift);
                 }}
               >
-                <img className="user-image" src={data.image} alt="" />
+                <img className="user-image" src={data.profile_image} alt="" />
 
                 <div className="name">
                   {data.first_name} {data.last_name}
@@ -158,50 +159,59 @@ const DateAndTimeComponent = ({
 
           <ul className="select-button-list">
             {sifts !== null
-              ? sifts.map((data, idx) => (
-                  <li className="select-day" key={idx}>
-                    <label
-                      className="button-label"
-                      htmlFor={data.work_date + "button"}
-                    >
-                    </label>
-                    <input
-                      id={data.work_date + "button"}
-                      type="button"
-                      value={data.work_date.toString().split("-")[2]}
-                      onClick={(e) => {
-                        setFormValues({
-                          ...formValues,
-                          date: {
-                            day: parseInt(data.work_date.toString().split("-")[2]),
-                            date: e.target.value,
-                            month: data.work_date.toString().split("-")[1],
-                          },
-
-                        });
-                        
-                        console.log(data.work_date.toString().split("-")[2])
-
-                        if (jobStatus !== null) {
-                          jobStatus.forEach((jobData) => {
-                            // console.log(jobData);
-
-                            if (jobData.job_date === "2023-01-14") {
-                              busyDate.push(jobData.job_date);
-                            }
+              ? sifts
+                  // .filter((data, idx) => data.work_date !== jobStatus[0].job_date)
+                  .map((data, idx) => (
+                    <li className="select-day" key={idx}>
+                      <label
+                        className="button-label"
+                        htmlFor={data.work_date + "button"}
+                      >
+                        {data.day_of_week[0] +
+                          data.day_of_week[1] +
+                          data.day_of_week[2]}
+                      </label>
+                      <input
+                        id={data.work_date + "button"}
+                        type="button"
+                        value={data.work_date.toString().split("-")[2]}
+                        onClick={(e) => {
+                          setFormValues({
+                            ...formValues,
+                            date: {
+                              day: parseInt(
+                                data.work_date.toString().split("-")[2]
+                              ),
+                              date: e.target.value,
+                              month: data.work_date.toString().split("-")[1],
+                            },
                           });
-                        }
 
-                        // console.log(busyDate);
+                          // console.log(data.work_date.toString().split("-")[2]);
 
-                        setSift(data.shifts);
-                      }}
-                      className={`input-button ${
-                        formValues.date.date === data.work_date.toString().split("-")[2] ? "active" : ""
-                      }`}
-                    />
-                  </li>
-                ))
+                          // if (jobStatus !== null) {
+                          //   jobStatus.forEach((jobData) => {
+                          //     console.log(jobData);
+
+                          //     if (jobData.job_date === "2023-01-14") {
+                          //       busyDate.push(jobData.job_date);
+                          //     }
+                          //   });
+                          // }
+
+                          // console.log(busyDate);
+
+                          setSift(data.shifts);
+                        }}
+                        className={`input-button ${
+                          formValues.date.date ===
+                          data.work_date.toString().split("-")[2]
+                            ? "active"
+                            : ""
+                        }`}
+                      />
+                    </li>
+                  ))
               : "Please choose your professional"}
           </ul>
         </div>

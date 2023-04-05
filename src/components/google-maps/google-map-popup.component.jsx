@@ -58,23 +58,43 @@ const GoogleMapPopupComponent = () => {
               onChange={(e) => setSelectedLocation(e.target.value)}
             ></textarea>
 
-            <button
-              className="confirm"
-              onClick={() => {
-                setFormValues({
-                  ...formValues,
-                  googleMapPopup: false,
-                  address: selectedLocation,
-                });
+            <div className="btn-group">
+              <button
+                className="confirm"
+                onClick={() => {
+                  setFormValues({
+                    ...formValues,
+                    googleMapPopup: false,
+                    address: selectedLocation,
+                  });
 
-                setFormValuesDeep({
-                  ...formValuesDeep,
-                  address: selectedLocation,
-                });
-              }}
-            >
-              Confirm
-            </button>
+                  setFormValuesDeep({
+                    ...formValuesDeep,
+                    address: selectedLocation,
+                  });
+                }}
+              >
+                Confirm
+              </button>
+
+              <button
+                className="confirm"
+                onClick={() => {
+                  setFormValues({
+                    ...formValues,
+                    googleMapPopup: false,
+                    address: selectedLocation,
+                  });
+
+                  setFormValuesDeep({
+                    ...formValuesDeep,
+                    address: selectedLocation,
+                  });
+                }}
+              >
+                Send Current Location
+              </button>
+            </div>
           </div>
         ) : null}
       </div>

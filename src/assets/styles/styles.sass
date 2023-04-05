@@ -187,6 +187,102 @@ header
         color: $light
         font-size: 14px
 
+      .userProfile
+        @include flex($justify: flex-end)
+        cursor: pointer
+        position: relative
+        width: 100%
+
+        &:hover
+          .drop-box
+            top: 45px
+            pointer-events: auto
+            opacity: 1
+
+        .drop-box
+          position: absolute
+          right: 0
+          top: 0px
+          padding: 1rem 0
+          opacity: 0
+          pointer-events: none
+          @include fastTrans()
+
+        ul
+          position: relative
+          padding: .3rem
+          width: 100%
+          border-radius: 4px
+          background-color: $light
+          z-index: 2
+          box-shadow: 0 4px 10px rgba($dark, .1)
+
+          &::before
+            content: ''
+            position: absolute
+            top: 3px
+            right: 2px
+            transform: translateY(-50%) rotate(45deg)
+            height: 15px
+            width: 15px
+            background-color: $light
+            border-radius: 4px
+            z-index: 1
+
+          li
+            position: relative
+            font-size: 12px
+            text-align: center
+            padding: .4rem .6rem
+            color: $dark
+            border-radius: 4px
+            margin-bottom: 5px
+            z-index: 2
+            @include flex($justify: flex-start)
+
+            i
+              margin-right: 5px
+
+            &:nth-child(1)
+              display: none
+
+            &:nth-last-child(1)
+              margin-bottom: 0
+
+              &:hover
+                background-color: rgba(#a00000, .8)
+                color: $light
+
+            &:hover
+              background-color: rgba($dark, .06)
+
+        .username
+          text-align: right
+          margin-right: 6px
+
+          .greeting
+            font-size: 12px
+            font-weight: 600
+            color: rgba($dark, .6)
+            line-height: .7rem
+            text-transform: uppercase
+
+          .name
+            font-size: 18px
+            margin-top: 0
+            line-height: 1.5rem
+            font-weight: 500
+
+        .user-image
+          height: 45px
+          width: 45px
+          border-radius: 50%
+          @include gradient($deg: 90deg)
+          @include flex($justify: center)
+          color: $light
+          font-size: 22px
+          font-weight: 300
+
     .side-nav-btn
       display: none
       cursor: pointer
@@ -796,6 +892,11 @@ footer
           border: 1px solid $pri
           color: $pri
           margin-right: 10px
+
+          &::before
+            border: 2px solid $pri
+            border-top: 2px solid transparent
+            border-bottom: 2px solid transparent
 
       .next
         text-transform: uppercase
@@ -1558,8 +1659,43 @@ footer
           &:focus ~ .line
             width: 100%
 
-    .submit-btn
-      @include button()
+    .form-submit-btn
+      position: relative
+      height: 2.7rem
+      width: 100%
+      @include flex($justify: center)
+      @include gradient($deg: 90deg)
+      border-radius: 6px
+      color: $light
+      cursor: pointer
+      transition: .4s
+      text-transform: uppercase
+      letter-spacing: 1.8px
+
+      &:hover
+        box-shadow: 0 2px 6px rgba($pri, .5)
+        transform: translateY(-2px)
+
+      &::before
+        content: ''
+        position: absolute
+        margin-right: 10px
+        height: 20px
+        width: 20px
+        border: 2px solid $light
+        border-radius: 50%
+        border-top: 2px solid transparent
+        border-bottom: 2px solid transparent
+        opacity: 0
+
+      &.loading
+        opacity: .5
+        pointer-events: none
+
+        &::before
+          position: relative
+          opacity: 1
+          animation: loadingBtn 1s cubic-bezier(0.77, 0, 0.175, 1) infinite
 
 /*********************      about-page      ***********************/
 .about-page

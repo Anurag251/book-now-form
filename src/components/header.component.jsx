@@ -9,7 +9,7 @@ const HeaderComponent = () => {
 
   const [hidden, setHidden] = useState(false);
 
-  const { formValues, setFormValues, message, setMessage } =
+  const { formValues, setFormValues, message, setMessage, currentUserDatails } =
     useContext(BookNowContext);
 
   const isHidden = () => setHidden(!hidden);
@@ -29,7 +29,7 @@ const HeaderComponent = () => {
   return (
     <React.Fragment>
       <header className={`${sticky}`}>
-        <div className="wrapper">
+        <div className={`wrapper ${!formValues.currentUser ? "no-user" : ""}`}>
           <div className="logo">
             <Link to="/">
               <img className="logo-img" src={logoImage} alt="logo" />
@@ -116,45 +116,105 @@ const HeaderComponent = () => {
             </ul>
           </nav>
 
-          <div className="login-sign-up-btns">
-            {formValues.currentUser ? (
-              <button
-                className="sign-up-btn"
-                onClick={() => {
-                  sessionStorage.removeItem("token");
-                  setFormValues({
-                    ...formValues,
-                    currentUser: false,
-                  });
+          {formValues.currentUser ? (
+            <React.Fragment>
+              {currentUserDatails !== null &&
+              currentUserDatails !== undefined ? (
+                <div className="login-sign-up-btns">
+                  <div className="userProfile">
+                    <div className="username">
+                      <div className="greeting">Hello</div>
+                      <div className="name">
+                        {currentUserDatails.first_name}
+                      </div>
+                    </div>
 
-                  setMessage({
-                    ...message,
-                    hidden: true,
-                    type: "success",
-                    message: "You Are Sign Out",
-                  });
+                    <div className="user-image">
+                      {currentUserDatails.first_name
+                        ? currentUserDatails.first_name.charAt(0)
+                        : null}
+                    </div>
 
-                  setTimeout(() => {
-                    setMessage({
-                      ...message,
-                      hidden: false,
-                      type: "",
-                      message: "",
-                    });
-                  }, 4000);
-                }}
-              >
-                Sign Out
-              </button>
-            ) : (
-              <React.Fragment>
+                    <div className="drop-box">
+                      <ul>
+                        <li onClick={isHidden}>
+                          <i className="fas fa-bars"></i>
+                          Menu
+                        </li>
+
+                        <li
+                          onClick={() => {
+                            setFormValues({
+                              ...formValues,
+                              signInSignUpModal: true,
+                              isSignIn: "ProfileEdit",
+                            });
+                          }}
+                        >
+                          <i className="fas fa-edit"></i>
+                          Edit Profile
+                        </li>
+
+                        <li
+                          onClick={() => {
+                            setFormValues({
+                              ...formValues,
+                              signInSignUpModal: true,
+                              isSignIn: "ChangePassword",
+                            });
+                          }}
+                        >
+                          <i className="fas fa-key"></i>
+                          Password
+                        </li>
+
+                        <li
+                          onClick={() => {
+                            sessionStorage.removeItem("token");
+                            setFormValues({
+                              ...formValues,
+                              token: "",
+                              currentUser: false,
+                            });
+
+                            setMessage({
+                              ...message,
+                              hidden: true,
+                              type: "success",
+                              message: "You Are Sign Out",
+                            });
+
+                            setTimeout(() => {
+                              setMessage({
+                                ...message,
+                                hidden: false,
+                                type: "",
+                                message: "",
+                              });
+                            }, 4000);
+                          }}
+                        >
+                          <i className="fa-solid fa-right-from-bracket"></i>
+                          Logout
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                "Loading..."
+              )}
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <div className="login-sign-up-btns">
                 <button
                   className="login"
                   onClick={() => {
                     setFormValues({
                       ...formValues,
                       signInSignUpModal: true,
-                      isSignIn: true,
+                      isSignIn: "Login",
                     });
                   }}
                 >
@@ -167,21 +227,21 @@ const HeaderComponent = () => {
                     setFormValues({
                       ...formValues,
                       signInSignUpModal: true,
-                      isSignIn: false,
+                      isSignIn: "Register",
                     });
                   }}
                 >
                   Sign Up
                 </button>
-              </React.Fragment>
-            )}
-          </div>
+              </div>
 
-          <div className="side-nav-btn">
-            <button onClick={isHidden}>
-              <i className="fas fa-bars"></i>
-            </button>
-          </div>
+              <div className="side-nav-btn">
+                <button onClick={isHidden}>
+                  <i className="fas fa-bars"></i>
+                </button>
+              </div>
+            </React.Fragment>
+          )}
         </div>
       </header>
 
@@ -285,6 +345,7 @@ const HeaderComponent = () => {
                   sessionStorage.removeItem("token");
                   setFormValues({
                     ...formValues,
+                    token: "",
                     currentUser: false,
                   });
 
@@ -319,7 +380,7 @@ const HeaderComponent = () => {
                     setFormValues({
                       ...formValues,
                       signInSignUpModal: true,
-                      isSignIn: true,
+                      isSignIn: "Login",
                     });
                   }}
                 >
@@ -336,7 +397,7 @@ const HeaderComponent = () => {
                     setFormValues({
                       ...formValues,
                       signInSignUpModal: true,
-                      isSignIn: false,
+                      isSignIn: "Register",
                     });
                   }}
                 >

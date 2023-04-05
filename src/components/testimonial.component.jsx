@@ -10,9 +10,13 @@ import profileImage from "../assets/images/default-profile.jpeg";
 import quotesIcon from "../assets/images/quote.svg";
 import TitleComponent from "./title.component";
 
-import image1 from "../assets/images/_DSC2718-1.jpg";
-import image2 from "../assets/images/WhatsApp Image 2023-01-03 at 9.28.42 PM.jpeg";
-import image3 from "../assets/images/IMG_5632a.jpg";
+import image1 from "../assets/images/Chewang Dai.jpg";
+import image2 from "../assets/images/Ajayash Bhardwaj.jpg";
+import image3 from "../assets/images/Lasta Newa.jpg";
+import image4 from "../assets/images/Akbar Khan.png";
+import image5 from "../assets/images/Rehan Kapoor.png";
+import image6 from "../assets/images/Tania John.png";
+
 const TestimonialComponent = () => {
   return (
     <div className="testimonial">
@@ -63,8 +67,8 @@ const TestimonialComponent = () => {
                   <img className="user-image" src={image1} alt="user" />
 
                   <div className="details">
-                    <div className="name">Moto GP</div>
-                    <div className="role">Hello Worlds</div>
+                    <div className="name">Chewang</div>
+                    <div className="role">IT officer</div>
                   </div>
                 </div>
               </div>
@@ -89,8 +93,8 @@ const TestimonialComponent = () => {
                   <img className="user-image" src={image2} alt="user" />
 
                   <div className="details">
-                    <div className="name">Moto GP</div>
-                    <div className="role">Hello Worlds</div>
+                    <div className="name">Ajayash Bhardwaj</div>
+                    <div className="role">Banker</div>
                   </div>
                 </div>
               </div>
@@ -114,8 +118,8 @@ const TestimonialComponent = () => {
                   <img className="user-image" src={image3} alt="user" />
 
                   <div className="details">
-                    <div className="name">Moto GP</div>
-                    <div className="role">Hello Worlds</div>
+                    <div className="name">Lasta Newa</div>
+                    <div className="role">Manager</div>
                   </div>
                 </div>
               </div>
@@ -136,11 +140,11 @@ const TestimonialComponent = () => {
                 </div>
 
                 <div className="item-footer">
-                  <img className="user-image" src={profileImage} alt="user" />
+                  <img className="user-image" src={image4} alt="user" />
 
                   <div className="details">
-                    <div className="name">Moto GP</div>
-                    <div className="role">Hello Worlds</div>
+                    <div className="name">Akbar Khan</div>
+                    <div className="role">HR Manager</div>
                   </div>
                 </div>
               </div>
@@ -162,11 +166,11 @@ const TestimonialComponent = () => {
                 </div>
 
                 <div className="item-footer">
-                  <img className="user-image" src={image1} alt="user" />
+                  <img className="user-image" src={image5} alt="user" />
 
                   <div className="details">
-                    <div className="name">Moto GP</div>
-                    <div className="role">Hello Worlds</div>
+                    <div className="name">Rehan Kapoor</div>
+                    <div className="role">Self Employed</div>
                   </div>
                 </div>
               </div>
@@ -188,11 +192,11 @@ const TestimonialComponent = () => {
                 </div>
 
                 <div className="item-footer">
-                  <img className="user-image" src={image2} alt="user" />
+                  <img className="user-image" src={image6} alt="user" />
 
                   <div className="details">
-                    <div className="name">Moto GP</div>
-                    <div className="role">Hello Worlds</div>
+                    <div className="name">Tania John</div>
+                    <div className="role">IT officer</div>
                   </div>
                 </div>
               </div>
@@ -212,11 +216,11 @@ const TestimonialComponent = () => {
                 </div>
 
                 <div className="item-footer">
-                  <img className="user-image" src={image3} alt="user" />
+                  <img className="user-image" src={profileImage} alt="user" />
 
                   <div className="details">
-                    <div className="name">Moto GP</div>
-                    <div className="role">Hello Worlds</div>
+                    <div className="name">Maribel</div>
+                    <div className="role">IT officer</div>
                   </div>
                 </div>
               </div>
@@ -238,8 +242,8 @@ const TestimonialComponent = () => {
                   <img className="user-image" src={profileImage} alt="user" />
 
                   <div className="details">
-                    <div className="name">Moto GP</div>
-                    <div className="role">Hello Worlds</div>
+                    <div className="name">Oleh Yakoben</div>
+                    <div className="role">IT officer</div>
                   </div>
                 </div>
               </div>

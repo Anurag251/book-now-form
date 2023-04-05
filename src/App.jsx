@@ -34,7 +34,8 @@ const App = () => {
 
   return (
     <div className="App">
-      {!formValues.currentUser ? <SignInAndSignUpModalComponent /> : null}
+      <SignInAndSignUpModalComponent />
+
       <p
         className={`allMessage ${message.type} ${
           message.hidden ? "active" : ""

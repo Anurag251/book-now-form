@@ -56,7 +56,7 @@ const MapsComponent = ({
     };
 
     const error = (error) => {
-      console.error(error);
+      return null
     };
 
     navigator.geolocation.getCurrentPosition(success, error);

@@ -13,8 +13,7 @@ import { BookNowContext } from "../context/book-now/book-now-context";
 
 const BookNowPage = () => {
   const [currentPosition, setCurrentPosition] = useState(0);
-  const [cardPay, setCardPay] = useState(null);
-
+  const [paymentType, setPaymentType] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -26,11 +25,13 @@ const BookNowPage = () => {
     selectedServices,
     setSelectedServices,
 
+    formValuesSofa,
+    formValuesDeep,
+    formValuesCarpet,
+
     message,
     setMessage,
   } = useContext(BookNowContext);
-
-  console.log(selectedServices);
 
   useEffect(() => {
     services.forEach((service) => {
@@ -74,8 +75,6 @@ const BookNowPage = () => {
     });
   }, [services]);
 
-  // console.log(formValues);
-
   const increment = () => {
     setCurrentPosition(currentPosition + 33.33);
   };
@@ -88,7 +87,7 @@ const BookNowPage = () => {
     window.scrollTo(0, 0);
   }, [currentPosition]);
 
-  const submitBooking = (e) => {
+  const submitBooking = () => {
     setFormValues({
       ...formValues,
       buttonLoading: true,
@@ -96,45 +95,57 @@ const BookNowPage = () => {
 
     try {
       apis
-        .post("/booking", {
-          service_id: selectedServices.id,
-          frequency_id: formValues.frequency.id,
-          address: formValues.address,
+        .post("/user/booking", {
+          service_id: selectedServices.id || "",
+          frequency_id: formValues.frequency.id || "",
+          address: formValues.address || "",
           // location: formValues.apartmentDetails,
-          working_hours: formValues.hours,
-          professional: formValues.noOfProfessional,
-          cleaning_materials: formValues.materialPrice,
-          cleaning_instruction: formValues.message,
-          employee_id: formValues.professional.id,
+          working_hours: 0,
+          professional: 0,
+          cleaning_materials: formValues.materialPrice || "",
+          cleaning_instruction: formValues.message || "",
+          employee_id:
+            formValues.professional.id !== ""
+              ? [formValues.professional.id]
+              : [],
+
           service_date: "2023-02-02",
           service_time: formValues.time,
           // client_id: sessionStorage.getItem("token"),
-          total_price: formValues.totalPrice,
+
+          custom_id: [
+            formValuesDeep.id !== 0
+              ? formValuesDeep.id
+              : formValuesSofa.id !== 0
+              ? formValuesSofa.id
+              : "",
+          ],
+
+          value: [
+            formValuesDeep.rate !== 0
+              ? formValuesDeep.rate
+              : formValuesSofa.qunatity !== 0
+              ? formValuesSofa.qunatity
+              : "",
+          ],
+
+          total_price: formValues.totalPrice || "",
         })
         .then((res) => {
           if (res.status === 200) {
             setFormValues({
               ...formValues,
               buttonLoading: false,
+              buttonLoading1: false,
             });
-            // if (e === true) {
             window.location = res.data.url;
+
             setMessage({
               ...message,
               hidden: true,
               type: "success",
               message: "Your Checkout is success",
             });
-            // }
-            // else {
-            //   navigate("/");
-            //   setMessage({
-            //     ...message,
-            //     hidden: true,
-            //     type: "success",
-            //     message: "Your Checkout is success",
-            //   });
-            // }
 
             setTimeout(() => {
               setMessage({
@@ -152,6 +163,106 @@ const BookNowPage = () => {
           setFormValues({
             ...formValues,
             buttonLoading: false,
+            buttonLoading1: false,
+          });
+          console.log(err);
+        });
+    } catch (err) {
+      setFormValues({
+        ...formValues,
+        buttonLoading: false,
+      });
+      console.log(err);
+    }
+  };
+
+  const submitBookingCash = (e) => {
+    setFormValues({
+      ...formValues,
+      buttonLoading1: true,
+    });
+
+    // console.log(formValuesCarpet);
+    // console.log(formValuesSofa.quantity);
+    // console.log(formValuesCarpet.value);
+    // console.log(formValuesDeep.rate);
+
+    try {
+      apis
+        .post("/user/booking", {
+          paymenttype: e,
+          apartmentdetails: formValues.apartmentDetails,
+          service_id: selectedServices.id || "",
+          frequency_id: formValues.frequency.id || "",
+          address: formValues.address || "",
+          // location: formValues.apartmentDetails,
+          working_hours: formValues.hours,
+          professional: formValues.noOfProfessional,
+          cleaning_materials: formValues.materialPrice || "",
+          cleaning_instruction: formValues.message || "",
+          employee_id:
+            formValues.professional.id !== ""
+              ? [formValues.professional.id]
+              : [],
+
+          service_date: "2023-02-02",
+          service_time: formValues.time,
+          // client_id: sessionStorage.getItem("token"),
+
+          custom_id: [
+            formValuesDeep.id !== 0
+              ? formValuesDeep.id
+              : formValuesSofa.id !== 0
+              ? formValuesSofa.id
+              : formValuesCarpet.id !== 0
+              ? formValuesCarpet.id
+              : "",
+          ],
+
+          value: [
+            formValuesDeep.rate !== 0
+              ? formValuesDeep.rate
+              : formValuesSofa.quantity !== 0
+              ? formValuesSofa.quantity
+              : formValuesCarpet.value !== 0
+              ? formValuesCarpet.value
+              : "",
+          ],
+
+          total_price: formValues.totalPrice || "",
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            setFormValues({
+              ...formValues,
+              buttonLoading: false,
+              buttonLoading1: false,
+            });
+
+            navigate("/");
+
+            setMessage({
+              ...message,
+              hidden: true,
+              type: "success",
+              message: "Your Checkout is success",
+            });
+
+            setTimeout(() => {
+              setMessage({
+                ...message,
+                hidden: false,
+                type: "",
+                message: "",
+              });
+            }, 3000);
+          }
+        })
+        .catch((err) => {
+          setFormValues({
+            ...formValues,
+            buttonLoading: false,
+            buttonLoading1: false,
           });
           console.log(err);
         });
@@ -246,11 +357,11 @@ const BookNowPage = () => {
                       <div className="btn-group">
                         <button
                           className={`next ${
-                            formValues.buttonLoading ? "loading" : ""
+                            formValues.buttonLoading1 ? "loading" : ""
                           }`}
                           onClick={() => {
-                            setCardPay(false);
-                            submitBooking(cardPay);
+                            setPaymentType("Cash Pay");
+                            submitBookingCash("Cash Pay");
                           }}
                         >
                           <i className="fa-solid fa-money-bill-wave"></i>
@@ -262,8 +373,8 @@ const BookNowPage = () => {
                             formValues.buttonLoading ? "loading" : ""
                           }`}
                           onClick={() => {
-                            setCardPay(true);
-                            submitBooking(cardPay);
+                            setPaymentType("Card Pay");
+                            submitBooking("Card Pay");
                           }}
                         >
                           <i className="fa-brands fa-cc-stripe"></i>
@@ -277,6 +388,7 @@ const BookNowPage = () => {
                           setFormValues({
                             ...formValues,
                             signInSignUpModal: true,
+                            isSignIn: "Register",
                           })
                         }
                       >
@@ -340,11 +452,11 @@ const BookNowPage = () => {
                       <div className="btn-group">
                         <button
                           className={`next ${
-                            formValues.buttonLoading ? "loading" : ""
+                            formValues.buttonLoading1 ? "loading" : ""
                           }`}
                           onClick={() => {
-                            setCardPay(false);
-                            submitBooking();
+                            setPaymentType("Cash Pay");
+                            submitBookingCash("Cash Pay");
                           }}
                         >
                           <i className="fa-solid fa-money-bill-wave"></i>
@@ -356,8 +468,8 @@ const BookNowPage = () => {
                             formValues.buttonLoading ? "loading" : ""
                           }`}
                           onClick={() => {
-                            setCardPay(true);
-                            submitBooking();
+                            setPaymentType("Card Pay");
+                            submitBooking("Card Pay");
                           }}
                         >
                           <i className="fa-brands fa-cc-stripe"></i>
@@ -373,6 +485,7 @@ const BookNowPage = () => {
                           setFormValues({
                             ...formValues,
                             signInSignUpModal: true,
+                            isSignIn: "Register",
                           })
                         }
                       >

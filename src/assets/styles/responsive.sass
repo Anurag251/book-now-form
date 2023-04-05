@@ -462,7 +462,10 @@
   /***********      header      ***********/
   header
     .wrapper
-      @include grid($columns: 1.1fr 1fr 10px)
+      @include grid($columns: 1.1fr 1fr)
+
+      &.no-user
+        @include grid($columns: 1.1fr 1fr 10px)
 
       .logo
         .logo-img
@@ -482,3 +485,15 @@
           background: none
           color: $pri
           padding: 0
+
+@supports (-webkit-touch-callout: none)
+  header .wrapper .login-sign-up-btns .userProfile ul li:nth-child(1)
+    display: flex
+
+@media only screen and (pointer: coarse)
+  header .wrapper .login-sign-up-btns .userProfile ul li:nth-child(1)
+    display: flex
+
+// @supports not (-webkit-touch-callout: none)
+//   header .wrapper .login-sign-up-btns .userProfile ul li:nth-child(1)
+//     display: flex

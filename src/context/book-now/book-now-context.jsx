@@ -5,6 +5,7 @@ export const BookNowContext = createContext();
 
 const BookNowProvider = ({ children }) => {
   const [formValues, setFormValues] = useState({
+    token: "",
     layout: "",
     currentUser: false,
     currentPath: "/",
@@ -17,6 +18,7 @@ const BookNowProvider = ({ children }) => {
     isHoursModalHidden: false,
     isMaterialModalHidden: false,
     buttonLoading: false,
+    buttonLoading1: false,
 
     title: "Frequency",
 
@@ -64,6 +66,7 @@ const BookNowProvider = ({ children }) => {
   });
 
   const [formValuesDeep, setFormValuesDeep] = useState({
+    id: 0,
     category: "",
     rate: 0,
     date: "",
@@ -73,9 +76,24 @@ const BookNowProvider = ({ children }) => {
   });
 
   const [formValuesSofa, setFormValuesSofa] = useState({
+    id: 0,
     category: "",
     rate: 0,
     addRate: 0,
+    quantity: 0,
+    date: "",
+    time: "",
+    message: "",
+    address: "",
+    totalPrice: 0,
+  });
+
+  const [formValuesCarpet, setFormValuesCarpet] = useState({
+    id: 0,
+    category: "",
+    rate: 0,
+    addRate: 0,
+    value: 0,
     date: "",
     time: "",
     message: "",
@@ -96,9 +114,23 @@ const BookNowProvider = ({ children }) => {
     passwordConfirmation: "",
   });
 
+  const [updateProfile, setUpdateProfile] = useState({
+    fName: "",
+    mName: "",
+    lName: "",
+    phoneNumber: "",
+    address: "",
+  });
+
   const [signIn, setSignIn] = useState({
     email: "",
     password: "",
+  });
+
+  const [changePassword, setChangePassword] = useState({
+    oldPassword: "",
+    newPassword: "",
+    confirmPassword: "",
   });
 
   const [message, setMessage] = useState({
@@ -107,11 +139,19 @@ const BookNowProvider = ({ children }) => {
     message: "",
   });
 
+  const [currentUserDatails, setCurrentUserDatails] = useState(null);
+
   const [selectedServices, setSelectedServices] = useState(null);
 
   const [services, setServices] = useState([]);
 
   const [loadingPage, setLoadingPage] = useState(false);
+
+  const [someChanges, setSomeChanges] = useState(false);
+
+  const [verify, setVerify] = useState({
+    email: "",
+  });
 
   useEffect(() => {
     const {
@@ -189,6 +229,45 @@ const BookNowProvider = ({ children }) => {
   };
 
   const resetAllBookingData = () => {
+    setFormValuesDeep({
+      ...formValuesDeep,
+      id: 0,
+      category: "",
+      rate: 0,
+      date: "",
+      time: "",
+      message: "",
+      address: "",
+    });
+
+    setFormValuesSofa({
+      ...formValuesSofa,
+      id: 0,
+      category: "",
+      rate: 0,
+      addRate: 0,
+      quantity: 0,
+      date: "",
+      time: "",
+      message: "",
+      address: "",
+      totalPrice: 0,
+    });
+
+    setFormValuesCarpet({
+      ...formValuesCarpet,
+      id: 0,
+      category: "",
+      rate: 0,
+      addRate: 0,
+      value: 0,
+      date: "",
+      time: "",
+      message: "",
+      address: "",
+      totalPrice: 0,
+    });
+
     setFormValues({
       ...formValues,
 
@@ -233,6 +312,27 @@ const BookNowProvider = ({ children }) => {
     });
   };
 
+  useEffect(() => {
+    if (sessionStorage.getItem("token")) {
+      fetch("https://admin.book4clean.com/api/v1/user/me", {
+        headers: {
+          "content-type": "application/json",
+          accept: "application/json",
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (!data.error) {
+            setCurrentUserDatails(data.data);
+          } else {
+            sessionStorage.removeItem("token");
+            setFormValues({ ...formValues, currentUser: false });
+          }
+        });
+    }
+  }, [formValues.currentUser, someChanges]);
+
   return (
     <BookNowContext.Provider
       value={{
@@ -257,6 +357,18 @@ const BookNowProvider = ({ children }) => {
         setFormValuesDeep,
         formValuesSofa,
         setFormValuesSofa,
+        formValuesCarpet,
+        setFormValuesCarpet,
+        changePassword,
+        setChangePassword,
+        currentUserDatails,
+        setCurrentUserDatails,
+        updateProfile,
+        setUpdateProfile,
+        someChanges,
+        setSomeChanges,
+        verify,
+        setVerify,
       }}
     >
       {children}
