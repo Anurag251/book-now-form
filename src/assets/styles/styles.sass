@@ -2153,3 +2153,59 @@ footer
 
   &::placeholder
     color: rgba($dark, .6)
+
+.booking-summary-popup
+  position: fixed
+  top: 0
+  left: 0
+  height: 100%
+  width: 100%
+  background-color: rgba($dark, .7)
+  z-index: 100
+  @include flex($justify: center)
+  align-items: flex-start
+  padding-top: 3rem
+  pointer-events: none
+  opacity: 0
+  @include trans()
+
+  &.active
+    opacity: 1
+    pointer-events: auto
+
+    .summary-box
+      transform: scale(1)
+
+  .summary-box
+    padding: 1rem
+    border-radius: 10px
+    background-color: $light
+    max-width: 400px
+    width: 100%
+    transform: scale(1.1)
+    @include trans()
+
+    .section-title
+      text-align: center
+      font-size: 20px
+      margin-bottom: 1rem
+
+    .summary-list
+      li
+        @include flex($justify: space-between)
+        padding: .3rem 1rem
+        margin-bottom: .6rem
+        background-color: rgba($dark, .07)
+        border-radius: 10px
+        font-size: 14px
+        gap: 10px
+
+        .value
+          text-align: right
+
+    .button-continue
+      @include flex($justify: center)
+
+    .continue
+      margin-top: 1rem
+      @include button()

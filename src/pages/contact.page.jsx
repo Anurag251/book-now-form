@@ -131,8 +131,8 @@ const ContactPage = () => {
                   <div className="icon">
                     <i className="fas fa-phone"></i>
                   </div>
-                  <a href="tel:+97142366008" target="_blank">
-                    +97142366008
+                  <a href="tel:+97142692446" target="_blank">
+                    +97142692446
                   </a>
                 </li>
 
@@ -177,7 +177,7 @@ const ContactPage = () => {
                   <div className="icon">
                     <i className="fas fa-map-marker-alt"></i>
                   </div>
-                  Office 218, Al Qiyada Building, Abu Hail, Dubai, UAE
+                  Office B12, Block B, Resid 1072, Al Muteena, Deira, Dubai, UAE
                 </li>
               </ul>
 

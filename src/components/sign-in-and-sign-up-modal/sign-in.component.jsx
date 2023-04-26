@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { apis } from "../../apis/apis";
 import { BookNowContext } from "../../context/book-now/book-now-context";
 import FormInputComponent from "./form-input.component";
+import { useNavigate } from "react-router-dom";
 
 const SignInComponent = () => {
   const {
@@ -13,6 +14,8 @@ const SignInComponent = () => {
     setMessage,
     setInputFieldError,
   } = useContext(BookNowContext);
+
+  const navigate = useNavigate()
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -61,6 +64,7 @@ const SignInComponent = () => {
               });
 
             }, 4000);
+            navigate('/')
             location.reload();
           } else {
             setMessage({

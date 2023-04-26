@@ -101,6 +101,27 @@ const BookNowProvider = ({ children }) => {
     totalPrice: 0,
   });
 
+  const [allBookedData, setAllBookedData] = useState({
+    serviceTitle: "",
+
+    frequency: "",
+
+    address: "",
+    apartmentDetails: "",
+    hours: "",
+    noOfProfessional: "",
+
+    professional: "",
+    date: "",
+    time: "",
+
+    materials: "",
+
+    total: "",
+  });
+
+  const [bookedSummary, setBookedSummary] = useState(false);
+
   const [inputFieldError, setInputFieldError] = useState("");
 
   const [signUp, setSignUp] = useState({
@@ -164,31 +185,28 @@ const BookNowProvider = ({ children }) => {
       materialsChargeStart,
     } = formValues;
 
-    let pricePerHours =
-      (hours >= formValues.hourDiscountStart
-        ? hours * formValues.perHours -
-          formValues.perHours * (formValues.hourDiscount / 100)
-        : hours * formValues.perHours) + formValues.price;
+    // let pricePerHours =
+    //   (hours >= formValues.hourDiscountStart
+    //     ? hours * formValues.perHours -
+    //       formValues.perHours * (formValues.hourDiscount / 100)
+    //     : hours * formValues.perHours) + formValues.price;
+
+    let pricePerHours = hours * formValues.perHours;
 
     let pricePerProfessional =
-      noOfProfessional === 1
-        ? noOfProfessional * formValues.perPerson + pricePerHours
-        : noOfProfessional * (formValues.perPerson + 20) + pricePerHours;
-
-    // console.log(pricePerProfessional);
+      noOfProfessional * pricePerHours + formValues.perPerson;
 
     let allTotalPrice =
       (materials === "Yes"
         ? (hours >= materialsChargeStart
-            ? hours * materialPerHour
-            : hours * materialsCharge) + parseInt(materialPrice)
+            ? hours * materialPerHour * noOfProfessional
+            : hours * materialsCharge * noOfProfessional) +
+          parseInt(materialPrice)
         : 0) + pricePerProfessional;
-
-    // console.log(allTotalPrice);
 
     setFormValues({
       ...formValues,
-      totalPrice: allTotalPrice - formValues.perHours - formValues.perPerson,
+      totalPrice: allTotalPrice,
     });
   }, [
     formValues.frequency.name,
@@ -369,6 +387,10 @@ const BookNowProvider = ({ children }) => {
         setSomeChanges,
         verify,
         setVerify,
+        allBookedData,
+        setAllBookedData,
+        bookedSummary,
+        setBookedSummary,
       }}
     >
       {children}

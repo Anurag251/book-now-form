@@ -31,6 +31,9 @@ const BookNowPage = () => {
 
     message,
     setMessage,
+    setAllBookedData,
+    allBookedData,
+    setBookedSummary,
   } = useContext(BookNowContext);
 
   useEffect(() => {
@@ -87,7 +90,7 @@ const BookNowPage = () => {
     window.scrollTo(0, 0);
   }, [currentPosition]);
 
-  const submitBooking = () => {
+  const submitBooking = (e) => {
     setFormValues({
       ...formValues,
       buttonLoading: true,
@@ -96,16 +99,19 @@ const BookNowPage = () => {
     try {
       apis
         .post("/user/booking", {
+          paymenttype: e,
+          apartmentdetails: formValues.apartmentDetails,
           service_id: selectedServices.id || "",
           frequency_id: formValues.frequency.id || "",
           address: formValues.address || "",
           // location: formValues.apartmentDetails,
-          working_hours: 0,
-          professional: 0,
+          working_hours: formValues.hours,
+          professional: formValues.noOfProfessional,
           cleaning_materials: formValues.materialPrice || "",
           cleaning_instruction: formValues.message || "",
           employee_id:
-            formValues.professional.id !== ""
+            formValues.professional.id !== "" &&
+            formValues.professional.name !== "Auto Assign"
               ? [formValues.professional.id]
               : [],
 
@@ -118,14 +124,18 @@ const BookNowPage = () => {
               ? formValuesDeep.id
               : formValuesSofa.id !== 0
               ? formValuesSofa.id
+              : formValuesCarpet.id !== 0
+              ? formValuesCarpet.id
               : "",
           ],
 
           value: [
             formValuesDeep.rate !== 0
               ? formValuesDeep.rate
-              : formValuesSofa.qunatity !== 0
-              ? formValuesSofa.qunatity
+              : formValuesSofa.quantity !== 0
+              ? formValuesSofa.quantity
+              : formValuesCarpet.value !== 0
+              ? formValuesCarpet.value
               : "",
           ],
 
@@ -201,7 +211,8 @@ const BookNowPage = () => {
           cleaning_materials: formValues.materialPrice || "",
           cleaning_instruction: formValues.message || "",
           employee_id:
-            formValues.professional.id !== ""
+            formValues.professional.id !== "" &&
+            formValues.professional.name !== "Auto Assign"
               ? [formValues.professional.id]
               : [],
 
@@ -256,6 +267,25 @@ const BookNowPage = () => {
                 message: "",
               });
             }, 3000);
+
+            setBookedSummary(true);
+
+            const data = res.data.book;
+
+            setAllBookedData({
+              ...allBookedData,
+              serviceTitle: data.service.meta_keywords,
+              frequency: data.frequency.title,
+              address: data.address,
+              apartmentDetails: data.apartmentdetails,
+              hours: data.working_hours,
+              noOfProfessional: data.professional,
+              professional: data.frequency.title,
+              date: data.service_date,
+              time: data.service_time,
+              materials: data.cleaning_materials !== "" ? "Yes" : "No",
+              total: data.total_price,
+            });
           }
         })
         .catch((err) => {
@@ -350,7 +380,13 @@ const BookNowPage = () => {
                     </div>
 
                     {currentPosition < 66.66 ? (
-                      <button className="next" onClick={increment}>
+                      <button
+                        className="next"
+                        onClick={increment}
+                        disabled={
+                          formValues.frequency.name !== "" ? false : true
+                        }
+                      >
                         Next
                       </button>
                     ) : formValues.currentUser ? (

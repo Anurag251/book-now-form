@@ -19,9 +19,11 @@ const FooterComponent = () => {
 
               <ul className="social-media-links">
                 <li>
-                  <button>
-                    <i className="fab fa-facebook-f"></i>
-                  </button>
+                  <a href="https://www.facebook.com/profile.php?id=100090174994068" target="_blank">
+                    <button>
+                      <i className="fab fa-facebook-f"></i>
+                    </button>
+                  </a>
                 </li>
 
                 <li>

@@ -1,8 +1,38 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BookNowContext } from "../context/book-now/book-now-context";
+import { useLocation } from "react-router-dom";
 
 const SelectedInformationsComponent = () => {
   const { formValues, setFormValues } = useContext(BookNowContext);
+  const location = useLocation();
+
+  const [endTime, setEndTime] = useState("");
+
+  useEffect(() => {
+    if (formValues.time && formValues.hours) {
+      let timeString = formValues.time;
+      const hoursToAdd = formValues.hours;
+
+      // Parse the original time string into hours and minutes
+      const [hours, minutes] = timeString
+        .split(":")
+        .map((str) => parseInt(str));
+      // Determine whether the original time is AM or PM
+      const isPM = timeString.toLowerCase().indexOf("pm") > -1;
+
+      // Add the desired number of hours and minutes
+      const newHours = (hours + hoursToAdd) % 12;
+      const newMinutes = minutes;
+      const newIsPM = isPM || newHours >= 12;
+
+      // Format the new time as a string
+      timeString = `${newHours.toString().padStart(2, "0")}:${newMinutes
+        .toString()
+        .padStart(2, "0")} ${newIsPM ? "PM" : "AM"}`;
+
+      setEndTime(timeString); // Output: "01:00 PM"
+    }
+  }, [formValues.time, formValues.hours]);
 
   return (
     <div
@@ -32,52 +62,56 @@ const SelectedInformationsComponent = () => {
           </div>
         </div>
 
-        <div className="item">
-          <div className="service-details">
-            <div className="section-title">Service Details</div>
-            <ul>
-              <li>
-                <div className="name">Frequency</div>
-                <div className="value">{formValues.frequency.name}</div>
-              </li>
+        {location.pathname === "/book-now/home-cleaning" ? (
+          <div className="item">
+            <div className="service-details">
+              <div className="section-title">Service Details</div>
+              <ul>
+                <li>
+                  <div className="name">Frequency</div>
+                  <div className="value">{formValues.frequency.name}</div>
+                </li>
 
-              <li>
-                <div className="name">Duration</div>
-                <div className="value">{formValues.hours} hours</div>
-              </li>
+                <li>
+                  <div className="name">Duration</div>
+                  <div className="value">{formValues.hours} hours</div>
+                </li>
 
-              <li>
-                <div className="name">Number of Professionals</div>
-                <div className="value">{formValues.noOfProfessional}</div>
-              </li>
+                <li>
+                  <div className="name">Number of Professionals</div>
+                  <div className="value">{formValues.noOfProfessional}</div>
+                </li>
 
-              <li>
-                <div className="name">Material</div>
-                <div className="value">{formValues.materials}</div>
-              </li>
-            </ul>
+                <li>
+                  <div className="name">Material</div>
+                  <div className="value">{formValues.materials}</div>
+                </li>
+              </ul>
+            </div>
           </div>
-        </div>
+        ) : null}
 
         <div className="item">
           <div className="date-time">
             <div className="section-title">Date & Time</div>
 
             <ul>
-              <li>
-                <div className="name">Professional</div>
-                <div className="value">
-                  {formValues.professional.name}
+              {location.pathname === "/book-now/home-cleaning" ? (
+                <li>
+                  <div className="name">Professional</div>
+                  <div className="value">
+                    {formValues.professional.name}
 
-                  {formValues.professional.imageUrl !== null ? (
-                    <img
-                      className="user-image"
-                      src={formValues.professional.imageUrl}
-                      alt="user"
-                    />
-                  ) : null}
-                </div>
-              </li>
+                    {formValues.professional.imageUrl !== null ? (
+                      <img
+                        className="user-image"
+                        src={formValues.professional.imageUrl}
+                        alt="user"
+                      />
+                    ) : null}
+                  </div>
+                </li>
+              ) : null}
 
               <li>
                 <div className="name">Date</div>
@@ -90,6 +124,11 @@ const SelectedInformationsComponent = () => {
               <li>
                 <div className="name">Start Time</div>
                 <div className="value">{formValues.time}</div>
+              </li>
+
+              <li>
+                <div className="name">End Time</div>
+                <div className="value">{endTime}</div>
               </li>
             </ul>
           </div>

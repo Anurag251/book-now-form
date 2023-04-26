@@ -44,6 +44,7 @@ const MapsComponent = ({
   const [clickPosition, setClickPosition] = useState(null);
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [currentLocation, setCurrentLocation] = useState(null);
+  const [clicked, setClicked] = useState(false);
 
   useEffect(() => {
     if (!navigator.geolocation) {
@@ -56,7 +57,7 @@ const MapsComponent = ({
     };
 
     const error = (error) => {
-      return null
+      return null;
     };
 
     navigator.geolocation.getCurrentPosition(success, error);
@@ -97,7 +98,9 @@ const MapsComponent = ({
       .then((response) => response.json())
       .then((data) => {
         if (data !== "") {
-          setSelectedLocation(data.results[0].formatted_address);
+          if (clicked) {
+            setSelectedLocation(data.results[0].formatted_address);
+          }
         }
       });
   }, [clickPosition]);
@@ -137,7 +140,7 @@ const MapsComponent = ({
       setSelectedPlace(place);
       // setClickPosition({ lat: lat(), lng: lng() });
       map.panTo({ lat: lat(), lng: lng() });
-      console.log({ lat: lat(), lng: lng() });
+      // console.log({ lat: lat(), lng: lng() });
     } catch (err) {
       console.log("Location not found");
     }
@@ -171,6 +174,7 @@ const MapsComponent = ({
         options={circleOptions}
         onClick={(e) => {
           onMapClick(e);
+          setClicked(true);
           setSelectedLocationError(false);
         }}
       />

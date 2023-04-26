@@ -15,6 +15,7 @@ import { useContext, useEffect, useState } from "react";
 import { BookNowContext } from "./context/book-now/book-now-context";
 import WorkFlowPage from "./pages/work-flow.page";
 import GoogleMapPopupComponent from "./components/google-maps/google-map-popup.component";
+import BookingSummeryComponent from "./components/booking-summery.component";
 
 const App = () => {
   const [hideComponent, setHideComponent] = useState(false);
@@ -35,6 +36,8 @@ const App = () => {
   return (
     <div className="App">
       <SignInAndSignUpModalComponent />
+
+      <BookingSummeryComponent />
 
       <p
         className={`allMessage ${message.type} ${

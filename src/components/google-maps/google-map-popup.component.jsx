@@ -40,15 +40,6 @@ const GoogleMapPopupComponent = () => {
           </div>
         </div>
 
-        <div className="map-area">
-          <MapsComponent
-            setFormValues={setFormValues}
-            formValues={formValues}
-            setSelectedLocation={setSelectedLocation}
-            setSelectedLocationError={setSelectedLocationError}
-          />
-        </div>
-
         {selectedLocation !== "" ? (
           <div className="popup-footer">
             <textarea
@@ -76,27 +67,18 @@ const GoogleMapPopupComponent = () => {
               >
                 Confirm
               </button>
-
-              <button
-                className="confirm"
-                onClick={() => {
-                  setFormValues({
-                    ...formValues,
-                    googleMapPopup: false,
-                    address: selectedLocation,
-                  });
-
-                  setFormValuesDeep({
-                    ...formValuesDeep,
-                    address: selectedLocation,
-                  });
-                }}
-              >
-                Send Current Location
-              </button>
             </div>
           </div>
         ) : null}
+
+        <div className="map-area">
+          <MapsComponent
+            setFormValues={setFormValues}
+            formValues={formValues}
+            setSelectedLocation={setSelectedLocation}
+            setSelectedLocationError={setSelectedLocationError}
+          />
+        </div>
       </div>
     </div>
   );

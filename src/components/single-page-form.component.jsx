@@ -68,25 +68,25 @@ const SinglePageFormComponent = ({ selectedServices }) => {
     let timeIntervals = [];
     let todayDate = dates.toString().split(" ")[2];
 
-    if (formValues.date.date === todayDate) {
-      setStartTime(
-        new Date(
-          now.getFullYear(),
-          now.getMonth(),
-          now.getDate(),
-          now.getHours(),
-          Math.ceil(now.getMinutes() / 30) * 30,
-          0
-        )
-      );
-      setAllTimes(timeIntervals);
-    } else {
-      setStartTime(
-        new Date(now.getFullYear(), now.getMonth(), now.getDate(), 8, 0, 0)
-      );
+    // if (formValues.date.date === todayDate) {
+    //   setStartTime(
+    //     new Date(
+    //       now.getFullYear(),
+    //       now.getMonth(),
+    //       now.getDate(),
+    //       now.getHours(),
+    //       Math.ceil(now.getMinutes() / 30) * 30,
+    //       0
+    //     )
+    //   );
+    //   setAllTimes(timeIntervals);
+    // } else {
+    setStartTime(
+      new Date(now.getFullYear(), now.getMonth(), now.getDate(), 8, 0, 0)
+    );
 
-      setAllTimes(timeIntervals);
-    }
+    setAllTimes(timeIntervals);
+    // }
 
     setEndTime(
       new Date(now.getFullYear(), now.getMonth(), now.getDate(), 20, 30, 0)
