@@ -82,7 +82,7 @@
         .previous
           position: fixed
           bottom: 12px
-          right: 140px
+          right: 120px
           color: $light
           height: 30px
           width: 30px
@@ -90,6 +90,9 @@
           padding: 0
           // @include flex($justify: center)
           background-image: linear-gradient(-90deg, $sec, $pri)
+
+          &.move
+            right: 300px
 
   /***********      selected information      ***********/
   .selected-information
@@ -485,6 +488,28 @@
           background: none
           color: $pri
           padding: 0
+
+  .book-now-page
+    .all-forms
+      .form-footer
+        .previous
+          height: 25px
+          width: 25px
+
+          i
+            font-size: 12px
+
+          &.move
+            right: 230px
+
+        .btn-group
+          .next
+            font-size: 11px
+            padding: .3rem .6rem
+
+            i
+              font-size: 14px
+              margin-right: 5px
 
 @supports (-webkit-touch-callout: none)
   header .wrapper .login-sign-up-btns .userProfile ul li:nth-child(1)

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import bannerImage from "../assets/images/banner-image.png";
-import bannerBg from "../assets/images/banner-bg.png";
+import bannerBg from "../assets/images/Banner-image.jpeg";
 
 const BannerComponent = () => {
   return (
@@ -12,8 +12,8 @@ const BannerComponent = () => {
             <i className="fas fa-phone"></i>
           </div>
           <span>
-            <a href="tel:97142366008" target="_blank">
-              +97142366008
+            <a href="tel:97142692446" target="_blank">
+              +97142692446
             </a>
           </span>
         </div>
@@ -54,7 +54,6 @@ const BannerComponent = () => {
         </div>
 
         <div className="image-sec">
-          <img src={bannerImage} alt="banner-image" />
         </div>
       </div>
     </div>

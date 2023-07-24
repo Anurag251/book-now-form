@@ -20,9 +20,9 @@ const ServicesListComponent = () => {
             ? services
                 .filter(
                   (data) =>
-                    (data.service_name === "Home Cleaning" &&
+                    (data.category.category_name === "home_cleaning" &&
                       data.employeedetail.length) ||
-                    (data.service_name === "Office Cleaning" &&
+                    (data.category.category_name === "office_cleaning" &&
                       data.employeedetail.length) ||
                     (data.category.category_name === "deep_cleaning" &&
                       data.rate.length) ||

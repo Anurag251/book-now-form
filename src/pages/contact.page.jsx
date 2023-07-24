@@ -182,7 +182,7 @@ const ContactPage = () => {
               </ul>
 
               <div className="social-icon">
-                <a href="#">
+                <a  href="https://www.facebook.com/profile.php?id=100090174994068" target="_blank">
                   <div className="icon">
                     <i className="fab fa-facebook-f"></i>
                   </div>

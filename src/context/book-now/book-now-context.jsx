@@ -39,7 +39,7 @@ const BookNowProvider = ({ children }) => {
     address: "",
     apartmentDetails: "",
     hours: 2,
-    noOfProfessional: 1,
+    noOfProfessional: 0,
 
     materials: "No",
     materialPrice: 0,
@@ -59,6 +59,7 @@ const BookNowProvider = ({ children }) => {
       day: "",
       date: 0,
       month: "",
+      year: "",
     },
 
     time: "",
@@ -120,7 +121,11 @@ const BookNowProvider = ({ children }) => {
     total: "",
   });
 
+  const [goCheckout, setGoCheckout] = useState(false);
+
   const [bookedSummary, setBookedSummary] = useState(false);
+
+  const [endTime, setEndTime] = useState("");
 
   const [inputFieldError, setInputFieldError] = useState("");
 
@@ -309,7 +314,7 @@ const BookNowProvider = ({ children }) => {
 
       address: "",
       hours: 2,
-      noOfProfessional: 1,
+      noOfProfessional: 0,
       materials: "No",
       message: "",
 
@@ -324,6 +329,7 @@ const BookNowProvider = ({ children }) => {
         day: "",
         date: "",
         month: "",
+        year: "",
       },
       time: "",
       totalPrice: 0,
@@ -391,6 +397,10 @@ const BookNowProvider = ({ children }) => {
         setAllBookedData,
         bookedSummary,
         setBookedSummary,
+        endTime,
+        setEndTime,
+        goCheckout,
+        setGoCheckout,
       }}
     >
       {children}

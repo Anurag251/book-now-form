@@ -63,7 +63,7 @@ const FooterComponent = () => {
               </li>
 
               <li>
-                <Link to="/#sectionTestimonial">
+                <Link to="/testimonial">
                   <button>Testimonials</button>
                 </Link>
               </li>

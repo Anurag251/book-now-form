@@ -2,12 +2,16 @@ import React, { useContext } from "react";
 import { BookNowContext } from "../context/book-now/book-now-context";
 
 const BookingSummeryComponent = () => {
-  const { allBookedData, bookedSummary, setBookedSummary } =
+  const { allBookedData, bookedSummary, setBookedSummary, setGoCheckout } =
     useContext(BookNowContext);
 
   return (
     <div className={`booking-summary-popup ${bookedSummary ? "active" : ""}`}>
       <div className="summary-box">
+        <div className="booking-close" onClick={() => setBookedSummary(false)}>
+          <i className="fas fa-times"></i>
+        </div>
+
         <div className="section-title">Booked Summary</div>
         <ul className="summary-list">
           <li>
@@ -15,10 +19,12 @@ const BookingSummeryComponent = () => {
             <div className="value">{allBookedData.serviceTitle}</div>
           </li>
 
-          <li>
-            <div className="name">Frequency</div>
-            <div className="value">{allBookedData.frequency}</div>
-          </li>
+          {allBookedData.frequency !== "" ? (
+            <li>
+              <div className="name">Frequency</div>
+              <div className="value">{allBookedData.frequency}</div>
+            </li>
+          ) : null}
 
           <li>
             <div className="name">Address</div>
@@ -35,10 +41,10 @@ const BookingSummeryComponent = () => {
             <div className="value">{allBookedData.hours}</div>
           </li>
 
-          <li>
+          {/* <li>
             <div className="name">No of Professional</div>
             <div className="value">{allBookedData.noOfProfessional}</div>
-          </li>
+          </li> */}
 
           <li>
             <div className="name">Professional</div>
@@ -68,7 +74,10 @@ const BookingSummeryComponent = () => {
 
         <div
           className="button-continue"
-          onClick={() => setBookedSummary(false)}
+          onClick={() => {
+            setBookedSummary(false);
+            setGoCheckout(true);
+          }}
         >
           <button className="continue">Continue</button>
         </div>

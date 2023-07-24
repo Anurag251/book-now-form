@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import TitleComponent from "../components/title.component";
 
 const WorkFlowPage = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const image1 = "https://cdn-icons-png.flaticon.com/512/5728/5728078.png";
   const image2 = "https://cdn-icons-png.flaticon.com/512/5511/5511414.png";
   const image3 = "https://cdn-icons-png.flaticon.com/512/3190/3190463.png";

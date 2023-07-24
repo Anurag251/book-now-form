@@ -16,10 +16,11 @@ import { BookNowContext } from "./context/book-now/book-now-context";
 import WorkFlowPage from "./pages/work-flow.page";
 import GoogleMapPopupComponent from "./components/google-maps/google-map-popup.component";
 import BookingSummeryComponent from "./components/booking-summery.component";
+import TestimonialPage from "./pages/testimonial.page";
 
 const App = () => {
   const [hideComponent, setHideComponent] = useState(false);
-  const { formValues, message } = useContext(BookNowContext);
+  const { formValues, message, setMessage } = useContext(BookNowContext);
 
   const location = useLocation();
 
@@ -31,7 +32,26 @@ const App = () => {
     }
   }, [location.pathname]);
 
-  // console.log(location.pathname);
+  useEffect(() => {
+    if (location.search === "?payment=success") {
+      setMessage({
+        ...message,
+        hidden: true,
+        type: "success",
+        message: `Dear Customer, Thank you for your payment for book4clean services. Your payment has been processed, and you will soon received your booking confirmation on email. 
+        We appreciate your business and your loyalty!`,
+      });
+
+      setTimeout(() => {
+        setMessage({
+          ...message,
+          hidden: false,
+          type: "",
+          message: "",
+        });
+      }, 10000);
+    }
+  }, []);
 
   return (
     <div className="App">
@@ -62,6 +82,8 @@ const App = () => {
         <Route exact path="/about" element={<AboutPage />} />
 
         <Route exact path="/work-flow" element={<WorkFlowPage />} />
+
+        <Route exact path="/testimonial" element={<TestimonialPage />} />
 
         <Route exact path="/success" element={<h2>Success</h2>} />
 

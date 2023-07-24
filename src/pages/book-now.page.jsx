@@ -34,6 +34,9 @@ const BookNowPage = () => {
     setAllBookedData,
     allBookedData,
     setBookedSummary,
+    endTime,
+    goCheckout,
+    setGoCheckout,
   } = useContext(BookNowContext);
 
   useEffect(() => {
@@ -115,8 +118,9 @@ const BookNowPage = () => {
               ? [formValues.professional.id]
               : [],
 
-          service_date: "2023-02-02",
+          service_date: `${formValues.date.year}-${formValues.date.month}-${formValues.date.date}`,
           service_time: formValues.time,
+          service_end_time: endTime,
           // client_id: sessionStorage.getItem("token"),
 
           custom_id: [
@@ -143,12 +147,13 @@ const BookNowPage = () => {
         })
         .then((res) => {
           if (res.status === 200) {
+            setGoCheckout(false);
             setFormValues({
               ...formValues,
               buttonLoading: false,
               buttonLoading1: false,
             });
-            window.location = res.data.url;
+            window.location = res.data.checkout.url;
 
             setMessage({
               ...message,
@@ -192,11 +197,6 @@ const BookNowPage = () => {
       buttonLoading1: true,
     });
 
-    // console.log(formValuesCarpet);
-    // console.log(formValuesSofa.quantity);
-    // console.log(formValuesCarpet.value);
-    // console.log(formValuesDeep.rate);
-
     try {
       apis
         .post("/user/booking", {
@@ -216,8 +216,9 @@ const BookNowPage = () => {
               ? [formValues.professional.id]
               : [],
 
-          service_date: "2023-02-02",
+          service_date: `${formValues.date.year}-${formValues.date.month}-${formValues.date.date}`,
           service_time: formValues.time,
+          service_end_time: endTime,
           // client_id: sessionStorage.getItem("token"),
 
           custom_id: [
@@ -244,6 +245,8 @@ const BookNowPage = () => {
         })
         .then((res) => {
           if (res.status === 200) {
+            // console.log(res.data)
+
             setFormValues({
               ...formValues,
               buttonLoading: false,
@@ -274,17 +277,19 @@ const BookNowPage = () => {
 
             setAllBookedData({
               ...allBookedData,
-              serviceTitle: data.service.meta_keywords,
-              frequency: data.frequency.title,
-              address: data.address,
-              apartmentDetails: data.apartmentdetails,
-              hours: data.working_hours,
-              noOfProfessional: data.professional,
-              professional: data.frequency.title,
-              date: data.service_date,
-              time: data.service_time,
+              serviceTitle: data.service.service_name,
+              frequency: data.frequency !== null ? data.frequency.title : "",
+              address: data.address !== null ? data.address : "",
+              apartmentDetails:
+                data.apartmentdetails !== null ? data.apartmentdetails : "",
+              hours: data.working_hours !== null ? data.working_hours : "",
+              noOfProfessional:
+                data.professional !== null ? data.professional : "",
+              professional: data.frequency !== null ? data.frequency.title : "",
+              date: data.service_date !== null ? data.service_date : "",
+              time: data.service_time !== null ? data.service_time : "",
               materials: data.cleaning_materials !== "" ? "Yes" : "No",
-              total: data.total_price,
+              total: data.total_price !== null ? data.total_price : "",
             });
           }
         })
@@ -304,6 +309,12 @@ const BookNowPage = () => {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    if (goCheckout) {
+      submitBooking("Card Pay");
+    }
+  }, [goCheckout]);
 
   return (
     <>
@@ -353,7 +364,12 @@ const BookNowPage = () => {
 
                   <div className="form-footer">
                     {currentPosition ? (
-                      <button className="previous" onClick={decrement}>
+                      <button
+                        className={`previous ${
+                          currentPosition < 66.66 ? "" : "move"
+                        }`}
+                        onClick={decrement}
+                      >
                         <i className="fas fa-arrow-left"></i>
                       </button>
                     ) : (
@@ -410,7 +426,22 @@ const BookNowPage = () => {
                           }`}
                           onClick={() => {
                             setPaymentType("Card Pay");
-                            submitBooking("Card Pay");
+                            setBookedSummary(true);
+
+                            setAllBookedData({
+                              ...allBookedData,
+                              serviceTitle: formValues.title,
+                              frequency: formValues.frequency.name,
+                              address: formValues.address,
+                              apartmentDetails: formValues.apartmentDetails,
+                              hours: formValues.hours,
+                              noOfProfessional: formValues.noOfProfessional,
+                              professional: formValues.professional.name,
+                              date: `${formValues.date.date}/${formValues.date.month}/${formValues.date.year}`,
+                              time: formValues.time,
+                              materials: formValues.materials,
+                              total: formValues.totalPrice,
+                            });
                           }}
                         >
                           <i className="fa-brands fa-cc-stripe"></i>
@@ -505,7 +536,22 @@ const BookNowPage = () => {
                           }`}
                           onClick={() => {
                             setPaymentType("Card Pay");
-                            submitBooking("Card Pay");
+                            setBookedSummary(true);
+
+                            setAllBookedData({
+                              ...allBookedData,
+                              serviceTitle: formValues.title,
+                              frequency: formValues.frequency.name,
+                              address: formValues.address,
+                              apartmentDetails: formValues.apartmentDetails,
+                              hours: formValues.hours,
+                              noOfProfessional: formValues.noOfProfessional,
+                              professional: formValues.professional.name,
+                              date: `${formValues.date.date}/${formValues.date.month}/${formValues.date.year}`,
+                              time: formValues.time,
+                              materials: formValues.materials,
+                              total: formValues.totalPrice,
+                            });
                           }}
                         >
                           <i className="fa-brands fa-cc-stripe"></i>

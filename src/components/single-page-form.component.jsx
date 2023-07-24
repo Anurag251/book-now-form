@@ -614,9 +614,17 @@ const SinglePageFormComponent = ({ selectedServices }) => {
             {dates
               // .filter((data, idx) => idx === 3)
               .map((allDate, idx) => {
+                const monthNum =
+                  new Date(
+                    `${allDate.toString().split(" ")[1]} ${
+                      allDate.toString().split(" ")[2]
+                    }, ${allDate.toString().split(" ")[3]}`
+                  ).getMonth() + 1;
+
                 let day = allDate.toString().split(" ")[0];
-                let month = allDate.toString().split(" ")[1];
+                let month = monthNum;
                 let date = allDate.toString().split(" ")[2];
+                let year = allDate.toString().split(" ")[3];
 
                 return (
                   <li className="select-day" key={idx}>
@@ -634,6 +642,7 @@ const SinglePageFormComponent = ({ selectedServices }) => {
                             day: day,
                             date: e.target.value,
                             month: month,
+                            year: year,
                           },
                         })
                       }

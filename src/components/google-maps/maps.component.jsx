@@ -15,8 +15,8 @@ const containerStyle = {
 };
 
 const available = {
-  lat: 25.1903,
-  lng: 55.2747,
+  lat: 25.2271406,
+  lng: 55.3122935,
 };
 
 const libraries = ["places"];
@@ -28,8 +28,8 @@ const MapsComponent = ({
   setSelectedLocationError,
 }) => {
   const [center, setCenter] = useState({
-    lat: 25.1903,
-    lng: 55.2747,
+    lat: 25.2271406,
+    lng: 55.3122935,
   });
 
   const { isLoaded } = useJsApiLoader({
@@ -115,7 +115,7 @@ const MapsComponent = ({
     draggable: false,
     editable: false,
     visible: true,
-    radius: 1000 * 5, //meters in default but multiply by 1000 to change into km
+    radius: 1000 * 7.5, //meters in default but multiply by 1000 to change into km
     zIndex: 2,
   };
   const circleOptions2 = {
@@ -158,6 +158,26 @@ const MapsComponent = ({
     setMap(null);
   }, []);
 
+  const handleCurrentLocationClick = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setCenter({ lat: latitude, lng: longitude });
+          setClickPosition({ lat: latitude, lng: longitude });
+          setSelectedLocationError(false);
+        },
+        (error) => {
+          console.error("Error getting the current location:", error);
+          setSelectedLocationError(true);
+        }
+      );
+    } else {
+      console.error("Geolocation is not supported in this browser.");
+      setSelectedLocationError(true);
+    }
+  };
+
   return isLoaded ? (
     <GoogleMap
       mapContainerStyle={containerStyle}
@@ -188,6 +208,22 @@ const MapsComponent = ({
         }}
         options={circleOptions2}
       />
+
+      <button
+        onClick={handleCurrentLocationClick}
+        style={{
+          position: "absolute",
+          top: "10px",
+          right: "10px",
+          padding: "10px",
+          background: "white",
+          border: "1px solid #ccc",
+          borderRadius: "4px",
+          cursor: "pointer",
+        }}
+      >
+        Current Location
+      </button>
 
       <StandaloneSearchBox
         onLoad={onSearchBoxLoad}

@@ -397,6 +397,7 @@ header
 .banner
   padding-top: 70px
   position: relative
+  @include bgImage()
 
   .wrapper
     @include grid($columns: 1fr 1fr)
@@ -2164,7 +2165,7 @@ footer
   z-index: 100
   @include flex($justify: center)
   align-items: flex-start
-  padding-top: 3rem
+  padding-top: 4rem
   pointer-events: none
   opacity: 0
   @include trans()
@@ -2175,6 +2176,18 @@ footer
 
     .summary-box
       transform: scale(1)
+
+  .booking-close
+    position: absolute
+    right: 0
+    top: -40px
+    height: 30px
+    width: 30px
+    border-radius: 4px
+    background-color: #fff
+    color: $dark
+    @include flex($justify: center)
+    cursor: pointer
 
   .summary-box
     padding: 1rem

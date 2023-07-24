@@ -3,10 +3,9 @@ import { BookNowContext } from "../context/book-now/book-now-context";
 import { useLocation } from "react-router-dom";
 
 const SelectedInformationsComponent = () => {
-  const { formValues, setFormValues } = useContext(BookNowContext);
+  const { formValues, setFormValues, endTime, setEndTime } =
+    useContext(BookNowContext);
   const location = useLocation();
-
-  const [endTime, setEndTime] = useState("");
 
   useEffect(() => {
     if (formValues.time && formValues.hours) {
@@ -30,7 +29,7 @@ const SelectedInformationsComponent = () => {
         .toString()
         .padStart(2, "0")} ${newIsPM ? "PM" : "AM"}`;
 
-      setEndTime(timeString); // Output: "01:00 PM"
+      setEndTime(timeString);
     }
   }, [formValues.time, formValues.hours]);
 

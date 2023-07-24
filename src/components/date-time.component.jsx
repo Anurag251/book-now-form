@@ -97,6 +97,7 @@ const DateAndTimeComponent = ({
                     day: "",
                     date: 0,
                     month: "",
+                    year: "",
                   },
 
                   time: "",
@@ -113,7 +114,7 @@ const DateAndTimeComponent = ({
 
               <button className="details-btn">See Details</button>
             </div>
-            {professionalDatas.map((data, idx) => (
+            {professionalDatas?.map((data, idx) => (
               <div
                 key={idx}
                 className={`item ${
@@ -134,6 +135,7 @@ const DateAndTimeComponent = ({
                       day: "",
                       date: 0,
                       month: "",
+                      year: "",
                     },
 
                     time: "",
@@ -146,7 +148,7 @@ const DateAndTimeComponent = ({
                 <img className="user-image" src={data.profile_image} alt="" />
 
                 <div className="name">
-                  {data.first_name} {data.last_name}
+                  {data?.first_name} {data?.last_name}
                 </div>
                 {data.rating !== 0 ? <div className="rating">✭ 5.5</div> : null}
 
@@ -170,9 +172,17 @@ const DateAndTimeComponent = ({
               {dates
                 // .filter((data, idx) => idx === 3)
                 .map((allDate, idx) => {
-                  let day = allDate.toString().split(" ")[0];
-                  let month = allDate.toString().split(" ")[1];
-                  let date = allDate.toString().split(" ")[2];
+                  const monthNum =
+                    new Date(
+                      `${allDate?.toString().split(" ")[1]} ${
+                        allDate?.toString().split(" ")[2]
+                      }, ${allDate?.toString().split(" ")[3]}`
+                    ).getMonth() + 1;
+
+                  let day = allDate?.toString().split(" ")[0];
+                  let month = monthNum;
+                  let date = allDate?.toString().split(" ")[2];
+                  let year = allDate?.toString().split(" ")[3];
 
                   return (
                     <li className="select-day" key={idx}>
@@ -190,6 +200,7 @@ const DateAndTimeComponent = ({
                               day: day,
                               date: e.target.value,
                               month: month,
+                              year: year,
                             },
                           })
                         }
@@ -204,47 +215,9 @@ const DateAndTimeComponent = ({
           </div>
         ) : (
           <div className="day-list">
-            {/* <ul className="select-button-list">
-                  {dates
-                    // .filter((data, idx) => idx === 3)
-                    .map((allDate, idx) => {
-                      let day = allDate.toString().split(" ")[0];
-                      let month = allDate.toString().split(" ")[1];
-                      let date = allDate.toString().split(" ")[2];
-      
-                      return (
-                        <li className="select-day" key={idx}>
-                          <label className="button-label" htmlFor={date + "button"}>
-                            {day}
-                          </label>
-                          <input
-                            id={date + "button"}
-                            type="button"
-                            value={date}
-                            onClick={(e) =>
-                              setFormValues({
-                                ...formValues,
-                                date: {
-                                  day: day,
-                                  date: e.target.value,
-                                  month: month,
-                                },
-                              })
-                            }
-                            className={`input-button ${
-                              formValues.date.date === date ? "active" : ""
-                            }`}
-                          />
-                        </li>
-                      );
-                    })}
-                </ul> */}
-
             <ul className="select-button-list">
               {sifts !== null
-                ? sifts
-                    // .filter((data, idx) => data.work_date !== jobStatus[0].job_date)
-                    .map((data, idx) => (
+                ? sifts?.map((data, idx) => (
                       <li className="select-day" key={idx}>
                         <label
                           className="button-label"
@@ -257,16 +230,18 @@ const DateAndTimeComponent = ({
                         <input
                           id={data.work_date + "button"}
                           type="button"
-                          value={data.work_date.toString().split("-")[2]}
+                          value={data.work_date?.toString().split("-")[2]}
                           onClick={(e) => {
                             setFormValues({
                               ...formValues,
                               date: {
-                                day: parseInt(
-                                  data.work_date.toString().split("-")[2]
-                                ),
+                                day:
+                                  data.day_of_week[0] +
+                                  data.day_of_week[1] +
+                                  data.day_of_week[2],
                                 date: e.target.value,
                                 month: data.work_date.toString().split("-")[1],
+                                year: data.work_date.toString().split("-")[0],
                               },
                             });
 
@@ -288,7 +263,7 @@ const DateAndTimeComponent = ({
                           }}
                           className={`input-button ${
                             formValues.date.date ===
-                            data.work_date.toString().split("-")[2]
+                            data.work_date?.toString().split("-")[2]
                               ? "active"
                               : ""
                           }`}
@@ -334,6 +309,7 @@ const DateAndTimeComponent = ({
               ? sift.map((data, idx) => (
                   <input
                     key={idx}
+                    style={{ minWidth: "180px" }}
                     type="button"
                     onClick={(e) =>
                       setFormValues({ ...formValues, time: e.target.value })

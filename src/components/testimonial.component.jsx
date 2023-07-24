@@ -16,6 +16,8 @@ import image3 from "../assets/images/Lasta Newa.jpg";
 import image4 from "../assets/images/Akbar Khan.png";
 import image5 from "../assets/images/Rehan Kapoor.png";
 import image6 from "../assets/images/Tania John.png";
+import image7 from "../assets/images/WhatsApp Image 2023-05-10 at 8.52.57 AM.jpeg";
+
 
 const TestimonialComponent = () => {
   return (
@@ -244,6 +246,29 @@ const TestimonialComponent = () => {
                   <div className="details">
                     <div className="name">Oleh Yakoben</div>
                     <div className="role">IT officer</div>
+                  </div>
+                </div>
+              </div>
+            </SwiperSlide>
+
+            <SwiperSlide>
+              <div className="item">
+                <div className="item-body">
+                  <div className="icon">
+                    <img src={quotesIcon} alt="icon" />
+                  </div>
+
+                  <p className="user-message">
+                    Thank you for your good service. You are good at general
+                    cleaning. It's always good to ask to check after cleaning.
+                  </p>
+                </div>
+
+                <div className="item-footer">
+                  <img className="user-image" src={image7} alt="user" />
+
+                  <div className="details">
+                    <div className="name">Yoonhyung Choi</div>
                   </div>
                 </div>
               </div>
